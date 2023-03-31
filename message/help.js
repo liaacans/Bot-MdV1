@@ -117,6 +117,7 @@ return `Hy Kak ${pushname}
 ├│${prefix}yts
 ├│${prefix}ytmp3
 ├│${prefix}ytmp4
+├│${prefix}mediafire
 ├│${prefix}tiktokmp3
 ├│${prefix}igdl
 ├│${prefix}joox
@@ -248,6 +249,7 @@ NOTE : FITUR SOUND MENU NYA 74 YA, TAPI OWNERNYA MLES NGETIK:V
 ├│${prefix}delprem
 ├│${prefix}listpc
 ├│${prefix}listgc
+├│${prefix}creategc (fix aj)
 ├│${prefix}sc
 ├│${prefix}join
 ├│${prefix}leave
@@ -367,6 +369,7 @@ return `┌─❖ ⌜ Download Menu ⌟
 ├│${prefix}yts
 ├│${prefix}ytmp3
 ├│${prefix}ytmp4
+├│${prefix}mediafire
 ├│${prefix}tiktokmp3
 ├│${prefix}igdl
 ├│${prefix}joox
@@ -393,6 +396,7 @@ return `┌─❖ ⌜ Owner Menu ⌟
 ├│${prefix}delprem
 ├│${prefix}listgc
 ├│${prefix}listpc
+├│${prefix}creategc (fix aj)
 ├│${prefix}leave
 ├│${prefix}block
 ├│${prefix}unblock
