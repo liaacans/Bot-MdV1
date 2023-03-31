@@ -128,12 +128,18 @@ ppgroup = 'https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Ga
 
 if (anu.action == 'add') {
 let kafloc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {locationMessage: {name: `${global.fake}`,jpegThumbnail: global.thumb}}}
-welcome = `┌─❖「 𝙷𝚊𝚕𝚘 𝙺𝚊𝚔 @${num.split("@")[0]}  」
-│✑  𝙸𝚗𝚝𝚛𝚘 𝙳𝚞𝚕𝚞 𝚈𝚊 𝙺𝚊𝚔! 
-│✑  𝙽𝚊𝚖𝚊  :
-│✑  𝚄𝚖𝚞𝚛  :
-│✑  𝙰𝚜𝚔𝚘𝚝 :
-└───────────────┈ ⳹`
+welcome = `𝙷𝚊𝚕𝚘 𝙺𝚊𝚔 @${num.split("@")[0]}
+Silahkan Intro Terlebih Dahulu Ya!
+┌─❖        *「 ᴋᴀʀᴛᴜ ɪɴᴛʀᴏ 」*
+║➸ ɴᴀᴍᴀ       :
+║➸ ᴜᴍᴜʀ       :
+║➸ ᴋᴇʟᴀꜱ       :
+║➸ ᴀꜱᴀʟ        :
+║➸ ɢᴇɴᴅᴇʀ      :
+║➸ ᴀɢᴀᴍᴀ       :
+║➸ ʜᴏʙʙʏ       :
+║➸ ꜱᴛᴀᴛᴜꜱ      :
+╚══════════════════╝`
 const buttonMessage = {
 text: welcome,
 footer: 'Note : Jangan Lupa Baca Desk Terlebih Dahulu\n© Created By Auliahost-BOT',
