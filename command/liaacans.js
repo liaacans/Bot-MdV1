@@ -350,9 +350,9 @@ if (db.data.chats[m.chat].antiviewonce) {
             for (let kasar of badword){
                 if (budy.toLowerCase().includes(kasar)){
                     if (isCountKasar(m.sender, senbadword)){
-                        if (!isBotAdmins) return m.reply(`Ehh bot gak admin T_T`)
-if (isAdmins) return m.reply(`Ehh maaf kamu admin`)
-if (isCreator) return m.reply(`Ehh maaf kamu owner bot ku`)
+                    if (!isBotAdmins) return m.reply(`Ehh bot gak admin T_T`)
+                 if (isAdmins) return m.reply(`Eh maaf kamu admin, kamu jangan kata kata kasar yaa!`)
+                if (isCreator) return m.reply(`Ehh maaf kamu owner bot ku`)
                         m.reply(`*「 ANTI BADWORD 」*\n\nSepertinya kamu sudah berkata kasar lebih dari 5x, maaf kamu akan di kick`)
                         liaacans.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
                         delCountKasar(m.sender, senbadword)
@@ -1131,7 +1131,8 @@ const listMessage = {
   buttonText: "Klik Disini",
   sections
 }
-const tessgh = await liaacans.sendMessage(m.chat, listMessage, { quoted: kafloc })
+let urlnya = `https://raw.githubusercontent.com/liaacans/liaacans/main/images.jpeg`
+const tessgh = await liaacans.sendMessage(m.chat, listMessage, { quoted: kafloc }, { image: { url: urlnya }})
 var inimenu = await fs.readFileSync('./json/audio/menampilkanmenubot.mp3')
 liaacans.sendMessage(m.chat, {audio:inimenu, mimetype:'audio/mpeg', ptt:true}, {quoted: fvn})
 }
@@ -1674,7 +1675,7 @@ let buttons = [
 { buttonId: 'antibadword on', buttonText: { displayText: 'On' }, type: 1 },
 { buttonId: 'antibadword off', buttonText: { displayText: 'Off' }, type: 1 }
 ]
-await liaacans.sendButtonText(m.chat, buttons, `Mode Antilink`, creator, m)
+await liaacans.sendButtonText(m.chat, buttons, `Mode Antibadword`, creator, m)
 }
 }
 break
@@ -2126,7 +2127,7 @@ if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ b
             	if (!text) throw `Example : ${prefix + command} saya menang?`
             	let bisa = ['Bisa','Coba Saja','Pasti Bisa','Mungkin Saja','Tidak Bisa','Tidak Mungkin','Coba Ulangi','Ngimpi kah?','yakin bisa?']
                 let keh = bisa[Math.floor(Math.random() * bisa.length)]
-                let jawab = `*Bisakah ${text}*\nJawab : ${keh}`
+                let jawab = `*Pertanyaan : Bisakah ${text}*\nJawab : ${keh}`
                 let buttons = [{ buttonId: 'hehehe', buttonText: { displayText: 'SABAR🗿' }, type: 1 }]
             await liaacans.sendButtonText(m.chat, buttons, jawab, creator, m)
             }
@@ -2136,7 +2137,7 @@ if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ b
             	if (!text) throw `Example : ${prefix + command} saya bisa menang?`
             	let apa = ['Iya','Tidak','Bisa Jadi','Coba Ulangi','Mungkin Saja','Coba Tanyakan Ayam']
                 let kah = apa[Math.floor(Math.random() * apa.length)]
-                let jawab = `*Apakah ${text}*\nJawab : ${kah}`
+                let jawab = `*Pertanyaan : apakah ${text}*\nJawab : ${kah}`
                 let buttons = [{ buttonId: 'hehehe', buttonText: { displayText: 'HAHAHA' }, type: 1 }]
             await liaacans.sendButtonText(m.chat, buttons, jawab, creator, m)
             }
@@ -2146,7 +2147,7 @@ if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ b
             	if (!text) throw `Example : ${prefix + command} saya menang?`
             	let kapan = ['Besok','Lusa','Nanti','4 Hari Lagi','5 Hari Lagi','6 Hari Lagi','1 Minggu Lagi','2 Minggu Lagi','3 Minggu Lagi','1 Bulan Lagi','2 Bulan Lagi','3 Bulan Lagi','4 Bulan Lagi','5 Bulan Lagi','6 Bulan Lagi','1 Tahun Lagi','2 Tahun Lagi','3 Tahun Lagi','4 Tahun Lagi','5 Tahun Lagi','6 Tahun Lagi','1 Abad lagi','3 Hari Lagi','Bulan Depan','Nanti','Tidak Akan Pernah']
                 let koh = kapan[Math.floor(Math.random() * kapan.length)]
-                let jawab = `*${command} ${text}*\nJawab : ${koh}`
+                let jawab = `*Pertanyaan : ${command} ${text}*\nJawab : ${koh}`
                 let buttons = [{ buttonId: 'hehehe', buttonText: { displayText: 'SABAR🗿' }, type: 1 }]
             await liaacans.sendButtonText(m.chat, buttons, jawab, creator, m)
             }
@@ -3855,7 +3856,7 @@ break
 case 'bc': case 'broadcast': case 'bcall': {
 if (!isCreator) throw mess.owner
 if (!text) throw `Text mana?\n\nExample : ${prefix + command} fatih-san`
-let chitt = await liaacans.chats.all()
+let chitt = await liaacans.chats.all().map(v => v.id)
 m.reply(`Sukses Mengirim Broadcast`)
 		for (let yoi of chitt) {
 		await sleep(1500)
