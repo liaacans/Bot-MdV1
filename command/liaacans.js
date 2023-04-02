@@ -1131,8 +1131,7 @@ const listMessage = {
   buttonText: "Klik Disini",
   sections
 }
-let urlnya = `https://raw.githubusercontent.com/liaacans/liaacans/main/images.jpeg`
-const tessgh = await liaacans.sendMessage(m.chat, listMessage, { quoted: kafloc }, { image: { url: urlnya }})
+const tessgh = await liaacans.sendMessage(m.chat, listMessage, { quoted: kafloc })
 var inimenu = await fs.readFileSync('./json/audio/menampilkanmenubot.mp3')
 liaacans.sendMessage(m.chat, {audio:inimenu, mimetype:'audio/mpeg', ptt:true}, {quoted: fvn})
 }
