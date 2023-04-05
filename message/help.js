@@ -109,8 +109,48 @@ return `Hy Kak ${pushname}
 ├│${prefix}pinterest
 ├│${prefix}wallpaper
 ├│${prefix}couple
+├│${prefix}motivasi
+├│${prefix}nomorhoki
+├│${prefix}artimimpi
+├│${prefix}ramalanjodoh
+├│${prefix}ramalanjodohbali
+├│${prefix}suamiistri
+├│${prefix}ramalancinta
+├│${prefix}artinama
+├│${prefix}kecocokannama
+├│${prefix}kecocokanpasangan
+├│${prefix}jadianpernikahan
+├│${prefix}sifatusaha
+├│${prefix}rezeki
+├│${prefix}pekerjaan
+├│${prefix}ramalannasib
+├│${prefix}potensipenyakit
+├│${prefix}artitarot
+├│${prefix}fengshui
+├│${prefix}haribaik
+├│${prefix}harisangar
+├│${prefix}harinaas
+├│${prefix}nagahari
+├│${prefix}arahrejeki
+├│${prefix}peruntungan
+├│${prefix}wetonjawa
+├│${prefix}karakter
+├│${prefix}keberuntungan
+├│${prefix}memancing
+├│${prefix}masasubur
+├│${prefix}zodiak
 ├│${prefix}quotesanime
+├│${prefix}google
 ├│${prefix}wikimedia
+└─❖
+┌─❖ ⌜ Primbon Menu ⌟
+├│${prefix}patrick
+├│${prefix}doge
+├│${prefix}slove
+├│${prefix}gura
+├│${prefix}paimon
+├│${prefix}sanime
+├│${prefix}mukelu
 └─❖
 ┌─❖ ⌜ Download Menu ⌟
 ├│${prefix}play
@@ -273,6 +313,8 @@ NOTE : FITUR SOUND MENU NYA 74 YA, TAPI OWNERNYA MLES NGETIK:V
 ┌─❖ ⌜ Main Menu ⌟
 ├│${prefix}listprem
 ├│${prefix}myip
+├│${prefix}linkpoi
+├│${prefix}carbon
 ├│${prefix}shortlink
 ├│${prefix}tinyurl
 ├│${prefix}sewabot
@@ -358,7 +400,38 @@ return `┌─❖ ⌜ Random Menu ⌟
 ├│${prefix}pinterest
 ├│${prefix}wallpaper
 ├│${prefix}couple
+├│${prefix}motivasi
+├│${prefix}nomorhoki
+├│${prefix}artimimpi
+├│${prefix}ramalanjodoh
+├│${prefix}ramalanjodohbali
+├│${prefix}suamiistri
+├│${prefix}ramalancinta
+├│${prefix}artinama
+├│${prefix}kecocokannama
+├│${prefix}kecocokanpasangan
+├│${prefix}jadianpernikahan
+├│${prefix}sifatusaha
+├│${prefix}rezeki
+├│${prefix}pekerjaan
+├│${prefix}ramalannasib
+├│${prefix}potensipenyakit
+├│${prefix}artitarot
+├│${prefix}fengshui
+├│${prefix}haribaik
+├│${prefix}harisangar
+├│${prefix}harinaas
+├│${prefix}nagahari
+├│${prefix}arahrejeki
+├│${prefix}peruntungan
+├│${prefix}wetonjawa
+├│${prefix}karakter
+├│${prefix}keberuntungan
+├│${prefix}memancing
+├│${prefix}masasubur
+├│${prefix}zodiak
 ├│${prefix}quotesanime
+├│${prefix}google
 ├│${prefix}wikimedia
 └─❖`
 }
@@ -396,7 +469,7 @@ return `┌─❖ ⌜ Owner Menu ⌟
 ├│${prefix}delprem
 ├│${prefix}listgc
 ├│${prefix}listpc
-├│${prefix}creategc (fix aj)
+├│${prefix}creategc
 ├│${prefix}leave
 ├│${prefix}block
 ├│${prefix}unblock
@@ -557,6 +630,8 @@ exports.mainMenu = (prefix) => {
 return `┌─❖ ⌜ Main Menu ⌟
 ├│${prefix}listprem
 ├│${prefix}myip
+├│${prefix}linkpoi
+├│${prefix}carbon
 ├│${prefix}shortlink
 ├│${prefix}tinyurl
 ├│${prefix}sewabot
@@ -599,6 +674,44 @@ return `*˗ˏˋ┌─❖「 PANEL MENU 」*
 ˗ˏˋ🧺 ៵ ࣪  *${prefix}listusr*
 ˗ˏˋ🧺 ៵ ࣪  *${prefix}detusr*
 ˗ˏˋ└─❖`
+}
+
+exports.textPro = (prefix) => {
+return `┌──⭓ *Text Pro Menu*
+│
+│⭔ ${prefix}3dchristmas
+│⭔ ${prefix}3ddeepsea
+│⭔ ${prefix}americanflag
+│⭔ ${prefix}3dscifi
+│⭔ ${prefix}3drainbow
+│⭔ ${prefix}3dwaterpipe
+│⭔ ${prefix}halloweenskeleton
+│⭔ ${prefix}sketch
+│⭔ ${prefix}bluecircuit
+│⭔ ${prefix}space
+│⭔ ${prefix}metallic
+│⭔ ${prefix}fiction
+│⭔ ${prefix}greenhorror
+│⭔ ${prefix}transformer
+│⭔ ${prefix}berry
+│⭔ ${prefix}thunder
+│⭔ ${prefix}magma
+│⭔ ${prefix}3dcrackedstone
+│⭔ ${prefix}3dneonlight
+│⭔ ${prefix}impressiveglitch
+│⭔ ${prefix}naturalleaves
+│⭔ ${prefix}fireworksparkle
+│⭔ ${prefix}matrix
+│⭔ ${prefix}dropwater
+│⭔ ${prefix}harrypotter
+│⭔ ${prefix}foggywindow
+│⭔ ${prefix}neondevils
+│⭔ ${prefix}christmasholiday
+│⭔ ${prefix}3dgradient
+│⭔ ${prefix}blackpink
+│⭔ ${prefix}gluetext
+│
+└───────⭓`
 }
 
 ////////////////// BATAS NGEUPDATE /////////////////////
