@@ -31,6 +31,7 @@ global.domain = "-" // Isi Domain Lu
 global.apikey = '-' // Isi Apikey Plta Lu
 global.capikey = '-' // Isi Apikey Pltc Lu
 global.thumb = fs.readFileSync('./image/thumbnail.jpg') // JGN DI UBAH!
+global.jumlah = '1000000000'
 global.name = 'Aulia Rahman (Owner)', // GNTI NAMA LU!
 global.nomorsc = '6285821676621'
 global.creatorr = '© Created By RahmXBot' // GANTI NAMA BOT LU BANH!
