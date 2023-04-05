@@ -3,9 +3,12 @@ var { BufferJSON, WA_DEFAULT_EPHEMERAL, generateWAMessageFromContent, proto, gen
 var crypto = require('crypto')
 var webp = require('node-webpmux')
 var { sizeFormatter } = require('human-readable')
+var maker = require('mumaker')
 var fetch = require('node-fetch')
 var jsdom = require('jsdom')
 var fs = require('fs')
+var { Primbon } = require('scrape-primbon')
+var primbon = new Primbon()
 var ms = require('ms')
 var util = require('util')
 var chalk = require('chalk')
@@ -23,7 +26,7 @@ var { pinterest, wallpaper, wikimedia, quotesAnime } = require('../message/scrap
 var { jadibot, listJadibot } = require('../message/jadibot')
 var { addResponList, delResponList, isAlreadyResponList, isAlreadyResponListGroup, sendResponList, updateResponList, getDataResponList } = require('../message/respon-list')
 var { addRespons, checkRespons, deleteRespons } = require('../message/respon')
-var { menu, funMenu, gcMenu, convertMenu, randomMenu, downloadMenu, ownerMenu, anonymousMenu, databaseMenu, islamicMenu, chargerMenu, makerMenu, bugMenu, soundMenu, donasiMenu, mainMenu, topupMenu, sistemMenu, panelMenu } = require('../message/help')
+var { menu, funMenu, gcMenu, convertMenu, randomMenu, downloadMenu, ownerMenu, anonymousMenu, databaseMenu, islamicMenu, chargerMenu, makerMenu, bugMenu, soundMenu, donasiMenu, mainMenu, topupMenu, sistemMenu, panelMenu, textPro } = require('../message/help')
 var { antiSpam } = require('../message/antispam')
 var { color, bgcolor } = require('../message/color')
 var { buttonvirus } = require('../message/buttonvirus')
@@ -141,14 +144,14 @@ if (!('antiwame' in chats)) chats.antiwame = false
 if (!('antiviewonce' in chats)) chats.antiviewonce = false
 if (!('antilinkig' in chats)) chats.antilinkig = false
 if (!('antivirtex' in chats)) chats.antivirtex = true
-if (!('antibadword' in chats)) chats.antibadword = true
+if (!('antibadword' in chats)) chats.antibadword = false
 } else global.db.data.chats[m.chat] = {
 mute: false,
 antilink: true,
 antilinkig: false,
 antiwame: false,
 antivirtex: true,
-antibadword: true,
+antibadword: false,
 antiviewonce: false
 }
 
@@ -960,105 +963,111 @@ if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ b
 let kafloc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {locationMessage: {name: `${global.fake}`,jpegThumbnail: global.thumb}}}
 const sections = [
     {
-	title: `𝙰𝙻𝙻 𝙼𝙴𝙽𝚄`,
+	title: `All Menu`,
 	rows: [
-	    {title: `𝙰𝙻𝙻 𝙼𝙴𝙽𝚄\n\n𝚄𝙽𝚃𝚄𝙺 𝙼𝙴𝙽𝙰𝙼𝙿𝙸𝙻𝙺𝙰𝙽 𝙼𝙴𝙽𝚄 𝙰𝙻𝙻(𝚂𝙴𝙼𝚄𝙰)`, rowId: `${prefix}allmenu`}
+	    {title: `All Menu\nUntuk Menampilkan Menu All(Semua)`, rowId: `${prefix}allmenu`}
 	]
     },
     {
-	title: `𝙶𝚁𝙾𝚄𝙿 𝙼𝙴𝙽𝚄`,
+	title: `Group Menu`,
 	rows: [
-	    {title: "𝙶𝚁𝙾𝚄𝙿 𝙼𝙴𝙽𝚄\n\n𝚄𝙽𝚃𝚄𝙺 𝙼𝙴𝙽𝙰𝙼𝙿𝙸𝙻𝙺𝙰𝙽 𝙼𝙴𝙽𝚄 𝙶𝚁𝙾𝚄𝙿", rowId: `${prefix}groupmenu`}
+	    {title: "Group Menu\nUntuk Menampilkan Menu Group", rowId: `${prefix}groupmenu`}
 	]
     },
     {
-	title: `𝙵𝚄𝙽 𝙼𝙴𝙽𝚄`,
+	title: `Fun Menu`,
 	rows: [
-	    {title: "𝙵𝚄𝙽 𝙼𝙴𝙽𝚄\n\n𝚄𝙽𝚃𝚄𝙺 𝙼𝙴𝙽𝙰𝙼𝙿𝙸𝙻𝙺𝙰𝙽 𝙼𝙴𝙽𝚄 𝙵𝚄𝙽", rowId: `${prefix}funmenu`}
+	    {title: "Fun Menu\nUntuk Menampilkan Menu Fun", rowId: `${prefix}funmenu`}
 	]
     },
     {
-	title: `𝙰𝙽𝙾𝙽𝚈𝙼𝙾𝚄𝚂 𝙼𝙴𝙽𝚄`,
+	title: `Anonymous Menu`,
 	rows: [
-	    {title: "𝙰𝙽𝙾𝙽𝚈𝙼𝙾𝚄𝚂 𝙼𝙴𝙽𝚄\n\n𝚄𝙽𝚃𝚄𝙺 𝙼𝙴𝙽𝙰𝙼𝙿𝙸𝙻𝙺𝙰𝙽 𝙼𝙴𝙽𝚄 𝙰𝙽𝙾𝙽𝚈𝙼𝙾𝚄𝚂", rowId: `${prefix}anonymousmenu`}
+	    {title: "Anonymous Menu\nUntuk Menampilkan Menu Anonymous", rowId: `${prefix}anonymousmenu`}
 	]
     },
     {
-	title: `𝙲𝙾𝙽𝚅𝙴𝚁𝚃 𝙼𝙴𝙽𝚄`,
+	title: `Convert Menu`,
 	rows: [
-	    {title: "𝙲𝙾𝙽𝚅𝙴𝚁𝚃 𝙼𝙴𝙽𝚄\n\n𝚄𝙽𝚃𝚄𝙺 𝙼𝙴𝙽𝙰𝙼𝙿𝙸𝙻𝙺𝙰𝙽 𝙼𝙴𝙽𝚄 𝙲𝙾𝙽𝚅𝙴𝚁𝚃", rowId: `${prefix}convertmenu`}
+	    {title: "Convert Menu\nUntuk Menampilkan Menu Convert", rowId: `${prefix}convertmenu`}
 	]
     },
     {
-	title: `𝙱𝚄𝙶 𝙼𝙴𝙽𝚄 [ 𝙺𝙷𝚄𝚂𝚄𝚂 𝙾𝚆𝙽 ]`,
+	title: `Bug Menu [ 𝙺𝙷𝚄𝚂𝚄𝚂 𝙾𝚆𝙽 ]`,
 	rows: [
-	    {title: "𝙱𝚄𝙶 𝙼𝙴𝙽𝚄\n\n𝚄𝙽𝚃𝚄𝙺 𝙼𝙴𝙽𝙰𝙼𝙿𝙸𝙻𝙺𝙰𝙽 𝙼𝙴𝙽𝚄 𝙱𝚄𝙶", rowId: `${prefix}bugmenu`}
+	    {title: "Bug Menu\nUntuk Menampilkan Menu Bug", rowId: `${prefix}bugmenu`}
 	]
     },
     {
-	title: `𝚁𝙰𝙽𝙳𝙾𝙼 𝙼𝙴𝙽𝚄`,
+	title: `Random Menu`,
 	rows: [
-	    {title: "𝚁𝙰𝙽𝙳𝙾𝙼 𝙼𝙴𝙽𝚄\n\n𝚄𝙽𝚃𝚄𝙺 𝙼𝙴𝙽𝙰𝙼𝙿𝙸𝙻𝙺𝙰𝙽 𝙼𝙴𝙽𝚄 𝚁𝙰𝙽𝙳𝙾𝙼", rowId: `${prefix}randommenu`}
+	    {title: "Random Menu\nUntuk Menampilkan Menu Random", rowId: `${prefix}randommenu`}
 	]
     },
     {
-	title: `𝙳𝙾𝚆𝙽𝙻𝙾𝙰𝙳 𝙼𝙴𝙽𝚄 [ 𝙺𝙷𝚄𝚂𝚄𝚂 𝙿𝚁𝙴𝙼 ]`,
+	title: `Download Menu [ 𝙺𝙷𝚄𝚂𝚄𝚂 𝙿𝚁𝙴𝙼 ]`,
 	rows: [
-	    {title: "𝙳𝙾𝚆𝙽𝙻𝙾𝙰𝙳 𝙼𝙴𝙽𝚄\n\n𝚄𝙽𝚃𝚄𝙺 𝙼𝙴𝙽𝙰𝙼𝙿𝙸𝙻𝙺𝙰𝙽 𝙼𝙴𝙽𝚄 𝙳𝙾𝚆𝙽𝙻𝙾𝙰𝙳", rowId: `${prefix}downloadmenu`}
+	    {title: "Download Menu\nUntuk Menampilkan Menu Download", rowId: `${prefix}downloadmenu`}
 	]
 	},
 	{
-	title: `𝙾𝚆𝙽𝙴𝚁 𝙼𝙴𝙽𝚄 [ 𝙺𝙷𝚄𝚂𝚄𝚂 𝙾𝚆𝙽 ]`,
+	title: `Owner Menu [ 𝙺𝙷𝚄𝚂𝚄𝚂 𝙾𝚆𝙽 ]`,
 	rows: [
-	    {title: "𝙾𝚆𝙽𝙴𝚁 𝙼𝙴𝙽𝚄\n\n𝚄𝙽𝚃𝚄𝙺 𝙼𝙴𝙽𝙰𝙼𝙿𝙸𝙻𝙺𝙰𝙽 𝙼𝙴𝙽𝚄 𝙾𝚆𝙽𝙴𝚁", rowId: `${prefix}ownermenu`}
+	    {title: "Owner Menu\nUntuk Menampilkan Menu Owner", rowId: `${prefix}ownermenu`}
 	]
     },
     {
-	title: `𝙿𝙰𝙽𝙴𝙻 𝙼𝙴𝙽𝚄 [ 𝙺𝙷𝚄𝚂𝚄𝚂 𝙾𝚆𝙽 ]`,
+	title: `Panel Menu [ 𝙺𝙷𝚄𝚂𝚄𝚂 𝙾𝚆𝙽 ]`,
 	rows: [
-	    {title: "𝙼𝙴𝙽𝚄 𝙿𝙰𝙽𝙴𝙻\n\n𝚄𝙽𝚃𝚄𝙺 𝙼𝙴𝙽𝙰𝙼𝙿𝙸𝙻𝙺𝙰𝙽 𝙼𝙴𝙽𝚄 𝙲𝚁𝙴𝙰𝚃𝙴 𝙿𝙰𝙽𝙴𝙻", rowId: `${prefix}panelmenu`}
+	    {title: "Menu Panel\nUntuk Menampilkan Menu Create Panel", rowId: `${prefix}panelmenu`}
 	]
     },
     {
-	title: `𝙳𝙰𝚃𝙰𝙱𝙰𝚂𝙴 𝙼𝙴𝙽𝚄`,
+	title: `Database Menu`,
 	rows: [
-	    {title: "𝙳𝙰𝚃𝙰𝙱𝙰𝚂𝙴 𝙼𝙴𝙽𝚄\n\n𝚄𝙽𝚃𝚄𝙺 𝙼𝙴𝙽𝙰𝙼𝙿𝙸𝙻𝙺𝙰𝙽 𝙼𝙴𝙽𝚄 𝙳𝙰𝚃𝙰𝙱𝙰𝚂𝙴", rowId: `${prefix}databasemenu`}
+	    {title: "Database Menu𝚄\nUntuk Menampilkan Menu Database", rowId: `${prefix}databasemenu`}
 	]
     },
     {
-	title: `𝙸𝚂𝙻𝙰𝙼𝙸𝙲 𝙼𝙴𝙽𝚄`,
+	title: `Islamic Menu`,
 	rows: [
-	    {title: "𝙸𝚂𝙻𝙰𝙼𝙸𝙲 𝙼𝙴𝙽𝚄\n\n𝚄𝙽𝚃𝚄𝙺 𝙼𝙴𝙽𝙰𝙼𝙿𝙸𝙻𝙺𝙰𝙽 𝙼𝙴𝙽𝚄 𝙸𝚂𝙻𝙰𝙼𝙸𝙲", rowId: `${prefix}islamicmenu`}
+	    {title: "Islamic Menu\nUntuk Menampilkan Menu Islamic", rowId: `${prefix}islamicmenu`}
 	]
 	},
 	{
-	title: `𝙲𝙷𝙰𝚁𝙶𝙴𝚁 𝙼𝙴𝙽𝚄`,
+	title: `Charger Menu`,
 	rows: [
-	    {title: "𝙲𝙷𝙰𝚁𝙶𝙴𝚁 𝙼𝙴𝙽𝚄\n\n𝚄𝙽𝚃𝚄𝙺 𝙼𝙴𝙽𝙰𝙼𝙿𝙸𝙻𝙺𝙰𝙽 𝙼𝙴𝙽𝚄 𝙲𝙷𝙰𝚁𝙶𝙴𝚁", rowId: `${prefix}chargermenu`}
+	    {title: "Charger Menu\nUntuk Menampilkan Menu Charger", rowId: `${prefix}chargermenu`}
 	]
 	},
 	{
-	title: `𝙼𝙰𝙺𝙴𝚁 𝙼𝙴𝙽𝚄`,
+	title: `Maker Menu`,
 	rows: [
-	    {title: "𝙼𝙰𝙺𝙴𝚁 𝙼𝙴𝙽𝚄\n\n𝚄𝙽𝚃𝚄𝙺 𝙼𝙴𝙽𝙰𝙼𝙿𝙸𝙻𝙺𝙰𝙽 𝙼𝙴𝙽𝚄 𝙼𝙰𝙺𝙴𝚁", rowId: `${prefix}makermenu`}
+	    {title: "Maker Menu\nUntuk Menampilkan Menu Maker", rowId: `${prefix}makermenu`}
 	]
 	},
 	{
-	title: `𝙼𝙰𝙸𝙽 𝙼𝙴𝙽𝚄`,
+	title: `Text Pro`,
 	rows: [
-	    {title: "𝙼𝙰𝙸𝙽 𝙼𝙴𝙽𝚄\n\n𝚄𝙽𝚃𝚄𝙺 𝙼𝙴𝙽𝙰𝙼𝙿𝙸𝙻𝙺𝙰𝙽 𝙼𝙴𝙽𝚄 𝙼𝙰𝙸𝙽", rowId: `${prefix}mainmenu`}
+	    {title: "Text Pro\nUntuk Menampilkan Menu Text Pro", rowId: `${prefix}textpro`}
+	]
+	},
+	{
+	title: `Main Menu`,
+	rows: [
+	    {title: "Main Menu\nUntuk Menampilkan Menu Main", rowId: `${prefix}mainmenu`}
 	]
     },
     {
-	title: `𝚂𝙾𝚄𝙽𝙳 𝙼𝙴𝙽𝚄 [ 𝙺𝙷𝚄𝚂 𝙿𝚁𝙴𝙼 ]`,
+	title: `Sound Menu [ 𝙺𝙷𝚄𝚂 𝙿𝚁𝙴𝙼 ]`,
 	rows: [
-	    {title: "𝚂𝙾𝚄𝙽𝙳 𝙼𝙴𝙽𝚄\n\n𝚄𝙽𝚃𝚄𝙺 𝙼𝙴𝙽𝙰𝙼𝙿𝙸𝙻𝙺𝙰𝙽 𝙼𝙴𝙽𝚄 𝚂𝙾𝚄𝙽𝙳", rowId: `${prefix}soundmenu`}
+	    {title: "Sound Menu\nUntuk Menampilkan Menu Sound", rowId: `${prefix}soundmenu`}
 	]
 	},
 	{
-	title: `𝚂𝙸𝚂𝚃𝙴𝙼 𝙼𝙴𝙽𝚄`,
+	title: `Sistem Menu`,
 	rows: [
-	     {title: "𝚂𝙸𝚂𝚃𝙴𝙼 𝙼𝙴𝙽𝚄\n\n𝚄𝙽𝚃𝚄𝙺 𝙼𝙴𝙽𝙰𝙼𝙿𝙸𝙻𝙺𝙰𝙽 𝙼𝙴𝙽𝚄 𝚂𝙸𝚂𝚃𝙴𝙼", rowId: `${prefix}sistemmenu`}
+	     {title: "Sistem Menu\nUntuk Menampilkan Menu Sistem", rowId: `${prefix}sistemmenu`}
 	]
 	},
     {
@@ -1131,7 +1140,8 @@ const listMessage = {
   buttonText: "Klik Disini",
   sections
 }
-const tessgh = await liaacans.sendMessage(m.chat, listMessage, { quoted: kafloc })
+let fanime = `https://raw.githubusercontent.com/liaacans/liaacans/main/images.jpeg`
+const tessgh = await liaacans.sendMessage(m.chat, listMessage, { quoted: kafloc }, { image: fanime })
 var inimenu = await fs.readFileSync('./json/audio/menampilkanmenubot.mp3')
 liaacans.sendMessage(m.chat, {audio:inimenu, mimetype:'audio/mpeg', ptt:true}, {quoted: fvn})
 }
@@ -1305,6 +1315,12 @@ let buttons = [{ buttonId: 'menu', buttonText: { displayText: '️BACK MENU' }, 
 liaacans.sendMessage(m.chat, {audio:inimenu, mimetype:'audio/mpeg', ptt:true}, {quoted: fvn})
             }
 break
+case 'textpro': {
+txtpro = `${textPro(prefix)}`
+let buttons = [{ buttonId: 'menu', buttonText: { displayText: '️BACK MENU' }, type: 1 },{ buttonId: 'rules', buttonText: { displayText: 'RULES BOT' }, type: 1 },{ buttonId: 'owner', buttonText: { displayText: 'OWNER' }, type: 1 }]
+            await liaacans.sendButtonText(m.chat, buttons, txtpro, creator, m)
+            }
+            break
 case 'sc': case 'script': case 'sourcecode': {
 if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ buttonId: 'Daftar', buttonText: { displayText: 'DAFTAR' }, type: 1 }], `「 REGISTRASI 」\n\nSilahkan Daftar Terlebih Dahulu\nTekan button dibawah atau ketik #daftar`, creator, m)
 let kafloc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {locationMessage: {name: `${global.fake}`,jpegThumbnail: global.thumb}}}
@@ -2426,6 +2442,45 @@ m.reply(respon)
 }
 break
 case 'owner': case 'creator': {
+notebook = `Halo ${pushname} Jika Ingin Mau Kenalan Sama Ownerku
+Silahkan Klik List Dibawah Ini Ya😇 `
+const sections = [
+    {
+	title: `Owner/Creator`,
+	rows: [
+	    {title: `Ownerrr, Saatnya Untuk Menampilkan Ownerku Yang Paling Cantik/Ganteng`, rowId: `${prefix}iniaku`}
+	]
+    },
+    {
+	title: `Donasi By RahmXBot`,
+	rows: [
+	    {title: `Donasi, Jika Berdonasi Harap Hubungi Owner Kami Ya!`, rowId: `${prefix}donasi`}
+	]
+    },
+    {
+	title: `Sewa Bot`,
+	rows: [
+	    {title: `Sewa Bot, Jika Mau Sewa Bot Harap Hubungi Owner Kami Ya!`, rowId: `${prefix}sewabot`}
+	]
+    },
+    /*
+    {
+	title: `Teks Title`,
+	rows: [
+	    {title: `Teks Description`, rowId: `${prefix}commandmu`}
+	]
+    },*/ // Tambahin Aja Kalau Mw😙
+    ]
+const listMessage = {
+  text: notebook,
+  footer: "© Created By RahmXBot\nWeb : https://cloudpedia.site",
+  buttonText: "Click Disini",
+  sections
+}
+const tessgh = await liaacans.sendMessage(m.chat, listMessage, { quoted: fkontak })
+}
+break
+case 'iniaku': case 'iniaku2': {
 if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ buttonId: 'Daftar', buttonText: { displayText: 'DAFTAR' }, type: 1 }], `「 REGISTRASI 」\n\nSilahkan Daftar Terlebih Dahulu\nTekan button dibawah atau ketik #daftar`, creator, m)
 let vcard = `BEGIN:VCARD\n` // metadata of the contact card
 + `VERSION:3.0\n`
@@ -3855,7 +3910,7 @@ break
 case 'bc': case 'broadcast': case 'bcall': {
 if (!isCreator) throw mess.owner
 if (!text) throw `Text mana?\n\nExample : ${prefix + command} fatih-san`
-let chitt = await liaacans.chats.all().map(v => v.id)
+let chitt = await store.chats.all()
 m.reply(`Sukses Mengirim Broadcast`)
 		for (let yoi of chitt) {
 		await sleep(1500)
@@ -4400,6 +4455,663 @@ m.reply(`${result4}`)
 liaacans.sendMessage(m.chat, { document : { url : baby1[0].link}, fileName : baby1[0].nama, mimetype: baby1[0].mime }, { quoted : m }).catch ((err) => m.reply(mess.error))
 }
 break
+         case 'google': {
+                if (!text) throw `Example : ${prefix + command} fatih arridho`
+
+                let google = require('google-it')
+
+                google({'query': text}).then(res => {
+
+                let teks = `Google Search From : ${text}\n\n`
+
+                for (let g of res) {
+
+                teks += `⭔ *Title* : ${g.title}\n`
+
+                teks += `⭔ *Description* : ${g.snippet}\n`
+
+                teks += `⭔ *Link* : ${g.link}\n\n────────────────────────\n\n`
+
+                } 
+
+                m.reply(teks)
+
+                })
+
+                }
+
+                break
+ case 'coffe': case 'coffee': case 'kopi': {
+     m.reply(mess.wait)
+            let buttons = [
+                    {buttonId: `coffe`, buttonText: {displayText: 'Next Image'}, type: 1}
+                ]
+                let buttonMessage = {
+                    image: { url: 'https://coffee.alexflipnote.dev/random' },
+                    fileLength: jumlah,
+                    caption: `☕ Ngopi pagi-pagi emg asik :)`,
+                    footer: creator,
+                    buttons: buttons,
+                    headerType: 4
+                }
+                liaacans.sendMessage(m.chat, buttonMessage, { quoted: m })
+            }
+            break
+            case 'randomcolor': case 'color': case 'warnarandom': case 'warna': {
+            	m.reply(mess.wait)
+                let anu = await fetchJson(`https://api.popcat.xyz/randomcolor`)
+                buffer = await getBuffer(anu.image)
+                liaacans.sendMessage(m.chat, { image: buffer, caption: `*Nama Warna : ${anu.name}*\n*Code : ${anu.hex}*`, footer: creator}, { quoted: m })
+            }
+            break
+ case 'linkpoi': {
+
+
+            	if (!text) throw 'Masukkan Query Link!'
+
+     m.reply(mess.wait)
+                let poi = await fetchJson(`https://linkpoi.ga/api.php?url=${text}`)
+
+                liaacans.sendMessage(m.chat, { text: poi.shorturl + `\nNih Bro`}, { quoted: fkontak })
+
+            }
+
+            break
+ case 'carbon': {
+
+            	if (!text) throw 'No Query Text'
+
+               m.reply(mess.wait)
+
+               liaacans.sendMessage(m.chat, { image: { url: `https://api-rull.herokuapp.com/api/cmd?code=${text}` }, caption: `Nih Bro` }, { quoted: m })
+
+            	}
+
+            break
+            case 'candy': case 'christmas': case '3dchristmas': case 'sparklechristmas': case 'holographic':
+
+case 'deepsea': case 'scifi': case 'rainbow': case 'waterpipe': case 'spooky': case 'karbon': case 'neonlight2': 
+case 'pencil': case 'circuit': case 'discovery': case 'metalic': case 'fiction': case 'demon': case '3dbox': 
+
+case 'transformer': case 'berry': case 'thunder': case 'magma': case '3dstone': case 'greenneon': 
+
+case 'neonlight': case 'glitch': case 'harrypotter': case 'brokenglass': case 'papercut': case 'lion2': 
+
+case 'watercolor': case 'multicolor': case 'neondevil': case 'underwater': case 'graffitibike': case '3davengers': 
+
+ case 'snow': case 'cloud': case 'honey': case 'ice': case 'fruitjuice': case 'biscuit': case 'wood': case 'whitebear': 
+
+case 'chocolate': case 'strawberry': case 'matrix': case 'blood': case 'dropwater': case 'toxic': 
+
+case 'lava': case 'rock': case 'bloodglas': case 'hallowen': case 'darkgold': case 'joker': case 'wicker':
+
+ case 'firework': case 'skeleton': case 'blackpink': case 'sand': case 'glue': case '1917': case 'leaves': {
+
+
+			 if (!text) return m.reply(`Example : ${prefix + command} rahmxbot`) 
+
+             m.reply(mess.wait)
+
+             let link
+
+             if (/candy/.test(command)) link = 'https://textpro.me/create-christmas-candy-cane-text-effect-1056.html'
+
+			 if (/bluecircuit/.test(command)) link = 'https://textpro.me/create-blue-circuit-style-text-effect-online-1043.html'
+
+             if (/neonlight2/.test(command)) link = 'https://textpro.me/neon-light-text-effect-with-galaxy-style-981.html'
+
+             if (/christmas/.test(command)) link = 'https://textpro.me/christmas-tree-text-effect-online-free-1057.html'
+
+             if (/3dchristmas/.test(command)) link = 'https://textpro.me/3d-christmas-text-effect-by-name-1055.html'
+
+             if (/sparklechristmas/.test(command)) link = 'https://textpro.me/sparkles-merry-christmas-text-effect-1054.html'
+
+             if (/deepsea/.test(command)) link = 'https://textpro.me/create-3d-deep-sea-metal-text-effect-online-1053.html'
+
+             if (/scifi/.test(command)) link = 'https://textpro.me/create-3d-sci-fi-text-effect-online-1050.html'
+
+             if (/whitebear/.test(command)) link = 'https://textpro.me/online-black-and-white-bear-mascot-logo-creation-1012.html'
+
+             if (/holographic/.test(command)) link = 'https://textpro.me/holographic-3d-text-effect-975.html'
+
+             if (/3davengers/.test(command)) link = 'https://textpro.me/create-3d-avengers-logo-online-974.html'
+
+             if (/rainbow/.test(command)) link = 'https://textpro.me/3d-rainbow-color-calligraphy-text-effect-1049.html'
+
+             if (/waterpipe/.test(command)) link = 'https://textpro.me/create-3d-water-pipe-text-effects-online-1048.html'
+
+             if (/spooky/.test(command)) link = 'https://textpro.me/create-halloween-skeleton-text-effect-online-1047.html'
+
+             if (/greenneon/.test(command)) link = 'https://textpro.me/green-neon-text-effect-874.html'
+
+             if (/lion2/.test(command)) link = 'https://textpro.me/create-lion-logo-mascot-online-938.html'
+
+             if (/3dbox/.test(command)) link = 'https://textpro.me/3d-box-text-effect-online-880.html'
+
+             if (/pencil/.test(command)) link = 'https://textpro.me/create-a-sketch-text-effect-online-1044.html'
+
+             if (/circuit/.test(command)) link = 'https://textpro.me/create-blue-circuit-style-text-effect-online-1043.html'
+
+             if (/discovery/.test(command)) link = 'https://textpro.me/create-space-text-effects-online-free-1042.html'
+
+             if (/metalic/.test(command)) link = 'https://textpro.me/creat-glossy-metalic-text-effect-free-online-1040.html'
+
+             if (/fiction/.test(command)) link = 'https://textpro.me/create-science-fiction-text-effect-online-free-1038.html'
+
+             if (/demon/.test(command)) link = 'https://textpro.me/create-green-horror-style-text-effect-online-1036.html'
+
+             if (/transformer/.test(command)) link = 'https://textpro.me/create-a-transformer-text-effect-online-1035.html'
+
+             if (/berry/.test(command)) link = 'https://textpro.me/create-berry-text-effect-online-free-1033.html'
+
+             if (/thunder/.test(command)) link = 'https://textpro.me/online-thunder-text-effect-generator-1031.html'
+
+             if (/magma/.test(command)) link = 'https://textpro.me/create-a-magma-hot-text-effect-online-1030.html'
+
+             if (/3dstone/.test(command)) link = 'https://textpro.me/3d-stone-cracked-cool-text-effect-1029.html'
+
+             if (/neonlight/.test(command)) link = 'https://textpro.me/create-3d-neon-light-text-effect-online-1028.html'
+
+             if (/glitch/.test(command)) link = 'https://textpro.me/create-impressive-glitch-text-effects-online-1027.html'
+
+             if (/harrypotter/.test(command)) link = 'https://textpro.me/create-harry-potter-text-effect-online-1025.html'
+
+             if (/brokenglass/.test(command)) link = 'https://textpro.me/broken-glass-text-effect-free-online-1023.html'
+
+             if (/papercut/.test(command)) link = 'https://textpro.me/create-art-paper-cut-text-effect-online-1022.html'
+
+             if (/watercolor/.test(command)) link = 'https://textpro.me/create-a-free-online-watercolor-text-effect-1017.html'
+
+             if (/multicolor/.test(command)) link = 'https://textpro.me/online-multicolor-3d-paper-cut-text-effect-1016.html'
+
+             if (/neondevil/.test(command)) link = 'https://textpro.me/create-neon-devil-wings-text-effect-online-free-1014.html'
+
+             if (/underwater/.test(command)) link = 'https://textpro.me/3d-underwater-text-effect-generator-online-1013.html'
+
+             if (/graffitibike/.test(command)) link = 'https://textpro.me/create-wonderful-graffiti-art-text-effect-1011.html'
+
+             if (/snow/.test(command)) link = 'https://textpro.me/create-snow-text-effects-for-winter-holidays-1005.html'
+
+             if (/cloud/.test(command)) link = 'https://textpro.me/create-a-cloud-text-effect-on-the-sky-online-1004.html'
+
+             if (/karbon/.test(command)) link = 'https://textpro.me/carbon-text-effect-833.html'
+
+             if (/honey/.test(command)) link = 'https://textpro.me/honey-text-effect-868.html'
+
+             if (/ice/.test(command)) link = 'https://textpro.me/ice-cold-text-effect-862.html'
+
+             if (/fruitjuice/.test(command)) link = 'https://textpro.me/fruit-juice-text-effect-861.html'
+
+             if (/biscuit/.test(command)) link = 'https://textpro.me/biscuit-text-effect-858.html'
+
+             if (/wood/.test(command)) link = 'https://textpro.me/wood-text-effect-856.html'
+
+             if (/chocolate/.test(command)) link = 'https://textpro.me/chocolate-cake-text-effect-890.html'
+
+             if (/strawberry/.test(command)) link = 'https://textpro.me/strawberry-text-effect-online-889.html'
+
+             if (/matrix/.test(command)) link = 'https://textpro.me/matrix-style-text-effect-online-884.html'
+
+             if (/blood/.test(command)) link = 'https://textpro.me/horror-blood-text-effect-online-883.html'
+
+             if (/dropwater/.test(command)) link = 'https://textpro.me/dropwater-text-effect-872.html'
+
+             if (/toxic/.test(command)) link = 'https://textpro.me/toxic-text-effect-online-901.html'
+
+             if (/lava/.test(command)) link = 'https://textpro.me/lava-text-effect-online-914.html'
+
+             if (/rock/.test(command)) link = 'https://textpro.me/rock-text-effect-online-915.html'
+
+             if (/bloodglas/.test(command)) link = 'https://textpro.me/blood-text-on-the-frosted-glass-941.html'
+
+             if (/hallowen/.test(command)) link = 'https://textpro.me/halloween-fire-text-effect-940.html'
+
+             if (/darkgold/.test(command)) link = 'https://textpro.me/metal-dark-gold-text-effect-online-939.html'
+
+             if (/joker/.test(command)) link = 'https://textpro.me/create-logo-joker-online-934.html'
+
+             if (/wicker/.test(command)) link = 'https://textpro.me/wicker-text-effect-online-932.html'
+
+             if (/firework/.test(command)) link = 'https://textpro.me/firework-sparkle-text-effect-930.html'
+
+             if (/skeleton/.test(command)) link = 'https://textpro.me/skeleton-text-effect-online-929.html'
+
+             if (/blackpink/.test(command)) link = 'https://textpro.me/create-blackpink-logo-style-online-1001.html'
+
+             if (/sand/.test(command)) link = 'https://textpro.me/write-in-sand-summer-beach-free-online-991.html'
+
+             if (/glue/.test(command)) link = 'https://textpro.me/create-3d-glue-text-effect-with-realistic-style-986.html'
+
+             if (/1917/.test(command)) link = 'https://textpro.me/1917-style-text-effect-online-980.html'
+
+             if (/leaves/.test(command)) link = 'https://textpro.me/natural-leaves-text-effect-931.html'
+
+             let anu = await maker.textpro(link, text)
+
+             liaacans.sendMessage(m.chat, { image: { url: anu }, caption: `TextPro made By RahmXBot` }, { quoted: m })
+
+             }
+
+             break
+case 'glitch2': case 'harrypot': case 'graffiti': case 'pornhub': case 'glitch3': case '3dspace': case 'lion': case 'wolf': case 'retro': case '8bit': {
+             if(!text) return m.reply(`Use ${prefix + command} text1|text2`)
+             m.reply(mess.wait)
+             teks1 = q.split("|")[0]
+             teks2 = q.split("|")[1]
+             let link
+             if (/glitch3/.test(command)) link = 'https://textpro.me/create-glitch-text-effect-style-tik-tok-983.html'
+             if (/harrypot/.test(command)) link = 'https://textpro.me/create-harry-potter-text-effect-online-1025.html'
+             if (/graffiti/.test(command)) link = 'https://textpro.me/create-a-cool-graffiti-text-on-the-wall-1010.html'
+             if (/pornhub/.test(command)) link = 'https://textpro.me/pornhub-style-logo-online-generator-free-977.html'
+             if (/glitch2/.test(command)) link = 'https://textpro.me/create-a-glitch-text-effect-online-free-1026.html'
+             if (/3dspace/.test(command)) link = 'https://textpro.me/create-space-3d-text-effect-online-985.html'
+             if (/lion/.test(command)) link = 'https://textpro.me/create-lion-logo-mascot-online-938.html'
+             if (/wolf/.test(command)) link = 'https://textpro.me/create-wolf-logo-galaxy-online-936.html'
+             if (/retro/.test(command)) link = 'https://textpro.me/create-3d-retro-text-effect-online-free-1065.html'
+             if (/8bit/.test(command)) link = 'https://textpro.me/video-game-classic-8-bit-text-effect-1037.html'
+             let anu = await maker.textpro(link, [`${teks1}`,`${teks2}`])
+             liaacans.sendMessage(m.chat, { image: { url: anu }, caption: `Made by RahmXBot For my Darling ` }, { quoted: m })
+             }
+             break
+//Pembatas Primbon========================================
+
+case 'patrick': case 'patricksticker': case 'petrik': {
+m.reply(mess.wait)
+var ano = await fetchJson('https://raw.githubusercontent.com/rashidsiregar28/data/main/patrik')
+
+var wifegerak = ano.split('\n')
+
+var wifegerakx = wifegerak[Math.floor(Math.random() * wifegerak.length)]
+
+encmedia = await liaacans.sendImageAsSticker(m.chat, wifegerakx, m, { packname: global.packname, author: global.author, })
+
+await fs.unlinkSync(encmedia)
+
+}
+
+break
+
+case 'dogesticker': case 'dogestick': case 'doge': case 'domge': {
+m.reply(mess.wait)
+var ano = await fetchJson('https://raw.githubusercontent.com/rashidsiregar28/data/main/anjing')
+
+var wifegerak = ano.split('\n')
+
+var wifegerakx = wifegerak[Math.floor(Math.random() * wifegerak.length)]
+
+encmedia = await liaacans.sendImageAsSticker(m.chat, wifegerakx, m, { packname: global.packname, author: global.author, })
+
+await fs.unlinkSync(encmedia)
+
+}
+
+break
+
+case 'lovesticker': case 'lovestick' : case 'slove': {
+m.reply(mess.wait)
+var ano = await fetchJson('https://raw.githubusercontent.com/rashidsiregar28/data/main/bucin')
+
+var wifegerak = ano.split('\n')
+
+var wifegerakx = wifegerak[Math.floor(Math.random() * wifegerak.length)]
+
+encmedia = await liaacans.sendImageAsSticker(m.chat, wifegerakx, m, { packname: global.packname, author: global.author, })
+
+await fs.unlinkSync(encmedia)
+
+}
+
+break
+
+case 'gura': case 'gurastick': {
+m.reply(mess.wait)
+var ano = await fetchJson('https://raw.githubusercontent.com/rashidsiregar28/data/main/gura')
+
+var wifegerak = ano.split('\n')
+
+var wifegerakx = wifegerak[Math.floor(Math.random() * wifegerak.length)]
+
+encmedia = await liaacans.sendImageAsSticker(m.chat, wifegerakx, m, { packname: global.packname, author: global.author, })
+
+await fs.unlinkSync(encmedia)
+
+}
+
+break
+
+case 'paimon': {
+m.reply(mess.wait)
+var ano = await fetchJson('https://raw.githubusercontent.com/rashidsiregar28/data/main/Paimon')
+
+var wifegerak = ano.split('\n')
+
+var wifegerakx = wifegerak[Math.floor(Math.random() * wifegerak.length)]
+
+encmedia = await liaacans.sendImageAsSticker(m.chat, wifegerakx, m, { packname: global.packname, author: global.author, })
+
+await fs.unlinkSync(encmedia)
+
+}
+
+break
+
+case 'sanime': case 'animestick': {
+m.reply(mess.wait)
+var ano = await fetchJson('https://raw.githubusercontent.com/rashidsiregar28/data/main/animestick')
+
+var wifegerak = ano.split('\n')
+
+var wifegerakx = wifegerak[Math.floor(Math.random() * wifegerak.length)]
+
+encmedia = await liaacans.sendImageAsSticker(m.chat, wifegerakx, m, { packname: global.packname, author: global.author, })
+
+await fs.unlinkSync(encmedia)
+
+}
+
+break
+
+case 'mukelu': case 'lu': {
+m.reply(mess.wait)
+var ano = await fetchJson('https://raw.githubusercontent.com/rashidsiregar28/data/main/mukelu')
+
+var wifegerak = ano.split('\n')
+
+var wifegerakx = wifegerak[Math.floor(Math.random() * wifegerak.length)]
+
+encmedia = await liaacans.sendImageAsSticker(m.chat, wifegerakx, m, { packname: global.packname, author: global.author, })
+
+await fs.unlinkSync(encmedia)
+
+}
+
+break
+case 'motivasi': {
+    m.reply(mess.wait)
+                let anu = await fetchJson(`https://kocakz.herokuapp.com/api/random/text/quotes`)
+                let buttons = [
+                    {buttonId: `motivasi`, buttonText: {displayText: 'Next'}, type: 1}
+                ]
+                let buttonMessage = {
+                    text: anu.result.quote,
+                    footer: creator,
+                    buttons: buttons,
+                    headerType: 2
+                }
+                liaacans.sendMessage(m.chat, buttonMessage, { quoted: m })
+            }
+            break
+	    case 'nomerhoki': case 'nomorhoki': {
+                if (!Number(text)) throw `Example : ${prefix + command} 6285822347348`
+                let anu = await primbon.nomer_hoki(Number(text))
+                if (anu.status == false) return m.reply(anu.message)
+                liaacans.sendText(m.chat, `⭔ *Nomor HP :* ${anu.message.nomer_hp}\n⭔ *Angka Shuzi :* ${anu.message.angka_shuzi}\n⭔ *Energi Positif :*\n- Kekayaan : ${anu.message.energi_positif.kekayaan}\n- Kesehatan : ${anu.message.energi_positif.kesehatan}\n- Cinta : ${anu.message.energi_positif.cinta}\n- Kestabilan : ${anu.message.energi_positif.kestabilan}\n- Persentase : ${anu.message.energi_positif.persentase}\n⭔ *Energi Negatif :*\n- Perselisihan : ${anu.message.energi_negatif.perselisihan}\n- Kehilangan : ${anu.message.energi_negatif.kehilangan}\n- Malapetaka : ${anu.message.energi_negatif.malapetaka}\n- Kehancuran : ${anu.message.energi_negatif.kehancuran}\n- Persentase : ${anu.message.energi_negatif.persentase}`, m)
+            }
+            break
+            case 'artimimpi': case 'tafsirmimpi': {
+                if (!text) throw `Example : ${prefix + command} belanja`
+                let anu = await primbon.tafsir_mimpi(text)
+                if (anu.status == false) return m.reply(anu.message)
+                liaacans.sendText(m.chat, `⭔ *Mimpi :* ${anu.message.mimpi}\n⭔ *Arti :* ${anu.message.arti}\n⭔ *Solusi :* ${anu.message.solusi}`, m)
+            }
+            break
+            case 'ramalanjodoh': case 'ramaljodoh': {
+                if (!text) throw `Example : ${prefix + command} Dika, 7, 7, 2005, Novia, 16, 11, 2004`
+                let [nama1, tgl1, bln1, thn1, nama2, tgl2, bln2, thn2] = text.split`,`
+                let anu = await primbon.ramalan_jodoh(nama1, tgl1, bln1, thn1, nama2, tgl2, bln2, thn2)
+                if (anu.status == false) return m.reply(anu.message)
+                liaacans.sendText(m.chat, `⭔ *Nama Anda :* ${anu.message.nama_anda.nama}\n⭔ *Lahir Anda :* ${anu.message.nama_anda.tgl_lahir}\n⭔ *Nama Pasangan :* ${anu.message.nama_pasangan.nama}\n⭔ *Lahir Pasangan :* ${anu.message.nama_pasangan.tgl_lahir}\n⭔ *Hasil :* ${anu.message.result}\n⭔ *Catatan :* ${anu.message.catatan}`, m)
+            }
+            break
+            case 'ramalanjodohbali': case 'ramaljodohbali': {
+                if (!text) throw `Example : ${prefix + command} Dika, 7, 7, 2005, Novia, 16, 11, 2004`
+                let [nama1, tgl1, bln1, thn1, nama2, tgl2, bln2, thn2] = text.split`,`
+                let anu = await primbon.ramalan_jodoh_bali(nama1, tgl1, bln1, thn1, nama2, tgl2, bln2, thn2)
+                if (anu.status == false) return m.reply(anu.message)
+               liaacans.sendText(m.chat, `⭔ *Nama Anda :* ${anu.message.nama_anda.nama}\n⭔ *Lahir Anda :* ${anu.message.nama_anda.tgl_lahir}\n⭔ *Nama Pasangan :* ${anu.message.nama_pasangan.nama}\n⭔ *Lahir Pasangan :* ${anu.message.nama_pasangan.tgl_lahir}\n⭔ *Hasil :* ${anu.message.result}\n⭔ *Catatan :* ${anu.message.catatan}`, m)
+            }
+            break
+            case 'suamiistri': {
+                if (!text) throw `Example : ${prefix + command} Dika, 7, 7, 2005, Novia, 16, 11, 2004`
+                let [nama1, tgl1, bln1, thn1, nama2, tgl2, bln2, thn2] = text.split`,`
+                let anu = await primbon.suami_istri(nama1, tgl1, bln1, thn1, nama2, tgl2, bln2, thn2)
+                if (anu.status == false) return m.reply(anu.message)
+                liaacans.sendText(m.chat, `⭔ *Nama Suami :* ${anu.message.suami.nama}\n⭔ *Lahir Suami :* ${anu.message.suami.tgl_lahir}\n⭔ *Nama Istri :* ${anu.message.istri.nama}\n⭔ *Lahir Istri :* ${anu.message.istri.tgl_lahir}\n⭔ *Hasil :* ${anu.message.result}\n⭔ *Catatan :* ${anu.message.catatan}`, m)
+            }
+            break
+            case 'ramalancinta': case 'ramalcinta': {
+                if (!text) throw `Example : ${prefix + command} Dika, 7, 7, 2005, Novia, 16, 11, 2004`
+                let [nama1, tgl1, bln1, thn1, nama2, tgl2, bln2, thn2] = text.split`,`
+                let anu = await primbon.ramalan_cinta(nama1, tgl1, bln1, thn1, nama2, tgl2, bln2, thn2)
+                if (anu.status == false) return m.reply(anu.message)
+                liaacans.sendText(m.chat, `⭔ *Nama Anda :* ${anu.message.nama_anda.nama}\n⭔ *Lahir Anda :* ${anu.message.nama_anda.tgl_lahir}\n⭔ *Nama Pasangan :* ${anu.message.nama_pasangan.nama}\n⭔ *Lahir Pasangan :* ${anu.message.nama_pasangan.tgl_lahir}\n⭔ *Sisi Positif :* ${anu.message.sisi_positif}\n⭔ *Sisi Negatif :* ${anu.message.sisi_negatif}\n⭔ *Catatan :* ${anu.message.catatan}`, m)
+            }
+            break
+            case 'artinama': {
+                if (!text) throw `Example : ${prefix + command} Dika Ardianta`
+                let anu = await primbon.arti_nama(text)
+                if (anu.status == false) return m.reply(anu.message)
+                liaacans.sendText(m.chat, `⭔ *Nama :* ${anu.message.nama}\n⭔ *Arti :* ${anu.message.arti}\n⭔ *Catatan :* ${anu.message.catatan}`, m)
+            }
+            break
+            case 'kecocokannama': case 'cocoknama': {
+                if (!text) throw `Example : ${prefix + command} Dika, 7, 7, 2005`
+                let [nama, tgl, bln, thn] = text.split`,`
+                let anu = await primbon.kecocokan_nama(nama, tgl, bln, thn)
+                if (anu.status == false) return m.reply(anu.message)
+                liaacans.sendText(m.chat, `⭔ *Nama :* ${anu.message.nama}\n⭔ *Lahir :* ${anu.message.tgl_lahir}\n⭔ *Life Path :* ${anu.message.life_path}\n⭔ *Destiny :* ${anu.message.destiny}\n⭔ *Destiny Desire :* ${anu.message.destiny_desire}\n⭔ *Personality :* ${anu.message.personality}\n⭔ *Persentase :* ${anu.message.persentase_kecocokan}`, m)
+            }
+            break
+            case 'kecocokanpasangan': case 'cocokpasangan': case 'pasangan': {
+                if (!text) throw `Example : ${prefix + command} Dika|Novia`
+                let [nama1, nama2] = text.split`|`
+                let anu = await primbon.kecocokan_nama_pasangan(nama1, nama2)
+                if (anu.status == false) return m.reply(anu.message)
+                liaacans.sendImage(m.chat,  anu.message.gambar, `⭔ *Nama Anda :* ${anu.message.nama_anda}\n⭔ *Nama Pasangan :* ${anu.message.nama_pasangan}\n⭔ *Sisi Positif :* ${anu.message.sisi_positif}\n⭔ *Sisi Negatif :* ${anu.message.sisi_negatif}`, m)
+            }
+            break
+            case 'jadianpernikahan': case 'jadiannikah': {
+                if (!text) throw `Example : ${prefix + command} 6, 12, 2020`
+                let [tgl, bln, thn] = text.split`,`
+                let anu = await primbon.tanggal_jadian_pernikahan(tgl, bln, thn)
+                if (anu.status == false) return m.reply(anu.message)
+                liaacans.sendText(m.chat, `⭔ *Tanggal Pernikahan :* ${anu.message.tanggal}\n⭔ *karakteristik :* ${anu.message.karakteristik}`, m)
+            }
+            break
+            case 'sifatusaha': {
+                if (!ext)throw `Example : ${prefix+ command} 28, 12, 2021`
+                let [tgl, bln, thn] = text.split`,`
+                let anu = await primbon.sifat_usaha_bisnis(tgl, bln, thn)
+                if (anu.status == false) return m.reply(anu.message)
+                liaacans.sendText(m.chat, `⭔ *Lahir :* ${anu.message.hari_lahir}\n⭔ *Usaha :* ${anu.message.usaha}`, m)
+            }
+            break
+            case 'rejeki': case 'rezeki': {
+                if (!text) throw `Example : ${prefix + command} 7, 7, 2005`
+                let [tgl, bln, thn] = text.split`,`
+                let anu = await primbon.rejeki_hoki_weton(tgl, bln, thn)
+                if (anu.status == false) return m.reply(anu.message)
+                liaacans.sendText(m.chat, `⭔ *Lahir :* ${anu.message.hari_lahir}\n⭔ *Rezeki :* ${anu.message.rejeki}\n⭔ *Catatan :* ${anu.message.catatan}`, m)
+            }
+            break
+            case 'pekerjaan': case 'kerja': {
+                if (!text) throw `Example : ${prefix + command} 7, 7, 2005`
+                let [tgl, bln, thn] = text.split`,`
+                let anu = await primbon.pekerjaan_weton_lahir(tgl, bln, thn)
+                if (anu.status == false) return m.reply(anu.message)
+                liaacans.sendText(m.chat, `⭔ *Lahir :* ${anu.message.hari_lahir}\n⭔ *Pekerjaan :* ${anu.message.pekerjaan}\n⭔ *Catatan :* ${anu.message.catatan}`, m)
+            }
+            break
+            case 'ramalannasib': case 'ramalnasib': case 'nasib': {
+                if (!text) throw `Example❗:\n${prefix + command} 7,7,2005`
+                let [tgl, bln, thn] = text.split`,`
+                let anu = await primbon.ramalan_nasib(tgl, bln, thn)
+                if (anu.status == false) return m.reply(anu.message)
+                liaacans.sendText(m.chat, `⭔ *Analisa :* ${anu.message.analisa}\n⭔ *Angka Akar :* ${anu.message.angka_akar}\n⭔ *Sifat :* ${anu.message.sifat}\n⭔ *Elemen :* ${anu.message.elemen}\n⭔ *Angka Keberuntungan :* ${anu.message.angka_keberuntungan}`, m)
+            }
+            break
+            case 'potensipenyakit': case 'penyakit': {
+                if (!text) throw `Example : ${prefix + command} 7,7,2005`
+                let [tgl, bln, thn] = text.split`,`
+                let anu = await primbon.cek_potensi_penyakit(tgl, bln, thn)
+                if (anu.status == false) return m.reply(anu.message)
+                liaacans.sendText(m.chat, `⭔ *Analisa :* ${anu.message.analisa}\n⭔ *Sektor :* ${anu.message.sektor}\n⭔ *Elemen :* ${anu.message.elemen}\n⭔ *Catatan :* ${anu.message.catatan}`, m)
+            }
+            break
+            case 'artitarot': case 'tarot': {
+                if (!text) throw `Example : ${prefix + command} 7,7,2005`
+                let [tgl, bln, thn] = text.split`,`
+                let anu = await primbon.arti_kartu_tarot(tgl, bln, thn)
+                if (anu.status == false) return m.reply(anu.message)
+                liaacans.sendImage(m.chat, anu.message.image, `⭔ *Lahir :* ${anu.message.tgl_lahir}\n⭔ *Simbol Tarot :* ${anu.message.simbol_tarot}\n⭔ *Arti :* ${anu.message.arti}\n⭔ *Catatan :* ${anu.message.catatan}`, m)
+            }
+            break
+            case 'fengshui': {
+                if (!text) throw `Example : ${prefix + command} Dika,1,2005\n\nNote : ${prefix + command} Nama, gender, tahun lahir\nGender : 1 untuk laki-laki & 2 untuk perempuan`
+                let [nama, gender, tahun] = text.split`,`
+                let anu = await primbon.perhitungan_feng_shui(nama, gender, tahun)
+                if (anu.status == false) return m.reply(anu.message)
+                liaacans.sendText(m.chat, `⭔ *Nama :* ${anu.message.nama}\n⭔ *Lahir :* ${anu.message.tahun_lahir}\n⭔ *Gender :* ${anu.message.jenis_kelamin}\n⭔ *Angka Kua :* ${anu.message.angka_kua}\n⭔ *Kelompok :* ${anu.message.kelompok}\n⭔ *Karakter :* ${anu.message.karakter}\n⭔ *Sektor Baik :* ${anu.message.sektor_baik}\n⭔ *Sektor Buruk :* ${anu.message.sektor_buruk}`, m)
+            }
+            break
+            case 'haribaik': {
+                if (!text) throw `Example : ${prefix + command} 7,7,2005`
+                let [tgl, bln, thn] = text.split`,`
+                let anu = await primbon.petung_hari_baik(tgl, bln, thn)
+                if (anu.status == false) return m.reply(anu.message)
+                liaacans.sendText(m.chat, `⭔ *Lahir :* ${anu.message.tgl_lahir}\n⭔ *Kala Tinantang :* ${anu.message.kala_tinantang}\n⭔ *Info :* ${anu.message.info}\n⭔ *Catatan :* ${anu.message.catatan}`, m)
+            }
+            break
+            case 'harisangar': case 'taliwangke': {
+                if (!text) throw `Example : ${prefix + command} 7,7,2005`
+                let [tgl, bln, thn] = text.split`,`
+                let anu = await primbon.hari_sangar_taliwangke(tgl, bln, thn)
+                if (anu.status == false) return m.reply(anu.message)
+                liaacans.sendText(m.chat, `⭔ *Lahir :* ${anu.message.tgl_lahir}\n⭔ *Hasil :* ${anu.message.result}\n⭔ *Info :* ${anu.message.info}\n⭔ *Catatan :* ${anu.message.catatan}`, m)
+            }
+            break
+            case 'harinaas': case 'harisial': {
+                if (!text) throw `Example : ${prefix + command} 7,7,2005`
+                let [tgl, bln, thn] = text.split`,`
+                let anu = await primbon.primbon_hari_naas(tgl, bln, thn)
+                if (anu.status == false) return m.reply(anu.message)
+                liaacans.sendText(m.chat, `⭔ *Hari Lahir :* ${anu.message.hari_lahir}\n⭔ *Tanggal Lahir :* ${anu.message.tgl_lahir}\n⭔ *Hari Naas :* ${anu.message.hari_naas}\n⭔ *Info :* ${anu.message.catatan}\n⭔ *Catatan :* ${anu.message.info}`, m)
+            }
+            break
+            case 'nagahari': case 'harinaga': {
+                if (!text) throw `Example : ${prefix + command} 7,7,2005`
+                let [tgl, bln, thn] = text.split`,`
+                let anu = await primbon.rahasia_naga_hari(tgl, bln, thn)
+                if (anu.status == false) return m.reply(anu.message)
+                liaacans.sendText(m.chat, `⭔ *Hari Lahir :* ${anu.message.hari_lahir}\n⭔ *Tanggal Lahir :* ${anu.message.tgl_lahir}\n⭔ *Arah Naga Hari :* ${anu.message.arah_naga_hari}\n⭔ *Catatan :* ${anu.message.catatan}`, m)
+            }
+            break
+            case 'arahrejeki': case 'arahrezeki': {
+                if (!text) throw `Example : ${prefix + command} 7,7,2005`
+                let [tgl, bln, thn] = text.split`,`
+                let anu = await primbon.primbon_arah_rejeki(tgl, bln, thn)
+                if (anu.status == false) return m.reply(anu.message)
+                liaacans.sendText(m.chat, `⭔ *Hari Lahir :* ${anu.message.hari_lahir}\n⭔ *tanggal Lahir :* ${anu.message.tgl_lahir}\n⭔ *Arah Rezeki :* ${anu.message.arah_rejeki}\n⭔ *Catatan :* ${anu.message.catatan}`, m)
+            }
+            break
+            case 'peruntungan': {
+                if (!text) throw `Example : ${prefix + command} DIka,7,7,2005,2022\n\nNote : ${prefix + command} Nama, tanggal lahir, bulan lahir, tahun lahir, untuk tahun`
+                let [nama, tgl, bln, thn, untuk] = text.split`,`
+                let anu = await primbon.ramalan_peruntungan(nama, tgl, bln, thn, untuk)
+                if (anu.status == false) return m.reply(anu.message)
+                liaacans.sendText(m.chat, `⭔ *Nama :* ${anu.message.nama}\n⭔ *Lahir :* ${anu.message.tgl_lahir}\n⭔ *Peruntungan Tahun :* ${anu.message.peruntungan_tahun}\n⭔ *Hasil :* ${anu.message.result}\n⭔ *Catatan :* ${anu.message.catatan}`, m)
+            }
+            break
+            case 'weton': case 'wetonjawa': {
+                if (!text) throw `Example : ${prefix + command} 7,7,2005`
+                let [tgl, bln, thn] = text.split`,`
+                let anu = await primbon.weton_jawa(tgl, bln, thn)
+                if (anu.status == false) return m.reply(anu.message)
+                liaacans.sendText(m.chat, `⭔ *Tanggal :* ${anu.message.tanggal}\n⭔ *Jumlah Neptu :* ${anu.message.jumlah_neptu}\n⭔ *Watak Hari :* ${anu.message.watak_hari}\n⭔ *Naga Hari :* ${anu.message.naga_hari}\n⭔ *Jam Baik :* ${anu.message.jam_baik}\n⭔ *Watak Kelahiran :* ${anu.message.watak_kelahiran}`, m)
+            }
+            break
+            case 'sifat': case 'karakter': {
+                if (!text) throw `Example : ${prefix + command} Dika, 7,7,2005`
+                let [nama, tgl, bln, thn] = text.split`,`
+                let anu = await primbon.sifat_karakter_tanggal_lahir(nama, tgl, bln, thn)
+                if (anu.status == false) return m.reply(anu.message)
+                liaacans.sendText(m.chat, `⭔ *Nama :* ${anu.message.nama}\n⭔ *Lahir :* ${anu.message.tgl_lahir}\n⭔ *Garis Hidup :* ${anu.message.garis_hidup}`, m)
+            }
+            break
+            case 'keberuntungan': {
+                if (!text) throw `Example : ${prefix + command} Dika, 7,7,2005`
+                let [nama, tgl, bln, thn] = text.split`,`
+                let anu = await primbon.potensi_keberuntungan(nama, tgl, bln, thn)
+                if (anu.status == false) return m.reply(anu.message)
+                liaacans.sendText(m.chat, `⭔ *Nama :* ${anu.message.nama}\n⭔ *Lahir :* ${anu.message.tgl_lahir}\n⭔ *Hasil :* ${anu.message.result}`, m)
+            }
+            break
+            case 'memancing': {
+                if (!text) throw `Example : ${prefix + command} 12,1,2022`
+                let [tgl, bln, thn] = text.split`,`
+                let anu = await primbon.primbon_memancing_ikan(tgl, bln, thn)
+                if (anu.status == false) return m.reply(anu.message)
+                liaacans.sendText(m.chat, `⭔ *Hasil :* ${anu.message.result}\n⭔ *Catatan :* ${anu.message.catatan}`, m)
+            }
+            break
+            case 'masasubur': {
+                if (!text) throw `Example : ${prefix + command} 12,1,2022,28\n\nNote : ${prefix + command} hari pertama menstruasi, siklus`
+                let [tgl, bln, thn, siklus] = text.split`,`
+                let anu = await primbon.masa_subur(tgl, bln, thn, siklus)
+                if (anu.status == false) return m.reply(anu.message)
+                naze.sendText(m.chat, `⭔ *Hasil :* ${anu.message.result}\n⭔ *Catatan :* ${anu.message.catatan}`, m)
+            }
+            break
+            case 'zodiak': case 'zodiac': {
+                if (!text) throw `Example : ${prefix+ command} 7 7 2005`
+                let zodiak = [
+                    ["capricorn", new Date(1970, 0, 1)],
+                    ["aquarius", new Date(1970, 0, 20)],
+                    ["pisces", new Date(1970, 1, 19)],
+                    ["aries", new Date(1970, 2, 21)],
+                    ["taurus", new Date(1970, 3, 21)],
+                    ["gemini", new Date(1970, 4, 21)],
+                    ["cancer", new Date(1970, 5, 22)],
+                    ["leo", new Date(1970, 6, 23)],
+                    ["virgo", new Date(1970, 7, 23)],
+                    ["libra", new Date(1970, 8, 23)],
+                    ["scorpio", new Date(1970, 9, 23)],
+                    ["sagittarius", new Date(1970, 10, 22)],
+                    ["capricorn", new Date(1970, 11, 22)]
+                ].reverse()
+
+                function getZodiac(month, day) {
+                    let d = new Date(1970, month - 1, day)
+                    return zodiak.find(([_,_d]) => d >= _d)[0]
+                }
+                let date = new Date(text)
+                if (date == 'Invalid Date') throw date
+                let d = new Date()
+                let [tahun, bulan, tanggal] = [d.getFullYear(), d.getMonth() + 1, d.getDate()]
+                let birth = [date.getFullYear(), date.getMonth() + 1, date.getDate()]
+
+                let zodiac = await getZodiac(birth[1], birth[2])
+                
+                let anu = await primbon.zodiak(zodiac)
+                if (anu.status == false) return m.reply(anu.message)
+                liaacans.sendText(m.chat, `⭔ *Zodiak :* ${anu.message.zodiak}\n⭔ *Nomor :* ${anu.message.nomor_keberuntungan}\n⭔ *Aroma :* ${anu.message.aroma_keberuntungan}\n⭔ *Planet :* ${anu.message.planet_yang_mengitari}\n⭔ *Bunga :* ${anu.message.bunga_keberuntungan}\n⭔ *Warna :* ${anu.message.warna_keberuntungan}\n⭔ *Batu :* ${anu.message.batu_keberuntungan}\n⭔ *Elemen :* ${anu.message.elemen_keberuntungan}\n⭔ *Pasangan Zodiak :* ${anu.message.pasangan_zodiak}\n⭔ *Catatan :* ${anu.message.catatan}`, m)
+            }
+            break
+case 'ai':
+	case 'openai':
+	case 'search': {
+		if (!q) return m.reply(`Masukkan kata kunci!\n\n*Contoh:* ehe apa saja jenis hacker`)
+	
+		axios.get(encodeURI(`https://api.lolhuman.xyz/api/openai?apikey=SGWN&text=${q}&user=user-unique-id`)).then(({
+			data
+		}) => {
+			if (data.result == '') return m.reply('Kata kunci tidak ditemukan!')
+			m.reply(data.result)
+		}).catch((err) => {
+				return m.reply('Terjadi kesalahan, mungkin sistem sedang error atau coba kirim ulang perintah anda!')
+			})
+	}
+	break
 //---------------[ AUTO RESPON ]------------------//
 // By Aulia Rahman (Auliahost-BOT)
 case 'rahman':{
