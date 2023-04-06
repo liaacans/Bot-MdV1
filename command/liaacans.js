@@ -1025,7 +1025,7 @@ const sections = [
     {
 	title: `Database Menu`,
 	rows: [
-	    {title: "Database Menu𝚄\nUntuk Menampilkan Menu Database", rowId: `${prefix}databasemenu`}
+	    {title: "Database Menu\nUntuk Menampilkan Menu Database", rowId: `${prefix}databasemenu`}
 	]
     },
     {
@@ -1140,8 +1140,7 @@ const listMessage = {
   buttonText: "Klik Disini",
   sections
 }
-let fanime = `https://raw.githubusercontent.com/liaacans/liaacans/main/images.jpeg`
-const tessgh = await liaacans.sendMessage(m.chat, listMessage, { quoted: kafloc }, { image: fanime })
+const tessgh = await liaacans.sendMessage(m.chat, listMessage, { quoted: kafloc })
 var inimenu = await fs.readFileSync('./json/audio/menampilkanmenubot.mp3')
 liaacans.sendMessage(m.chat, {audio:inimenu, mimetype:'audio/mpeg', ptt:true}, {quoted: fvn})
 }
@@ -1407,7 +1406,6 @@ break
 case 'tagall': {
 if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ buttonId: 'Daftar', buttonText: { displayText: 'DAFTAR' }, type: 1 }], `「 REGISTRASI 」\n\nSilahkan Daftar Terlebih Dahulu\nTekan button dibawah atau ketik #daftar`, creator, m)
 if (!m.isGroup) throw mess.group
-if (!isBotAdmins) throw mess.botAdmin
 if (!isAdmins && !isCreator) throw mess.admin
 let teks = `──── ⌜ Tag All ⌟ ────
  
@@ -1420,10 +1418,9 @@ liaacans.sendMessage(m.chat, { text: teks, mentions: participants.map(a => a.id)
 break
 case 'hidetag': {
 if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ buttonId: 'Daftar', buttonText: { displayText: 'DAFTAR' }, type: 1 }], `「 REGISTRASI 」\n\nSilahkan Daftar Terlebih Dahulu\nTekan button dibawah atau ketik #daftar`, creator, m)
-if (!m.isGroup) throw mess.group
-if (!isBotAdmins) throw mess.botAdmin
 if (!isAdmins && !isCreator) throw mess.admin
-liaacans.sendMessage(m.chat, { text : q ? q : '' , mentions: participants.map(a => a.id)}, { quoted: fkontak })
+if (!m.isGroup) throw mess.group
+liaacans.sendMessage(m.chat, { text : q ? q : '' , mentions: participants.map(a => a.id) }, { quoted: fkontak })
 }
 
 break
@@ -3807,7 +3804,7 @@ await liaacans.sendMessage(m.chat, listMessage)
                 m.reply(`Sukses update respon list dengan key *${args1}*`)
             }
             break
-case 'proses': case 'p': // fix by aulia rahman (saia cowo)
+case 'proses': // fix by aulia rahman (saia cowo)
             if (!m.isGroup) return m.reply(mess.group)
             if (!isAdmins) throw `Khusus Untuk Admin Grup`
             if (!m.quoted) return m.reply('Reply Bukti Pembayaran!!')
@@ -5100,6 +5097,7 @@ case 'motivasi': {
 case 'ai':
 	case 'openai':
 	case 'search': {
+	    if (!isPremium) throw mess.prem
 		if (!q) return m.reply(`Masukkan kata kunci!\n\n*Contoh:* ehe apa saja jenis hacker`)
 	
 		axios.get(encodeURI(`https://api.lolhuman.xyz/api/openai?apikey=SGWN&text=${q}&user=user-unique-id`)).then(({
