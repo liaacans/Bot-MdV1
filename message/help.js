@@ -142,6 +142,7 @@ return `Hy Kak ${pushname}
 ├│${prefix}quotesanime
 ├│${prefix}google
 ├│${prefix}wikimedia
+├│${prefix}ai
 └─❖
 ┌─❖ ⌜ Primbon Menu ⌟
 ├│${prefix}patrick
@@ -433,6 +434,7 @@ return `┌─❖ ⌜ Random Menu ⌟
 ├│${prefix}quotesanime
 ├│${prefix}google
 ├│${prefix}wikimedia
+├│${prefix}ai
 └─❖`
 }
 
