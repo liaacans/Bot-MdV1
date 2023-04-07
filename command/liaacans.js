@@ -4808,7 +4808,7 @@ await fs.unlinkSync(encmedia)
 
 break
 
-case 'mukelu': case 'lu': {
+/*case 'mukelu': case 'lu': { // cari ae dulu website apikeynya yg ini udah not 404:v
 m.reply(mess.wait)
 var ano = await fetchJson('https://raw.githubusercontent.com/rashidsiregar28/data/main/mukelu')
 
@@ -4822,7 +4822,7 @@ await fs.unlinkSync(encmedia)
 
 }
 
-break
+break*/
 case 'motivasi': {
     m.reply(mess.wait)
                 let anu = await fetchJson(`https://kocakz.herokuapp.com/api/random/text/quotes`)
