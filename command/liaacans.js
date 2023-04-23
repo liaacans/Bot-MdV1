@@ -2799,14 +2799,14 @@ case 'ytmp3': case 'ytaudio': case 'yta': {
   let quality = args[1] ? args[1] : '128kbps'
   let media = await yta(text, quality)
   if (media.filesize >= 100000) return m.reply('File Melebihi Batas Silahkan Download Sendiri : '+media.dl_link)
-  var caption = `*------ Youtube Downloader -----*
+  var txtytdio = `*------ Youtube Downloader -----*
 
 📄 Title : ${media.title}
 🎚️ Size : ${media.filesizeF}
 🔗 Url : ${isUrl(text)}
 📥 Format : MP3
 📮 Resolusi : ${args[1] || '128kbps'}`
-  liaacans.sendImage(m.chat, media.thumb, caption, m)
+  liaacans.sendImage(m.chat, media.thumb, txtytdio, m)
   liaacans.sendMessage(m.chat, {document: audio, mimetype: 'audio/mpeg', fileName: `${media_title}.mp3`}, { quoted: fkontak })
   }
   break
