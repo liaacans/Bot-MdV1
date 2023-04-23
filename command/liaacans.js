@@ -2686,14 +2686,14 @@ case 'ytmp4': case 'ytvideo': case 'ytv': {
   let quality = args[1] ? args[1] : '360p'
   let media = await ytv(text, quality)
   if (media.filesize >= 100000) return m.reply('File Melebihi Batas Silahkan Download Sendiri : '+media.dl_link)
-  var caption = `---- Youtube Downloader -----
+  var txtytt = `---- Youtube Downloader -----
   
 📄 Judul : ${media.title}
 🎚️ Size : ${media.filesizeF}
 🔗 Url : ${isUrl(text)}
 📥 Format : MP4
 📮 Resolusi : ${args[1] || '720p'}`
-  liaacans.sendMessage(m.chat, { video: { url: media.dl_link }, mimetype: 'video/mp4', fileName: `${media.title}.mp4`, caption: caption }, { quoted: m })
+  liaacans.sendMessage(m.chat, { video: { url: media.dl_link }, mimetype: 'video/mp4', fileName: `${media.title}.mp4`, caption: txtytt }, { quoted: m })
   }
   break
 case 'iqra': {
