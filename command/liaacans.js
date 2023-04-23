@@ -5268,10 +5268,10 @@ m.reply(String(e))
 }
 
 if (!m.isGroup && !isCmd && !command && !mek.key.fromMe) {
-numd = await fetchJson(`https://api.telnyx.com/anonymous/v2/number_lookup/${senderNumber}`, {method: 'get'})
-	simi = await fetchJson(`https://api.simsimi.net/v1/?lang=${numd.data.country_code}&cf=false&text=${cmd}`)
-                     sami = simi.success
-                        liaacans.sendMessage(m.chat, `_${sami}_`, text, sendEphemeral: true, quoted:msg, contextInfo : {forwardingScore: 508, isForwarded: true})
+let numd = await fetchJson(`https://api.telnyx.com/anonymous/v2/number_lookup/${senderNumber}`, {method: 'get'})
+	let simi = await fetchJson(`https://api.simsimi.net/v1/?lang=${numd.data.country_code}&cf=false&text=${cmd}`)
+                    let sami = simi.success
+                        liaacans.sendMessage(m.chat, `_${sami}_`, text, sendEphemeral: true, contextInfo : {forwardingScore: 508, isForwarded: true})
                       }
 
 // KITA SEMBUNYIKAN AUTO REAC NYA, NNTI TERGNGGU OLEH USER LAIN:V
