@@ -5369,7 +5369,7 @@ liaacans.copyNForward(m.chat, msgs[budy.toLowerCase()], true)
 
 } catch (err) {
 m.reply(util.format(err))
-liaacans.sendMessage(m.chat, `[Error], Ada Yang Error Kak🗿`, '6285821676621@whatsapp.net', m)
+console.log(`[Error], Ada Yang Error Kak🗿`)
 }
 }
 
