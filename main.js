@@ -308,17 +308,6 @@ liaacans.sendMessage(jid, {text: text}, {
    })
 }
 
-liaacans.sendButMessage = async (jid, desc = '', footer = '', but = [], options = {}) => {
-      buttonMessage = {
-         text: desc,
-         footer: footer,
-         buttons: but,
-         headerType: 1
-      }
-
-      liaacans.sendMessage(jid, buttonMessage, options)
-   }
-
 /**
 * 
 * @param {*} jid 
