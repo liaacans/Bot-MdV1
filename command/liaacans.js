@@ -5300,7 +5300,7 @@ liaacans.sendMessage(m.chat, reactionMessage)
 liaacans.sendMessage(m.chat, reactionMessage)
 	}*/
 
-if (v.id.endsWith('.net')).map(v => v.id) && isCmd) {
+if (m.chat.endsWith('@s.whatsapp.net') && isCmd) {
                     this.anonymous = this.anonymous ? this.anonymous : {}
                     let room = Object.values(this.anonymous).find(room => [room.a, room.b].includes(m.sender) && room.state === 'CHATTING')
                     if (room) {
@@ -5338,7 +5338,7 @@ if (stdout) return m.reply(stdout)
 })
 }
 			
-if (v.id.endsWith('.net')).map(v => v.id) && isCmd) {
+if (m.chat.endsWith('@s.whatsapp.net') && isCmd) {
 this.anonymous = this.anonymous ? this.anonymous : {}
 let room = Object.values(this.anonymous).find(room => [room.a, room.b].includes(m.sender) && room.state === 'CHATTING')
 if (room) {
