@@ -301,8 +301,23 @@ buttons,
 headerType: 2,
 ...options
 }
-liaacans.sendMessage(jid, buttonMessage, { quoted, ...options })
+/*liaacans.sendMessage(jid, buttonMessage, { quoted, ...options })*/
+liaacans.sendMessage(jid, {text: text}, {
+         quoted,
+         ...options
+   })
 }
+
+liaacans.sendButMessage = async (jid, desc = '', footer = '', but = [], options = {}) => {
+      buttonMessage = {
+         text: desc,
+         footer: footer,
+         buttons: but,
+         headerType: 1
+      }
+
+      liaacans.sendMessage(jid, buttonMessage, options)
+   }
 
 /**
 * 
