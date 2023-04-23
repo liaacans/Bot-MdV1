@@ -5267,12 +5267,12 @@ m.reply(String(e))
 }
 }
 
-if (!m.isGroup && !isCmd && !command && !mek.key.fromMe) {
+/*if (!m.isGroup && !isCmd && !command && !mek.key.fromMe) {
 let numd = await fetchJson(`https://api.telnyx.com/anonymous/v2/number_lookup/${senderNumber}`, {method: 'get'})
 	let simi = await fetchJson(`https://api.simsimi.net/v1/?lang=${numd.data.country_code}&cf=false&text=${cmd}`)
                     let sami = simi.success
                         liaacans.sendMessage(m.chat, `_${sami}_`, text, sendEphemeral: true, contextInfo : {forwardingScore: 508, isForwarded: true})
-                      }
+                      }*/ // FIX AJA NIH AUTO SAMI SIMINYA🗿, TANPA COMMAND 🗿🙏
 
 // KITA SEMBUNYIKAN AUTO REAC NYA, NNTI TERGNGGU OLEH USER LAIN:V
 /*if (budy.includes('gabut') || budy.includes('hehe') || budy.includes('apa') || budy.includes('hai') || budy.includes('apasi') || budy.includes('rahman') || budy.includes('man') || budy.includes('dahlah') || budy.includes('sepi') || budy.includes('🗿') || budy.includes('menu')) {
@@ -5300,7 +5300,7 @@ liaacans.sendMessage(m.chat, reactionMessage)
 liaacans.sendMessage(m.chat, reactionMessage)
 	}*/
 
-if (m.chat.endsWith('@s.whatsapp.net') && isCmd) {
+if (v.id.endsWith('.net')).map(v => v.id) && isCmd) {
                     this.anonymous = this.anonymous ? this.anonymous : {}
                     let room = Object.values(this.anonymous).find(room => [room.a, room.b].includes(m.sender) && room.state === 'CHATTING')
                     if (room) {
@@ -5338,7 +5338,7 @@ if (stdout) return m.reply(stdout)
 })
 }
 			
-if (m.chat.endsWith('@s.whatsapp.net') && isCmd) {
+if (v.id.endsWith('.net')).map(v => v.id) && isCmd) {
 this.anonymous = this.anonymous ? this.anonymous : {}
 let room = Object.values(this.anonymous).find(room => [room.a, room.b].includes(m.sender) && room.state === 'CHATTING')
 if (room) {
@@ -5369,7 +5369,7 @@ liaacans.copyNForward(m.chat, msgs[budy.toLowerCase()], true)
 
 } catch (err) {
 m.reply(util.format(err))
-console.log(`[Error], Ada Yang Error Kak🗿`)
+liaacans.sendMessage(m.chat, `[Error], Ada Yang Error Kak🗿`, '6285821676621@whatsapp.net', m)
 }
 }
 
