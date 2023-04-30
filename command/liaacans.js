@@ -143,14 +143,14 @@ if (!('antilink' in chats)) chats.antilink = true
 if (!('antiwame' in chats)) chats.antiwame = false
 if (!('antiviewonce' in chats)) chats.antiviewonce = false
 if (!('antilinkig' in chats)) chats.antilinkig = false
-if (!('antivirtex' in chats)) chats.antivirtex = true
+if (!('antivirtex' in chats)) chats.antivirtex = false
 if (!('antibadword' in chats)) chats.antibadword = false
 } else global.db.data.chats[m.chat] = {
 mute: false,
-antilink: true,
+antilink: false,
 antilinkig: false,
 antiwame: false,
-antivirtex: true,
+antivirtex: false,
 antibadword: false,
 antiviewonce: false
 }
@@ -1198,8 +1198,7 @@ if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ b
 if(!isPremium)throw`Fitur Ini Khusus Untuk Premium`
 let kafloc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {locationMessage: {name: `${global.fake}`,jpegThumbnail: global.thumb}}}
 downloadme = `${downloadMenu(prefix)}`
-let buttons = [{ buttonId: 'menu', buttonText: { displayText: '️BACK MENU' }, type: 1 },{ buttonId: 'rules', buttonText: { displayText: 'RULES BOT' }, type: 1 },{ buttonId: 'owner', buttonText: { displayText: 'OWNER' }, type: 1 }]
-            await liaacans.sendButtonText(m.chat, buttons, downloadme, creator, m, { quoted: kafloc })
+            await liaacans.sendMessage(m.chat, downloadme, creator, m, { quoted: kafloc })
             var inimenu = await fs.readFileSync('./json/audio/menudownload.mp3')
 liaacans.sendMessage(m.chat, {audio:inimenu, mimetype:'audio/mpeg', ptt:true}, {quoted: fvn})
             }
@@ -3826,7 +3825,7 @@ case 'ssweb-hp':{
 if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ buttonId: 'Daftar', buttonText: { displayText: 'DAFTAR' }, type: 1 }], `「 REGISTRASI 」\n\nSilahkan Daftar Terlebih Dahulu\nTekan button dibawah atau ketik #daftar`, creator, m)
 if (!q) return m.reply(`Masukan parameter url\n*Contoh:*\n${prefix+command} https://google.com`)
 m.reply(mess.wait)
-let anu =`https://leyscoders-api.herokuapp.com/api/${command}?url=${q}&apikey=IkyOgiwara`
+let anu =`https://shot.screenshotapi.net/screenshot?&url=${q}`
 liaacans.sendMessage(m.chat, { image: {url: anu}, caption: 'Done!'}, {quoted:m})
 }
 break
