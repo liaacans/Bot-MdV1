@@ -139,7 +139,7 @@ let chats = global.db.data.chats[m.chat]
 if (typeof chats !== 'object') global.db.data.chats[m.chat] = {}
 if (chats) {
 if (!('mute' in chats)) chats.mute = false
-if (!('antilink' in chats)) chats.antilink = true
+if (!('antilink' in chats)) chats.antilink = false
 if (!('antiwame' in chats)) chats.antiwame = false
 if (!('antiviewonce' in chats)) chats.antiviewonce = false
 if (!('antilinkig' in chats)) chats.antilinkig = false
@@ -156,7 +156,7 @@ antiviewonce: false
 }
 
 
-var creator = `${global.creatorr}\nWebsite : https://cloudpedia.site`
+var creator = `${global.creatorr}\nWebsite : https://cloudpedia.biz.id`
 
 var footer = `Note : Jangan Spam Bot!! Jika Tidak Ingin Diblokir Bot\nQuotes : ${global.quotes}`
 		
@@ -936,16 +936,7 @@ var verify_teks =`───「 𝗧𝗘𝗥𝗩𝗘𝗥𝗜𝗙𝗜𝗞𝗔𝗦�
 silahkan ketik #rules
 untuk membaca rules bot
 `
-const buttonMessage = {
-text: verify_teks,
-footer: 'Klik button untuk melihat menu',
-mentions: [m.sender],
-buttons: [
-{ buttonId: '#menu', buttonText: {displayText: '️⋮☰𝙈𝙀𝙉𝙐'}, type: 1}, 
-],
-headerType: 1
-}
-liaacans.sendMessage(m.chat, buttonMessage, {quoted:kafloc})
+await liaacans.sendMessage(m.chat, { image: { url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSV9oY3gT203Ee9YyNcj--APJouMxGnOkCj_A&usqp=CAU' }, caption: `${verify_teks}` }, { quoted: fkontak })
 var inimenu = await fs.readFileSync('./json/audio/daftardirianda.mp3')
 liaacans.sendMessage(m.chat, {audio:inimenu, mimetype:'audio/mpeg', ptt:true}, {quoted: fvn})
 }
@@ -953,135 +944,13 @@ break
 case 'allmenu': {
 if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ buttonId: 'Daftar', buttonText: { displayText: 'DAFTAR' }, type: 1 }], `「 REGISTRASI 」\n\nSilahkan Daftar Terlebih Dahulu\nTekan button dibawah atau ketik #daftar`, creator, m)
 let kafloc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {locationMessage: {name: `BOT TELAH ONLINE : ${runtime(process.uptime())}`,jpegThumbnail: global.thumb}}}
-await liaacans.sendMessage(m.chat, { image: { url: 'https://bucin.html-demo.repl.co/IMG-20230501-WA0037.jpg' }, caption: `${menu(prefix, pushname, isPremium, ucapanWaktu, hariini, barat, tengah, timur)}` }, { quoted: kafloc })
+await liaacans.sendMessage(m.chat, { image: { url: 'https://d.top4top.io/p_2677hm2mw0.jpg' }, caption: `${menu(prefix, pushname, isPremium, ucapanWaktu, hariini, barat, tengah, timur)}` }, { quoted: kafloc })
             }
          break
 case 'menu': case 'help': case 'command': {
 if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ buttonId: 'Daftar', buttonText: { displayText: 'DAFTAR' }, type: 1 }], `「 REGISTRASI 」\n\nSilahkan Daftar Terlebih Dahulu\nTekan button dibawah atau ketik #daftar`, creator, m)
 let kafloc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {locationMessage: {name: `${global.fake}`,jpegThumbnail: global.thumb}}}
-const sections = [
-    {
-	title: `All Menu`,
-	rows: [
-	    {title: `All Menu\nUntuk Menampilkan Menu All(Semua)`, rowId: `${prefix}allmenu`}
-	]
-    },
-    {
-	title: `Group Menu`,
-	rows: [
-	    {title: "Group Menu\nUntuk Menampilkan Menu Group", rowId: `${prefix}groupmenu`}
-	]
-    },
-    {
-	title: `Fun Menu`,
-	rows: [
-	    {title: "Fun Menu\nUntuk Menampilkan Menu Fun", rowId: `${prefix}funmenu`}
-	]
-    },
-    {
-	title: `Anonymous Menu`,
-	rows: [
-	    {title: "Anonymous Menu\nUntuk Menampilkan Menu Anonymous", rowId: `${prefix}anonymousmenu`}
-	]
-    },
-    {
-	title: `Convert Menu`,
-	rows: [
-	    {title: "Convert Menu\nUntuk Menampilkan Menu Convert", rowId: `${prefix}convertmenu`}
-	]
-    },
-    {
-	title: `Bug Menu [ 𝙺𝙷𝚄𝚂𝚄𝚂 𝙾𝚆𝙽 ]`,
-	rows: [
-	    {title: "Bug Menu\nUntuk Menampilkan Menu Bug", rowId: `${prefix}bugmenu`}
-	]
-    },
-    {
-	title: `Random Menu`,
-	rows: [
-	    {title: "Random Menu\nUntuk Menampilkan Menu Random", rowId: `${prefix}randommenu`}
-	]
-    },
-    {
-	title: `Download Menu [ 𝙺𝙷𝚄𝚂𝚄𝚂 𝙿𝚁𝙴𝙼 ]`,
-	rows: [
-	    {title: "Download Menu\nUntuk Menampilkan Menu Download", rowId: `${prefix}downloadmenu`}
-	]
-	},
-	{
-	title: `Owner Menu [ 𝙺𝙷𝚄𝚂𝚄𝚂 𝙾𝚆𝙽 ]`,
-	rows: [
-	    {title: "Owner Menu\nUntuk Menampilkan Menu Owner", rowId: `${prefix}ownermenu`}
-	]
-    },
-    {
-	title: `Panel Menu [ 𝙺𝙷𝚄𝚂𝚄𝚂 𝙾𝚆𝙽 ]`,
-	rows: [
-	    {title: "Menu Panel\nUntuk Menampilkan Menu Create Panel", rowId: `${prefix}panelmenu`}
-	]
-    },
-    {
-	title: `Database Menu`,
-	rows: [
-	    {title: "Database Menu\nUntuk Menampilkan Menu Database", rowId: `${prefix}databasemenu`}
-	]
-    },
-    {
-	title: `Islamic Menu`,
-	rows: [
-	    {title: "Islamic Menu\nUntuk Menampilkan Menu Islamic", rowId: `${prefix}islamicmenu`}
-	]
-	},
-	{
-	title: `Charger Menu`,
-	rows: [
-	    {title: "Charger Menu\nUntuk Menampilkan Menu Charger", rowId: `${prefix}chargermenu`}
-	]
-	},
-	{
-	title: `Maker Menu`,
-	rows: [
-	    {title: "Maker Menu\nUntuk Menampilkan Menu Maker", rowId: `${prefix}makermenu`}
-	]
-	},
-	{
-	title: `Text Pro`,
-	rows: [
-	    {title: "Text Pro\nUntuk Menampilkan Menu Text Pro", rowId: `${prefix}textpro`}
-	]
-	},
-	{
-	title: `Main Menu`,
-	rows: [
-	    {title: "Main Menu\nUntuk Menampilkan Menu Main", rowId: `${prefix}mainmenu`}
-	]
-    },
-    {
-	title: `Sound Menu [ 𝙺𝙷𝚄𝚂 𝙿𝚁𝙴𝙼 ]`,
-	rows: [
-	    {title: "Sound Menu\nUntuk Menampilkan Menu Sound", rowId: `${prefix}soundmenu`}
-	]
-	},
-	{
-	title: `Sistem Menu`,
-	rows: [
-	     {title: "Sistem Menu\nUntuk Menampilkan Menu Sistem", rowId: `${prefix}sistemmenu`}
-	]
-	},
-    {
-	title: `𝚁𝚄𝙽𝚃𝙸𝙼𝙴 𝙱𝙾𝚃`,
-	rows: [
-	    {title: "𝚁𝚄𝙽𝚃𝙸𝙼𝙴 𝙼𝙴𝙽𝚄\n\n𝚄𝙽𝚃𝚄𝙺 𝙼𝙴𝙻𝙸𝙷𝙰𝚃 𝚁𝚄𝙽𝚃𝙸𝙼𝙴 𝙱𝙾𝚃", rowId: `${prefix}runtime`}
-	]
-	},
-	{
-	title: `𝙿𝙸𝙽𝙶 𝙱𝙾𝚃`,
-	rows: [
-	    {title: "𝚂𝙿𝙴𝙴𝙳 𝙱𝙾𝚃\n\n𝚄𝙽𝚃𝚄𝙺 𝙼𝙴𝙽𝙰𝙼𝙿𝙸𝙻𝙺𝙰𝙽 𝙼𝙴𝙽𝚄 𝙿𝙸𝙽𝙶 𝙱𝙾𝚃", rowId: `${prefix}ping`}
-	]
-	},
-]
-let menunyaa = `Hai Kak ${pushname}
+var menu_teks = `Hai Kak ${pushname}
 ˗ˏˋ˖🐰*${ucapanWaktu}* ָ ⋆ 𖥻
 ▬▭▬▭▬▭▬▭▬▭▬▭▬ 
 ˗ˏˋ˖🧺 *Creator : Aulia Rahman CloudPedia*
@@ -1105,6 +974,37 @@ let menunyaa = `Hai Kak ${pushname}
 ├ *Wita* : ${tengah} WITA
 ├ *Wit* : ${timur} WIT
 └─❖
+
+╔━❖ ⌜ MENU ADA DISINI ⌟
+┃
+┣ ❖ ${prefix}allmenu
+┣ ❖ ${prefix}groupmenu
+┣ ❖ ${prefix}funmenu
+┣ ❖ ${prefix}anonymousmenu
+┣ ❖ ${prefix}convertmenu
+┣ ❖ ${prefix}bugmenu (khusus own)
+┣ ❖ ${prefix}randommenu
+┣ ❖ ${prefix}downloadmenu
+┣ ❖ ${prefix}panelmenu
+┣ ❖ ${prefix}databasemenu
+┣ ❖ ${prefix}islamicmenu
+┣ ❖ ${prefix}chargermenu
+┣ ❖ ${prefix}soundmenu
+┣ ❖ ${prefix}makermenu
+┣ ❖ ${prefix}textpro
+┣ ❖ ${prefix}mainmenu
+┣ ❖ ${prefix}sistemmenu
+┣ ❖ ${prefix}ownermenu
+┃
+╚━❖
+
+╔━❖ ⌜ MENU LAINNYA ⌟
+┃
+┣ ❖ ${prefix}runtime
+┣ ❖ ${prefix}ping
+┣ ❖ ${prefix}pemilik
+┃
+╚━❖
 
 ╔━❖ ⌜ 𝗥𝗔𝗠𝗔𝗗𝗛𝗔𝗡 ⌟
 ┣ ${Ramadhan}
@@ -1132,162 +1032,124 @@ let menunyaa = `Hai Kak ${pushname}
 🐰 𖦆 ۫  *Nanda*
 🐰 𖦆 ۫  *Adiwajshing/Baileys*
 🐰 𖦆𒀭ᥫ᭡ *「 Bot Whatsapp Verified 」* Ꮺ ָ࣪ ۰ .🐰 𖦆`
-const listMessage = {
-  text: menunyaa,
-  footer: "© Created By RahmXBot\nWeb : https://cloudpedia.site",
-  buttonText: "Klik Disini",
-  sections
-}
-const tessgh = await liaacans.sendMessage(m.chat, listMessage, { quoted: kafloc })
-var inimenu = await fs.readFileSync('./json/audio/menampilkanmenubot.mp3')
-liaacans.sendMessage(m.chat, {audio:inimenu, mimetype:'audio/mpeg', ptt:true}, {quoted: fvn})
+await liaacans.sendMessage(m.chat, { image: { url: 'https://d.top4top.io/p_2677hm2mw0.jpg' }, caption: `${menu_teks}` }, { quoted: kafloc })
 }
 break
 case 'funmenu': {
 if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ buttonId: 'Daftar', buttonText: { displayText: 'DAFTAR' }, type: 1 }], `「 REGISTRASI 」\n\nSilahkan Daftar Terlebih Dahulu\nTekan button dibawah atau ketik #daftar`, creator, m)
 let kafloc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {locationMessage: {name: `${global.fake}`,jpegThumbnail: global.thumb}}}
-await liaacans.sendMessage(m.chat, { image: { url: 'https://bucin.html-demo.repl.co/IMG-20230501-WA0037.jpg' }, caption: `${funMenu(prefix)}` }, { quoted: kafloc })
-            var inimenu = await fs.readFileSync('./json/audio/menufun.mp3')
-liaacans.sendMessage(m.chat, {audio:inimenu, mimetype:'audio/mpeg', ptt:true}, {quoted: fvn})
+await liaacans.sendMessage(m.chat, { image: { url: 'https://d.top4top.io/p_2677hm2mw0.jpg' }, caption: `${funMenu(prefix)}` }, { quoted: kafloc })
             }
             break
 case 'panelmenu': {
 if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ buttonId: 'Daftar', buttonText: { displayText: 'DAFTAR' }, type: 1 }], `「 REGISTRASI 」\n\nSilahkan Daftar Terlebih Dahulu\nTekan button dibawah atau ketik #daftar`, creator, m)
 let kafloc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {locationMessage: {name: `${global.fake}`,jpegThumbnail: global.thumb}}}
-await liaacans.sendMessage(m.chat, { image: { url: 'https://bucin.html-demo.repl.co/IMG-20230501-WA0037.jpg' }, caption: `${panelMenu(prefix)}` }, { quoted: kafloc })
+await liaacans.sendMessage(m.chat, { image: { url: 'https://d.top4top.io/p_2677hm2mw0.jpg' }, caption: `${panelMenu(prefix)}` }, { quoted: kafloc })
             }
             break
 case 'groupmenu': {
 if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ buttonId: 'Daftar', buttonText: { displayText: 'DAFTAR' }, type: 1 }], `「 REGISTRASI 」\n\nSilahkan Daftar Terlebih Dahulu\nTekan button dibawah atau ketik #daftar`, creator, m)
 let kafloc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {locationMessage: {name: `${global.fake}`,jpegThumbnail: global.thumb}}}
-await liaacans.sendMessage(m.chat, { image: { url: 'https://bucin.html-demo.repl.co/IMG-20230501-WA0037.jpg' }, caption: `${gcMenu(prefix)}` }, { quoted: kafloc })
-            var inimenu = await fs.readFileSync('./json/audio/menugroup.mp3')
-liaacans.sendMessage(m.chat, {audio:inimenu, mimetype:'audio/mpeg', ptt:true}, {quoted: fvn})
+await liaacans.sendMessage(m.chat, { image: { url: 'https://d.top4top.io/p_2677hm2mw0.jpg' }, caption: `${gcMenu(prefix)}` }, { quoted: kafloc })
             }
             break
 case 'convertmenu': {
 if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ buttonId: 'Daftar', buttonText: { displayText: 'DAFTAR' }, type: 1 }], `「 REGISTRASI 」\n\nSilahkan Daftar Terlebih Dahulu\nTekan button dibawah atau ketik #daftar`, creator, m)
 let kafloc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {locationMessage: {name: `${global.fake}`,jpegThumbnail: global.thumb}}}
-await liaacans.sendMessage(m.chat, { image: { url: 'https://bucin.html-demo.repl.co/IMG-20230501-WA0037.jpg' }, caption: `${convertMenu(prefix)}` }, { quoted: kafloc })
-            var inimenu = await fs.readFileSync('./json/audio/menuconvert.mp3')
-liaacans.sendMessage(m.chat, {audio:inimenu, mimetype:'audio/mpeg', ptt:true}, {quoted: fvn})
+await liaacans.sendMessage(m.chat, { image: { url: 'https://d.top4top.io/p_2677hm2mw0.jpg' }, caption: `${convertMenu(prefix)}` }, { quoted: kafloc })
             }
             break
 case 'randommenu': {
 if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ buttonId: 'Daftar', buttonText: { displayText: 'DAFTAR' }, type: 1 }], `「 REGISTRASI 」\n\nSilahkan Daftar Terlebih Dahulu\nTekan button dibawah atau ketik #daftar`, creator, m)
 let kafloc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {locationMessage: {name: `${global.fake}`,jpegThumbnail: global.thumb}}}
-await liaacans.sendMessage(m.chat, { image: { url: 'https://bucin.html-demo.repl.co/IMG-20230501-WA0037.jpg' }, caption: `${randomMenu(prefix)}` }, { quoted: kafloc })
-            var inimenu = await fs.readFileSync('./json/audio/menurandom.mp3')
-liaacans.sendMessage(m.chat, {audio:inimenu, mimetype:'audio/mpeg', ptt:true}, {quoted: fvn})
+await liaacans.sendMessage(m.chat, { image: { url: 'https://c.top4top.io/p_2677wqyb81.jpg' }, caption: `${randomMenu(prefix)}` }, { quoted: kafloc })
             }
             break
 case 'downloadmenu': {
 if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ buttonId: 'Daftar', buttonText: { displayText: 'DAFTAR' }, type: 1 }], `「 REGISTRASI 」\n\nSilahkan Daftar Terlebih Dahulu\nTekan button dibawah atau ketik #daftar`, creator, m)
 if(!isPremium)throw`Fitur Ini Khusus Untuk Premium`
 let kafloc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {locationMessage: {name: `${global.fake}`,jpegThumbnail: global.thumb}}}
-            await liaacans.sendMessage(m.chat, { image: { url: 'https://bucin.html-demo.repl.co/IMG-20230501-WA0037.jpg' }, caption: `${downloadMenu(prefix)}` }, { quoted: kafloc })
-            var inimenu = await fs.readFileSync('./json/audio/menudownload.mp3')
-liaacans.sendMessage(m.chat, {audio:inimenu, mimetype:'audio/mpeg', ptt:true}, {quoted: fvn})
+            await liaacans.sendMessage(m.chat, { image: { url: 'https://b.top4top.io/p_2677yn3kd0.jpg' }, caption: `${downloadMenu(prefix)}` }, { quoted: kafloc })
             }
             break
 case 'ownermenu': {
 if(!isCreator)throw`Fitur Ini Khusus Untuk Owner`
 if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ buttonId: 'Daftar', buttonText: { displayText: 'DAFTAR' }, type: 1 }], `「 REGISTRASI 」\n\nSilahkan Daftar Terlebih Dahulu\nTekan button dibawah atau ketik #daftar`, creator, m)
 let kafloc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {locationMessage: {name: `${global.fake}`,jpegThumbnail: global.thumb}}}
-            await liaacans.sendMessage(m.chat, { image: { url: 'https://bucin.html-demo.repl.co/IMG-20230501-WA0037.jpg' }, caption: `${ownerMenu(prefix)}` }, { quoted: kafloc })
-            var inimenu = await fs.readFileSync('./json/audio/menuowner.mp3')
-liaacans.sendMessage(m.chat, {audio:inimenu, mimetype:'audio/mpeg', ptt:true}, {quoted: fvn})
+            await liaacans.sendMessage(m.chat, { image: { url: 'https://d.top4top.io/p_2677hm2mw0.jpg' }, caption: `${ownerMenu(prefix)}` }, { quoted: kafloc })
             }
             break
 case 'anonymousmenu': {
 if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ buttonId: 'Daftar', buttonText: { displayText: 'DAFTAR' }, type: 1 }], `「 REGISTRASI 」\n\nSilahkan Daftar Terlebih Dahulu\nTekan button dibawah atau ketik #daftar`, creator, m)
 let kafloc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {locationMessage: {name: `${global.fake}`,jpegThumbnail: global.thumb}}}
-await liaacans.sendMessage(m.chat, { image: { url: 'https://bucin.html-demo.repl.co/IMG-20230501-WA0037.jpg' }, caption: `${anonymousMenu(prefix)}` }, { quoted: kafloc })
-            var inimenu = await fs.readFileSync('./json/audio/menuanonymous.mp3')
-liaacans.sendMessage(m.chat, {audio:inimenu, mimetype:'audio/mpeg', ptt:true}, {quoted: fvn})
+await liaacans.sendMessage(m.chat, { image: { url: 'https://d.top4top.io/p_2677hm2mw0.jpg' }, caption: `${anonymousMenu(prefix)}` }, { quoted: kafloc })
             }
             break
 case 'databasemenu': {
 if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ buttonId: 'Daftar', buttonText: { displayText: 'DAFTAR' }, type: 1 }], `「 REGISTRASI 」\n\nSilahkan Daftar Terlebih Dahulu\nTekan button dibawah atau ketik #daftar`, creator, m)
 let kafloc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {locationMessage: {name: `${global.fake}`,jpegThumbnail: global.thumb}}}
-await liaacans.sendMessage(m.chat, { image: { url: 'https://bucin.html-demo.repl.co/IMG-20230501-WA0037.jpg' }, caption: `${databaseMenu(prefix)}` }, { quoted: kafloc })
-            var inimenu = await fs.readFileSync('./json/audio/menudatabase.mp3')
-liaacans.sendMessage(m.chat, {audio:inimenu, mimetype:'audio/mpeg', ptt:true}, {quoted: fvn})
+await liaacans.sendMessage(m.chat, { image: { url: 'https://d.top4top.io/p_2677hm2mw0.jpg' }, caption: `${databaseMenu(prefix)}` }, { quoted: kafloc })
             }
             break
 case 'islamicmenu': {
 if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ buttonId: 'Daftar', buttonText: { displayText: 'DAFTAR' }, type: 1 }], `「 REGISTRASI 」\n\nSilahkan Daftar Terlebih Dahulu\nTekan button dibawah atau ketik #daftar`, creator, m)
 let kafloc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {locationMessage: {name: `${global.fake}`,jpegThumbnail: global.thumb}}}
-await liaacans.sendMessage(m.chat, { image: { url: 'https://bucin.html-demo.repl.co/IMG-20230501-WA0037.jpg' }, caption: `${islamicMenu(prefix)}` }, { quoted: kafloc })
-            var inimenu = await fs.readFileSync('./json/audio/menuislamic.mp3')
-liaacans.sendMessage(m.chat, {audio:inimenu, mimetype:'audio/mpeg', ptt:true}, {quoted: fvn})
+await liaacans.sendMessage(m.chat, { image: { url: 'https://d.top4top.io/p_2677hm2mw0.jpg' }, caption: `${islamicMenu(prefix)}` }, { quoted: kafloc })
             }
             break
 case 'chargermenu': {
 if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ buttonId: 'Daftar', buttonText: { displayText: 'DAFTAR' }, type: 1 }], `「 REGISTRASI 」\n\nSilahkan Daftar Terlebih Dahulu\nTekan button dibawah atau ketik #daftar`, creator, m)
 let kafloc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {locationMessage: {name: `${global.fake}`,jpegThumbnail: global.thumb}}}
-await liaacans.sendMessage(m.chat, { image: { url: 'https://bucin.html-demo.repl.co/IMG-20230501-WA0037.jpg' }, caption: `${chargerMenu(prefix)}` }, { quoted: kafloc })
-            var inimenu = await fs.readFileSync('./json/audio/menucharger.mp3')
-liaacans.sendMessage(m.chat, {audio:inimenu, mimetype:'audio/mpeg', ptt:true}, {quoted: fvn})
+await liaacans.sendMessage(m.chat, { image: { url: 'https://d.top4top.io/p_2677hm2mw0.jpg' }, caption: `${chargerMenu(prefix)}` }, { quoted: kafloc })
             }
             break
 case 'makermenu': {
 if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ buttonId: 'Daftar', buttonText: { displayText: 'DAFTAR' }, type: 1 }], `「 REGISTRASI 」\n\nSilahkan Daftar Terlebih Dahulu\nTekan button dibawah atau ketik #daftar`, creator, m)
 let kafloc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {locationMessage: {name: `${global.fake}`,jpegThumbnail: global.thumb}}}
-await liaacans.sendMessage(m.chat, { image: { url: 'https://bucin.html-demo.repl.co/IMG-20230501-WA0037.jpg' }, caption: `${makerMenu(prefix)}` }, { quoted: kafloc })
-            var inimenu = await fs.readFileSync('./json/audio/menumaker.mp3')
-liaacans.sendMessage(m.chat, {audio:inimenu, mimetype:'audio/mpeg', ptt:true}, {quoted: fvn})
+await liaacans.sendMessage(m.chat, { image: { url: 'https://d.top4top.io/p_2677hm2mw0.jpg' }, caption: `${makerMenu(prefix)}` }, { quoted: kafloc })
             }
             break
 case 'bugmenu': {
 if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ buttonId: 'Daftar', buttonText: { displayText: 'DAFTAR' }, type: 1 }], `「 REGISTRASI 」\n\nSilahkan Daftar Terlebih Dahulu\nTekan button dibawah atau ketik #daftar`, creator, m)
 if (!isCreator) throw mess.owner
 let kafloc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {locationMessage: {name: `${global.fake}`,jpegThumbnail: global.thumb}}}
-await liaacans.sendMessage(m.chat, { image: { url: 'https://bucin.html-demo.repl.co/IMG-20230501-WA0037.jpg' }, caption: `${bugMenu(prefix)}` }, { quoted: kafloc })
-            var inimenu = await fs.readFileSync('./json/audio/menubug.mp3')
-liaacans.sendMessage(m.chat, {audio:inimenu, mimetype:'audio/mpeg', ptt:true}, {quoted: fvn})
+await liaacans.sendMessage(m.chat, { image: { url: 'https://d.top4top.io/p_2677hm2mw0.jpg' }, caption: `${bugMenu(prefix)}` }, { quoted: kafloc })
             }
             break
 case 'soundmenu': {
 if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ buttonId: 'Daftar', buttonText: { displayText: 'DAFTAR' }, type: 1 }], `「 REGISTRASI 」\n\nSilahkan Daftar Terlebih Dahulu\nTekan button dibawah atau ketik #daftar`, creator, m)
 if (!isPremium) throw mess.prem
-await liaacans.sendMessage(m.chat, { image: { url: 'https://bucin.html-demo.repl.co/IMG-20230501-WA0037.jpg' }, caption: `${soundMenu(prefix)}` }, { quoted: kafloc })
-            var inimenu = await fs.readFileSync('./json/audio/menusound.mp3')
-liaacans.sendMessage(m.chat, {audio:inimenu, mimetype:'audio/mpeg', ptt:true}, {quoted: fvn})
+await liaacans.sendMessage(m.chat, { image: { url: 'https://d.top4top.io/p_2677hm2mw0.jpg' }, caption: `${soundMenu(prefix)}` }, { quoted: kafloc })
             }
             break
 case 'sistemmenu': {
 if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ buttonId: 'Daftar', buttonText: { displayText: 'DAFTAR' }, type: 1 }], `「 REGISTRASI 」\n\nSilahkan Daftar Terlebih Dahulu\nTekan button dibawah atau ketik #daftar`, creator, m)
 if (!isPremium) throw mess.prem
-await liaacans.sendMessage(m.chat, { image: { url: 'https://bucin.html-demo.repl.co/IMG-20230501-WA0037.jpg' }, caption: `${sistemMenu(prefix)}` }, { quoted: kafloc })
-            var inimenu = await fs.readFileSync('./json/audio/sistemmenu.mp3')
-liaacans.sendMessage(m.chat, {audio:inimenu, mimetype:'audio/mpeg', ptt:true}, {quoted: fvn})
+await liaacans.sendMessage(m.chat, { image: { url: 'https://d.top4top.io/p_2677hm2mw0.jpg' }, caption: `${sistemMenu(prefix)}` }, { quoted: kafloc })
             }
            break
 case 'donasi': {
 if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ buttonId: 'Daftar', buttonText: { displayText: 'DAFTAR' }, type: 1 }], `「 REGISTRASI 」\n\nSilahkan Daftar Terlebih Dahulu\nTekan button dibawah atau ketik #daftar`, creator, m)
 let kafloc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {locationMessage: {name: `${global.fake}`,jpegThumbnail: global.thumb}}}
-await liaacans.sendMessage(m.chat, { image: { url: 'https://bucin.html-demo.repl.co/IMG-20230501-WA0037.jpg' }, caption: `${donasiMenu()}` }, { quoted: kafloc })
+await liaacans.sendMessage(m.chat, { image: { url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEWa7AX9wcJcJkQ52mdHZ-gYlwvB9S2dA00QiBM6KCnUicwj3U5gTpxag&s=10' }, caption: `${donasiMenu()}` }, { quoted: kafloc })
 }
 break
 case 'mainmenu': {
 if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ buttonId: 'Daftar', buttonText: { displayText: 'DAFTAR' }, type: 1 }], `「 REGISTRASI 」\n\nSilahkan Daftar Terlebih Dahulu\nTekan button dibawah atau ketik #daftar`, creator, m)
 let kafloc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {locationMessage: {name: `${global.fake}`,jpegThumbnail: global.thumb}}}
-await liaacans.sendMessage(m.chat, { image: { url: 'https://bucin.html-demo.repl.co/IMG-20230501-WA0037.jpg' }, caption: `${mainMenu(prefix)}` }, { quoted: kafloc })
-            var inimenu = await fs.readFileSync('./json/audio/menumain.mp3')
-liaacans.sendMessage(m.chat, {audio:inimenu, mimetype:'audio/mpeg', ptt:true}, {quoted: fvn})
+await liaacans.sendMessage(m.chat, { image: { url: 'https://d.top4top.io/p_2677hm2mw0.jpg' }, caption: `${mainMenu(prefix)}` }, { quoted: kafloc })
             }
 break
 case 'textpro': {
 txtpro = `${textPro(prefix)}`
-await liaacans.sendMessage(m.chat, { image: { url: 'https://bucin.html-demo.repl.co/IMG-20230501-WA0037.jpg' }, caption: `${textPro(prefix)}` }, { quoted: kafloc })
+await liaacans.sendMessage(m.chat, { image: { url: 'https://d.top4top.io/p_2677hm2mw0.jpg' }, caption: `${textPro(prefix)}` }, { quoted: kafloc })
             }
             break
 case 'sc': case 'script': case 'sourcecode': {
 if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ buttonId: 'Daftar', buttonText: { displayText: 'DAFTAR' }, type: 1 }], `「 REGISTRASI 」\n\nSilahkan Daftar Terlebih Dahulu\nTekan button dibawah atau ketik #daftar`, creator, m)
 let kafloc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {locationMessage: {name: `${global.fake}`,jpegThumbnail: global.thumb}}}
 source =`Mau Beli Sc Bot LiaaCans?\nCuman 50k Full All Fitur\n\nChat Whatsapp Owner\nhttps://wa.me/${global.nomorsc}`
-await liaacans.sendMessage(m.chat, { image: { url: 'https://bucin.html-demo.repl.co/IMG-20230501-WA0037.jpg' }, caption: `${source}` }, { quoted: kafloc })
+await liaacans.sendMessage(m.chat, { image: { url: 'https://d.top4top.io/p_2677hm2mw0.jpg' }, caption: `${source}` }, { quoted: kafloc })
             }
 break
 case 'revoke': {
@@ -2356,7 +2218,7 @@ ${cpus.map((cpu, i) => `${i + 1}. ${cpu.model.trim()} (${cpu.speed} MHZ)\n${Obje
 m.reply(respon)
 }
 break
-case 'owner': case 'creator': {
+/*case 'owner': case 'creator': {
 notebook = `Halo ${pushname} Jika Ingin Mau Kenalan Sama Ownerku
 Silahkan Klik List Dibawah Ini Ya😇 `
 const sections = [
@@ -2384,8 +2246,8 @@ const sections = [
 	rows: [
 	    {title: `Teks Description`, rowId: `${prefix}commandmu`}
 	]
-    },*/ // Tambahin Aja Kalau Mw😙
-    ]
+    },*/ // Tambahin Aja Kalau Mw😙*/
+    /*]
 const listMessage = {
   text: notebook,
   footer: "© Created By RahmXBot\nWeb : https://cloudpedia.site",
@@ -2394,8 +2256,8 @@ const listMessage = {
 }
 const tessgh = await liaacans.sendMessage(m.chat, listMessage, { quoted: fkontak })
 }
-break
-case 'iniaku': case 'iniaku2': {
+break*/
+case 'iniaku': case 'iniaku2': case 'pemilik': {
 let vcard = `BEGIN:VCARD\n` // metadata of the contact card
 + `VERSION:3.0\n`
 + `N:;${name}.;;;`
@@ -2404,16 +2266,7 @@ let vcard = `BEGIN:VCARD\n` // metadata of the contact card
 + `TEL;type=CELL;type=VOICE;waid=${owner}:${owner}\n` // WhatsApp ID + phone number
 + `END:VCARD`
 let msg = await liaacans.sendMessage(m.chat, { contacts: { displayName: `${owner}`, contacts: [{ vcard }] } }, { quoted: fkontak })
-let buttons3 = [
-{buttonId: `menu`, buttonText: {displayText: 'BACK MENU'}, type: 1},
-]
-let buttonMessage3 = {
-text: `DONT NOT SPAM OWNER!! `,
-footerText: 'Press The Button Below',
-buttons: buttons3,
-headerType: 2
-}
-liaacans.sendMessage(m.chat, buttonMessage3, { quoted: fkontak })                        
+await liaacans.sendMessage(m.chat, text: `JANGAN SPAM NOMOR OWNERKU!!`)
 }
 break
 case 'toimage': case 'toimg': {
