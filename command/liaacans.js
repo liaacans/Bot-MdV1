@@ -936,7 +936,7 @@ var verify_teks =`───「 𝗧𝗘𝗥𝗩𝗘𝗥𝗜𝗙𝗜𝗞𝗔𝗦�
 silahkan ketik #rules
 untuk membaca rules bot
 `
-await liaacans.sendMessage(m.chat, { image: { url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSV9oY3gT203Ee9YyNcj--APJouMxGnOkCj_A&usqp=CAU' }, caption: `${verify_teks}` }, { quoted: fkontak })
+await liaacans.sendMessage(m.chat, { image: { url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSV9oY3gT203Ee9YyNcj--APJouMxGnOkCj_A&usqp=CAU' }, caption: `${verify_teks}` }, { quoted: fkontak }, [m.sender])
 var inimenu = await fs.readFileSync('./json/audio/daftardirianda.mp3')
 liaacans.sendMessage(m.chat, {audio:inimenu, mimetype:'audio/mpeg', ptt:true}, {quoted: fvn})
 }
@@ -2266,7 +2266,7 @@ let vcard = `BEGIN:VCARD\n` // metadata of the contact card
 + `TEL;type=CELL;type=VOICE;waid=${owner}:${owner}\n` // WhatsApp ID + phone number
 + `END:VCARD`
 let msg = await liaacans.sendMessage(m.chat, { contacts: { displayName: `${owner}`, contacts: [{ vcard }] } }, { quoted: fkontak })
-await liaacans.sendMessage(m.chat, text: `JANGAN SPAM NOMOR OWNERKU!!`)
+await liaacans.sendMessage(m.chat, { text: `JANGAN SPAM NOMOR OWNERKU!!` })
 }
 break
 case 'toimage': case 'toimg': {
