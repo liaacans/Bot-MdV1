@@ -1197,12 +1197,37 @@ case 'downloadmenu': {
 if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ buttonId: 'Daftar', buttonText: { displayText: 'DAFTAR' }, type: 1 }], `「 REGISTRASI 」\n\nSilahkan Daftar Terlebih Dahulu\nTekan button dibawah atau ketik #daftar`, creator, m)
 if(!isPremium)throw`Fitur Ini Khusus Untuk Premium`
 let kafloc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {locationMessage: {name: `${global.fake}`,jpegThumbnail: global.thumb}}}
-downloadme = `${downloadMenu(prefix)}`
-            await liaacans.sendMessage(m.chat, downloadme, creator, m, { quoted: kafloc })
+            await liaacans.sendMessage(m.chat, { image: { url: 'https://bucin.html-demo.repl.co/IMG-20230501-WA0037.jpg' }, caption: `${downloadMenu(prefix)}` }, { quoted: kafloc })
             var inimenu = await fs.readFileSync('./json/audio/menudownload.mp3')
 liaacans.sendMessage(m.chat, {audio:inimenu, mimetype:'audio/mpeg', ptt:true}, {quoted: fvn})
             }
             break
+case 'donasi': case 'donate': {
+let pikey = `*────── 「 DONATE 」 ──────*
+Hai 👋
+Kalian bisa mendukung saya agar bot ini tetap up to date dengan:
+┌〔 Donasi • ALL Payment 〕
+├🔃 Scan Barcod Qrisnya diatas🤗
+└────
+Berapapun donasi kalian akan sangat berarti 👍
+𝐀𝐫𝐢𝐠𝐚𝐭𝐨𝐮!!!
+
+
+Contact person Owner:
+wa.me/${nomorsc} (Owner)`
+let qris = `https://bucin.html-demo.repl.co/IMG-20230501-WA0037.jpg`
+let wm = `© Creator By RahmXBot`
+let btn = [{buttonId: `iniaku`, buttonText: {displayText: `Contact Owner`}, type: 1}]
+const gaslah = {
+image: {url:qris},
+caption: pikey,
+footer: wm,
+buttons: btn,
+headerType: 4
+}
+liaacans.sendMessage(m.chat, gaslah, {quoted:m})
+}
+break
 case 'ownermenu': {
 if(!isCreator)throw`Fitur Ini Khusus Untuk Owner`
 if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ buttonId: 'Daftar', buttonText: { displayText: 'DAFTAR' }, type: 1 }], `「 REGISTRASI 」\n\nSilahkan Daftar Terlebih Dahulu\nTekan button dibawah atau ketik #daftar`, creator, m)
