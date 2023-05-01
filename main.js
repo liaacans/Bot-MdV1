@@ -269,7 +269,7 @@ liaacans.ev.on('creds.update', saveState)
   *@param [*] sections
   *@param {*} quoted
   */
-gans.sendListMsg = (jid, text = '', footer = '', title = '' , butText = '', sects = [], quoted) => {
+liaacans.sendListMsg = (jid, text = '', footer = '', title = '' , butText = '', sects = [], quoted) => {
 let sections = sects
 var listMes = {
 text: text,
@@ -278,7 +278,7 @@ title: title,
 buttonText: butText,
 sections
 }
-gans.sendMessage(jid, listMes, { quoted: quoted })
+liaacans.sendMessage(jid, listMes, { quoted: quoted })
 }
 
 /** Send Button 5 Message
@@ -289,14 +289,14 @@ gans.sendMessage(jid, listMes, { quoted: quoted })
  * @param {*} button
  * @returns 
  */
-gans.send5ButMsg = (jid, text = '' , footer = '', but = []) =>{
+liaacans.send5ButMsg = (jid, text = '' , footer = '', but = []) =>{
 let templateButtons = but
 var templateMessage = {
 text: text,
 footer: footer,
 templateButtons: templateButtons
 }
-gans.sendMessage(jid, templateMessage)
+liaacans.sendMessage(jid, templateMessage)
 }
 
 /** Send Button 5 Image
@@ -309,8 +309,8 @@ gans.sendMessage(jid, templateMessage)
  * @param {*} options
  * @returns
  */
-gans.send5ButImg = async (jid , text = '' , footer = '', img, but = [], buff, options = {}) =>{
-gans.sendMessage(jid, { image: img, caption: text, footer: footer, templateButtons: but, ...options })
+liaacans.send5ButImg = async (jid , text = '' , footer = '', img, but = [], buff, options = {}) =>{
+liaacans.sendMessage(jid, { image: img, caption: text, footer: footer, templateButtons: but, ...options })
 }
 
   /** Send Button 5 Location
@@ -322,9 +322,9 @@ gans.sendMessage(jid, { image: img, caption: text, footer: footer, templateButto
    * @param [*] button
    * @param {*} options
    */
-  gans.send5ButLoc = async (jid , text = '' , footer = '', lok, but = [], options = {}) =>{
-  let bb = await gans.reSize(lok, 300, 150)
-  gans.sendMessage(jid, { location: { jpegThumbnail: bb }, caption: text, footer: footer, templateButtons: but, ...options })
+  liaacans.send5ButLoc = async (jid , text = '' , footer = '', lok, but = [], options = {}) =>{
+  let bb = await liaacans.reSize(lok, 300, 150)
+  liaacans.sendMessage(jid, { location: { jpegThumbnail: bb }, caption: text, footer: footer, templateButtons: but, ...options })
   }
 
 /** Send Button 5 Video
@@ -337,9 +337,9 @@ gans.sendMessage(jid, { image: img, caption: text, footer: footer, templateButto
  * @param {*} options
  * @returns
  */
-gans.send5ButVid = async (jid , text = '' , footer = '', vid, but = [], buff, options = {}) =>{
-let lol = await gans.reSize(buf, 300, 150)
-gans.sendMessage(jid, { video: vid, jpegThumbnail: lol, caption: text, footer: footer, templateButtons: but, ...options })
+liaacans.send5ButVid = async (jid , text = '' , footer = '', vid, but = [], buff, options = {}) =>{
+let lol = await liaacans.reSize(buf, 300, 150)
+liaacans.sendMessage(jid, { video: vid, jpegThumbnail: lol, caption: text, footer: footer, templateButtons: but, ...options })
 }
 
 /** Send Button 5 Gif
@@ -352,11 +352,11 @@ gans.sendMessage(jid, { video: vid, jpegThumbnail: lol, caption: text, footer: f
  * @param {*} options
  * @returns
  */
-gans.send5ButGif = async (jid , text = '' , footer = '', gif, but = [], buff, options = {}) =>{
-let ahh = await gans.reSize(buf, 300, 150)
+liaacans.send5ButGif = async (jid , text = '' , footer = '', gif, but = [], buff, options = {}) =>{
+let ahh = await liaacans.reSize(buf, 300, 150)
 let a = [1,2]
 let b = a[Math.floor(Math.random() * a.length)]
-gans.sendMessage(jid, { video: gif, gifPlayback: true, gifAttribution: b, caption: text, footer: footer, jpegThumbnail: ahh, templateButtons: but, ...options })
+liaacans.sendMessage(jid, { video: gif, gifPlayback: true, gifAttribution: b, caption: text, footer: footer, jpegThumbnail: ahh, templateButtons: but, ...options })
 }
 
 /**
