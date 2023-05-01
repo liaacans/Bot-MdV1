@@ -259,29 +259,104 @@ console.log('Connected...', update)
 liaacans.ev.on('creds.update', saveState)
 
 // Add Other
+/** Send List Messaage
+  *
+  *@param {*} jid
+  *@param {*} text
+  *@param {*} footer
+  *@param {*} title
+  *@param {*} butText
+  *@param [*] sections
+  *@param {*} quoted
+  */
+gans.sendListMsg = (jid, text = '', footer = '', title = '' , butText = '', sects = [], quoted) => {
+let sections = sects
+var listMes = {
+text: text,
+footer: footer,
+title: title,
+buttonText: butText,
+sections
+}
+gans.sendMessage(jid, listMes, { quoted: quoted })
+}
+
+/** Send Button 5 Message
+ * 
+ * @param {*} jid
+ * @param {*} text
+ * @param {*} footer
+ * @param {*} button
+ * @returns 
+ */
+gans.send5ButMsg = (jid, text = '' , footer = '', but = []) =>{
+let templateButtons = but
+var templateMessage = {
+text: text,
+footer: footer,
+templateButtons: templateButtons
+}
+gans.sendMessage(jid, templateMessage)
+}
+
 /** Send Button 5 Image
-*
-* @param {*} jid
-* @param {*} text
-* @param {*} footer
-* @param {*} image
-* @param [*] button
-* @param {*} options
-* @returns
-*/
-liaacans.send5ButImg = async (jid , text = '' , footer = '', img, but = [], options = {}) =>{
-let message = await prepareWAMessageMedia({ image: img }, { upload: liaacans.waUploadToServer })
-var template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
-templateMessage: {
-hydratedTemplate: {
-imageMessage: message.imageMessage,
-"hydratedContentText": text,
-"hydratedFooterText": footer,
-"hydratedButtons": but
+ *
+ * @param {*} jid
+ * @param {*} text
+ * @param {*} footer
+ * @param {*} image
+ * @param [*] button
+ * @param {*} options
+ * @returns
+ */
+gans.send5ButImg = async (jid , text = '' , footer = '', img, but = [], buff, options = {}) =>{
+gans.sendMessage(jid, { image: img, caption: text, footer: footer, templateButtons: but, ...options })
 }
+
+  /** Send Button 5 Location
+   *
+   * @param {*} jid
+   * @param {*} text
+   * @param {*} footer
+   * @param {*} location
+   * @param [*] button
+   * @param {*} options
+   */
+  gans.send5ButLoc = async (jid , text = '' , footer = '', lok, but = [], options = {}) =>{
+  let bb = await gans.reSize(lok, 300, 150)
+  gans.sendMessage(jid, { location: { jpegThumbnail: bb }, caption: text, footer: footer, templateButtons: but, ...options })
+  }
+
+/** Send Button 5 Video
+ *
+ * @param {*} jid
+ * @param {*} text
+ * @param {*} footer
+ * @param {*} Video
+ * @param [*] button
+ * @param {*} options
+ * @returns
+ */
+gans.send5ButVid = async (jid , text = '' , footer = '', vid, but = [], buff, options = {}) =>{
+let lol = await gans.reSize(buf, 300, 150)
+gans.sendMessage(jid, { video: vid, jpegThumbnail: lol, caption: text, footer: footer, templateButtons: but, ...options })
 }
-}), options)
-liaacans.relayMessage(jid, template.message, { messageId: template.key.id })
+
+/** Send Button 5 Gif
+ *
+ * @param {*} jid
+ * @param {*} text
+ * @param {*} footer
+ * @param {*} Gif
+ * @param [*] button
+ * @param {*} options
+ * @returns
+ */
+gans.send5ButGif = async (jid , text = '' , footer = '', gif, but = [], buff, options = {}) =>{
+let ahh = await gans.reSize(buf, 300, 150)
+let a = [1,2]
+let b = a[Math.floor(Math.random() * a.length)]
+gans.sendMessage(jid, { video: gif, gifPlayback: true, gifAttribution: b, caption: text, footer: footer, jpegThumbnail: ahh, templateButtons: but, ...options })
 }
 
 /**
