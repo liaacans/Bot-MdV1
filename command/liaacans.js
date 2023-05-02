@@ -5045,6 +5045,15 @@ m.reply(String(e))
 }
 }
 
+if (!text) return
+        let res = await fetch('https://api.simsimi.net', '/v2/', { text: encodeURIComponent(text), lc: "id" }, '')
+        if (!res) throw `Maaf Sedang Error, Akan Kami Perbaiki`
+        let json = await res.json()
+        if (json.success == 'aku tidak paham') return m.reply('lu ngetik apaaan sih')
+        await m.reply(`${json.success}`)
+        return !0
+
+
 /*if (!m.isGroup && !isCmd && !command && !mek.key.fromMe) {
 let numd = await fetchJson(`https://api.telnyx.com/anonymous/v2/number_lookup/${senderNumber}`, {method: 'get'})
 	let simi = await fetchJson(`https://api.simsimi.net/v1/?lang=${numd.data.country_code}&cf=false&text=${cmd}`)
