@@ -183,7 +183,7 @@ console.error(err)
 
 // Public & Self
         if (!liaacans.public) {
-            if (!m.key.fromMe) return
+            if (!m.key.fromMe && !isCreator) return
         }
 
 //━━━━━━━━━━━━━━━[ RESET LIMIT ]━━━━━━━━━━━━━━━━━//
@@ -3595,9 +3595,9 @@ case 'proses': // fix by aulia rahman (saia cowo)
 case 'ssweb-pc':
 case 'ssweb-hp':{
 if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ buttonId: 'Daftar', buttonText: { displayText: 'DAFTAR' }, type: 1 }], `「 REGISTRASI 」\n\nSilahkan Daftar Terlebih Dahulu\nTekan button dibawah atau ketik #daftar`, creator, m)
-if (!q) return m.reply(`Masukan parameter url\n*Contoh:*\n${prefix+command} https://google.com`)
+if (!text) return m.reply(`Masukan parameter url\n*Contoh:*\n${prefix+command} https://google.com`)
 m.reply(mess.wait)
-let anu =`https://shot.screenshotapi.net/screenshot?&url=${q}`
+let anu =`https://shot.screenshotapi.net/screenshot?&url=${text}`
 liaacans.sendMessage(m.chat, { image: {url: anu}, caption: 'Done!'}, {quoted:m})
 }
 break
@@ -4880,7 +4880,7 @@ case 'ai':
 			})
 	}
 	break
-case 'absen':
+/*case 'absen': // FIX AE YA ABSENNYA
             if (m.isGroup) throw mess.grup
                if (!isCreator && !isAdmins) throw mess.admin
             db.data.absen = db.data.absen || {}
@@ -4963,7 +4963,14 @@ Kirim perintah .absen untuk absen dan .deleteabsen untuk menghapus absen 📝
                [], q ? q : ''
             ]
          }
-         break
+         break*/ // FIX AE ABSEN NYA
+case 'simi': case 'simsimi': {
+if (!text) throw `Use example .simi halo`
+  let api = await fetch(`https://api.simsimi.net/v2/?text=${text}&lc=id`)
+  let res = await api.json()
+  m.reply(res.success)
+  }
+  break
 //---------------[ AUTO RESPON ]------------------//
 // By Aulia Rahman (Auliahost-BOT)
 case 'rahman':{
