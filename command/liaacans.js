@@ -5046,7 +5046,7 @@ m.reply(String(e))
 }
 
 if (!text) return
-       let api fetch(`https://api.simsimi.net/v2/?text=${text}&lc=id`)
+       let api = await fetch(`https://api.simsimi.net/v2/?text=${text}&lc=id`)
         let res = await api.json()
         if (res.success == 'aku tidak paham') return m.reply('lu ngetik apaaan sih')
         m.reply(res.success)
