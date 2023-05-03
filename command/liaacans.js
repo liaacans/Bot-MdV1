@@ -4593,9 +4593,9 @@ await fs.unlinkSync(encmedia)
 }
 
 break*/
-case 'motivasi': {
+/*case 'motivasi': { // ISI WEB APIKEYNYA KARNA REST API NYA EMROR
     m.reply(mess.wait)
-                let anu = await fetchJson(`https://kocakz.herokuapp.com/api/random/text/quotes`)
+                let anu = await fetchJson(`ISI_WEB_APIKEY`)
                 let buttons = [
                     {buttonId: `motivasi`, buttonText: {displayText: 'Next'}, type: 1}
                 ]
@@ -4607,7 +4607,7 @@ case 'motivasi': {
                 }
                 liaacans.sendMessage(m.chat, buttonMessage, { quoted: m })
             }
-            break
+            break*/
 	    case 'nomerhoki': case 'nomorhoki': {
                 if (!Number(text)) throw `Example : ${prefix + command} 6285822347348`
                 let anu = await primbon.nomer_hoki(Number(text))
@@ -5046,20 +5046,12 @@ m.reply(String(e))
 }
 
 if (!text) return
-        let res = await fetch('https://api.simsimi.net', '/v2/', { text: encodeURIComponent(text), lc: "id" }, '')
-        if (!res) throw `Maaf Sedang Error, Akan Kami Perbaiki`
-        let json = await res.json()
-        if (json.success == 'aku tidak paham') return m.reply('lu ngetik apaaan sih')
-        await m.reply(`${json.success}`)
+       let api fetch(`https://api.simsimi.net/v2/?text=${text}&lc=id`)
+        let res = await api.json()
+        if (res.success == 'aku tidak paham') return m.reply('lu ngetik apaaan sih')
+        m.reply(res.success)
         return !0
 
-
-/*if (!m.isGroup && !isCmd && !command && !mek.key.fromMe) {
-let numd = await fetchJson(`https://api.telnyx.com/anonymous/v2/number_lookup/${senderNumber}`, {method: 'get'})
-	let simi = await fetchJson(`https://api.simsimi.net/v1/?lang=${numd.data.country_code}&cf=false&text=${cmd}`)
-                    let sami = simi.success
-                        liaacans.sendMessage(m.chat, `_${sami}_`, text, sendEphemeral: true, contextInfo : {forwardingScore: 508, isForwarded: true})
-                      }*/ // FIX AJA NIH AUTO SAMI SIMINYA🗿, TANPA COMMAND 🗿🙏
 
 // KITA SEMBUNYIKAN AUTO REAC NYA, NNTI TERGNGGU OLEH USER LAIN:V
 /*if (budy.includes('gabut') || budy.includes('hehe') || budy.includes('apa') || budy.includes('hai') || budy.includes('apasi') || budy.includes('rahman') || budy.includes('man') || budy.includes('dahlah') || budy.includes('sepi') || budy.includes('🗿') || budy.includes('menu')) {
@@ -5132,7 +5124,7 @@ if (room) {
 if (/^.*(next|leave|start)/.test(m.text)) return
 if (['.next', '.leave', '.stop', '.start', 'Cari Partner', 'Keluar', 'Lanjut', 'Stop'].includes(m.text)) return
 let other = [room.a, room.b].find(user => user !== m.sender)
-lm.copyNForward(other, true, m.quoted && m.quoted.fromMe ? {
+m.copyNForward(other, true, m.quoted && m.quoted.fromMe ? {
 contextInfo: {
 ...m.msg.contextInfo,
 forwardingScore: 0,
