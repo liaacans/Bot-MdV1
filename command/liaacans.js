@@ -426,7 +426,7 @@ message: {
 }
 }
 }
-const kafloc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {locationMessage: {name: `${global.fake}`,jpegThumbnail: thumb}}}
+const kafloc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {locationMessage: {name: `${global.fake}`,jpegThumbnail: `${global.thumb}`}}}
 const lep = {
 key: {
 fromMe: false, 
@@ -1124,7 +1124,6 @@ await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubuserconten
             break
 case 'sistemmenu': {
 if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ buttonId: 'Daftar', buttonText: { displayText: 'DAFTAR' }, type: 1 }], `「 REGISTRASI 」\n\nSilahkan Daftar Terlebih Dahulu\nTekan button dibawah atau ketik #daftar`, creator, m)
-if (!isPremium) throw mess.prem
 await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubusercontent.com/liaacans/liaacans/main/img/sistemmenu.jpg' }, caption: `${sistemMenu(prefix)}` }, { quoted: kafloc })
             }
            break
@@ -2266,7 +2265,7 @@ let vcard = `BEGIN:VCARD\n` // metadata of the contact card
 + `TEL;type=CELL;type=VOICE;waid=${owner}:${owner}\n` // WhatsApp ID + phone number
 + `END:VCARD`
 let msg = await liaacans.sendMessage(m.chat, { contacts: { displayName: `${owner}`, contacts: [{ vcard }] } }, { quoted: fkontak })
-await liaacans.sendMessage(m.chat, { text: `JANGAN SPAM NOMOR OWNERKU!!` })
+await liaacans.sendMessage(m.chat, { text: `JANGAN SPAM NOMOR OWNERKU!!` }, { quoted: kafloc })
 }
 break
 case 'toimage': case 'toimg': {
@@ -3746,7 +3745,7 @@ if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ b
 case 'shortlink': { // by rahman (gw)
 if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ buttonId: 'Daftar', buttonText: { displayText: 'DAFTAR' }, type: 1 }], `「 REGISTRASI 」\n\nSilahkan Daftar Terlebih Dahulu\nTekan button dibawah atau ketik #daftar`, creator, m)
             	if (!text) throw 'Masukkan Query Link!'
-                let anu = await fetchJson(`https://shortlink-url.xyz/api-create.php?url=${text}`)
+                let anu = await fetchJson(`https://link2u.mwebs.id/q/?u=${text}`)
                 liaacans.sendMessage(m.chat,{ text: anu.data + `\nNih Bro`}, { quoted: fdoc })
             }
             break
@@ -4989,38 +4988,6 @@ let buttons = [{ buttonId: 'menu', buttonText: { displayText: 'Menu' }, type: 1 
 liaacans.sendButtonText(m.chat, buttons, ucslm, creator)
 }
 break
-case 'hai': {
-hai = `Hai Kak ${pushname}
-Ada Yang Kami Bisa Bantu?
-Kalau Bingung Ketik #menu Atau Klik Button Ya!`
-let buttons = [{ buttonId: 'menu', buttonText: { displayText: 'Menu' }, type: 1 }]
-liaacans.sendButtonText(m.chat, buttons, hai, creator)
-}
-break
-case 'hi': {
-hai = `Hi Kak ${pushname}
-Ada Yang Kami Bisa Bantu?
-Kalau Bingung Ketik #menu Atau Klik Button Ya!`
-let buttons = [{ buttonId: 'menu', buttonText: { displayText: 'Menu' }, type: 1 }]
-liaacans.sendButtonText(m.chat, buttons, hai, creator)
-}
-break
-case 'hii': {
-hai = `Hii Kak ${pushname}
-Ada Yang Kami Bisa Bantu?
-Kalau Bingung Ketik #menu Atau Klik Button Ya!`
-let buttons = [{ buttonId: 'menu', buttonText: { displayText: 'Menu' }, type: 1 }]
-liaacans.sendButtonText(m.chat, buttons, hai, creator)
-}
-break
-case 'halo':{
-halo = `Halo Kak ${pushname}
-Ada Yang Kami Bisa Bantu?
-Kalau Bingung Ketik #menu Atau Klik Button Ya!`
-let buttons = [{ buttonId: 'menu', buttonText: { displayText: 'Menu' }, type: 1 }]
-liaacans.sendButtonText(m.chat, buttons, halo, creator)
-}
-break
 case 'sayang':{
 m.reply(`apa sayang akuu🥰`)
 }
@@ -5045,13 +5012,12 @@ m.reply(String(e))
 }
 }
 
-if (!text) return
+// JIKA ADA CHAT, INI OTOMATIS DI BALASNYA JIKA KLIAN CHAT KAYA DOI/TMEN🗿🙏
+if (!text) return 
        let api = await fetch(`https://api.simsimi.net/v2/?text=${text}&lc=id`)
         let res = await api.json()
-        if (res.success == 'aku tidak paham') return m.reply('lu ngetik apaaan sih')
         m.reply(res.success)
-        return !0
-
+// END AUTO SIMI SIMI🗿 NANTI CREATOR AKAN NAMBAH ON/OFF NYA BIAR GA OTOMATIS LAGI🗿
 
 // KITA SEMBUNYIKAN AUTO REAC NYA, NNTI TERGNGGU OLEH USER LAIN:V
 /*if (budy.includes('gabut') || budy.includes('hehe') || budy.includes('apa') || budy.includes('hai') || budy.includes('apasi') || budy.includes('rahman') || budy.includes('man') || budy.includes('dahlah') || budy.includes('sepi') || budy.includes('🗿') || budy.includes('menu')) {
