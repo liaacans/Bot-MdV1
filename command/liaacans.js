@@ -3596,7 +3596,7 @@ case 'ssweb-hp':{
 if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ buttonId: 'Daftar', buttonText: { displayText: 'DAFTAR' }, type: 1 }], `「 REGISTRASI 」\n\nSilahkan Daftar Terlebih Dahulu\nTekan button dibawah atau ketik #daftar`, creator, m)
 if (!text) return m.reply(`Masukan parameter url\n*Contoh:*\n${prefix+command} https://google.com`)
 m.reply(mess.wait)
-let anu =`https://shot.screenshotapi.net/screenshot?&url=${text}`
+let anu =`https://sh.xznsenpai.xyz/api/ssweb?type=dekstop&url=${text}`
 liaacans.sendMessage(m.chat, { image: {url: anu}, caption: 'Done!'}, {quoted:m})
 }
 break
