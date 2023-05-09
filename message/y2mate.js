@@ -7,8 +7,11 @@ function post(url, formdata) {
     method: 'POST',
     headers: {
       accept: "*/*",
-      'accept-language': "en-US,en;q=0.9",
-      'content-type': "application/x-www-form-urlencoded; charset=UTF-8"
+      "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+      "User-Agent": UA,
+	   origin: "https://yt1s.com",
+	   referer: "https://yt1s.com",
+	   "accept-language": "id,en-US;q=0.9,en;q=0.8,es;q=0.7,ms;q=0.6",
     },
     body: new URLSearchParams(Object.entries(formdata))
   })
@@ -27,7 +30,7 @@ const ytIdRegex = /(?:youtube\.com\/\S*(?:(?:\/e(?:mbed))?\/|watch\?(?:\S*?&?v\=
 async function yt(url, quality, type, bitrate, server = 'en68') {
   let ytId = ytIdRegex.exec(url)
   url = 'https://youtu.be/' + ytId[1]
-  let res = await post(`https://www.y2mate.com/mates/${server}/analyze/ajax`, {
+  let res = await post(`https://yt1s.com/api/ajaxConvert/convert`, {
     url,
     q_auto: 0,
     ajax: 1
@@ -53,7 +56,7 @@ async function yt(url, quality, type, bitrate, server = 'en68') {
   let id = /var k__id = "(.*?)"/.exec(document.body.innerHTML) || ['', '']
   let thumb = document.querySelector('img').src
   let title = document.querySelector('b').innerHTML
-  let res2 = await post(`https://www.y2mate.com/mates/${server}/convert`, {
+  let res2 = await post(`https://yt1s.com/api/ajaxConvert/convert`, {
     type: 'youtube',
     _id: id[1],
     v_id: ytId[1],
