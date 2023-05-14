@@ -35,7 +35,7 @@ var { mediafireDl } = require('../message/mediafire.js')
 
 //---------------------------[ Waktu Asia & Time ]--------------------------------//
 const rahmxtime = moment.tz('Asia/Jakarta').format('HH:mm:ss')
-const jam = moment.tz('asia/jakarta').format('HH:mm:ss')
+const jam = moment.tz('Asia/Jakarta').format('HH:mm:ss')
 const hariini = moment.tz('Asia/Jakarta').format('dddd, DD MMMM YYYY')
 const wib = moment.tz('Asia/Jakarta').format('HH : mm : ss')
 const wita = moment.tz('Asia/Makassar').format('HH : mm : ss')
@@ -145,14 +145,12 @@ if (!('antiviewonce' in chats)) chats.antiviewonce = false
 if (!('antilinkig' in chats)) chats.antilinkig = false
 if (!('antivirtex' in chats)) chats.antivirtex = false
 if (!('antibadword' in chats)) chats.antibadword = false
-if (!('autosimi' in chats)) chats.autosimi = true
 } else global.db.data.chats[m.chat] = {
 mute: false,
 antilink: false,
 antilinkig: false,
 antiwame: false,
 antivirtex: false,
-autosimi: true,
 antibadword: false,
 antiviewonce: false
 }
@@ -330,13 +328,6 @@ await sleep(15000)
 liaacans.sendMessage(m.chat, { delete: m.key })
 }
 }
-
-if (db.data.chats[m.chat].autosimi) {
-if (!text) return
-       let api = await fetch(`https://api.simsimi.net/v2/?text=${text}&lc=id`)
-        let res = await api.json()
-        m.reply(res.success)
-    }
 
 if (db.data.chats[m.chat].antiviewonce) {
 		if (m.isGroup && m.mtype == 'viewOnceMessage') {
@@ -945,7 +936,7 @@ var verify_teks =`───「 𝗧𝗘𝗥𝗩𝗘𝗥𝗜𝗙𝗜𝗞𝗔𝗦�
 silahkan ketik #rules
 untuk membaca rules bot
 `
-await liaacans.sendMessage(m.chat, { image: { url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSV9oY3gT203Ee9YyNcj--APJouMxGnOkCj_A&usqp=CAU' }, caption: `${verify_teks}` }, { quoted: fkontak }, [m.sender])
+await liaacans.sendMessage(m.chat, { image: { url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSV9oY3gT203Ee9YyNcj--APJouMxGnOkCj_A&usqp=CAU' }, caption: `${verify_teks}` }, { quoted: fgclink }, [m.sender])
 var inimenu = await fs.readFileSync('./json/audio/daftardirianda.mp3')
 liaacans.sendMessage(m.chat, {audio:inimenu, mimetype:'audio/mpeg', ptt:true}, {quoted: fvn})
 }
@@ -977,7 +968,7 @@ var menu_teks = `Hai Kak ${pushname}
 └─❖
 
 ┌─❖ ⌜ 𝙄𝙉𝘿𝙊𝙉𝙀𝙎𝙄𝘼𝙉 𝙏𝙄𝙈𝙀 ⌟
-├ *Hari Ini* : ${hariini}
+├ *Hari Ini* : ${wib}
 ├ *Wib* : ${wib} WIB
 ├ *Wita* : ${wita} WITA
 ├ *Wit* : ${wit} WIT
@@ -1465,20 +1456,6 @@ db.data.chats[m.chat].antivirtex = false
 m.reply(`antivirtex Tidak Aktif !`)
 } else {
 m.reply(`pilih off atau on\ncontoh : ${prefix}antivirtex on`)
-}
-}
-break
-case 'autosimi': {
-if (args[0] === "on") {
-if (db.data.chats[m.chat].autosimi) return m.reply(`Sudah Aktif Sebelumnya`)
-db.data.chats[m.chat].autosimi = true
-m.reply(`autosimi simi Aktif !`)
-} else if (args[0] === "off") {
-if (!db.data.chats[m.chat].autosimi) return m.reply(`Sudah Tidak Aktif Sebelumnya`)
-db.data.chats[m.chat].autosimi = false
-m.reply(`auto simi simi Tidak Aktif !`)
-} else {
-m.reply(`pilih off atau on\ncontoh : ${prefix}autosimi on`)
 }
 }
 break
@@ -5100,6 +5077,16 @@ participant: other
 }
 return !0
 }
+
+// AUTO SIMI SIMI GES, KLO MW TANPA BERBICARA/NGETIK, MATIIN AJAH:V, CARANYA? /*INI*/ KAYA GITU YA!
+
+if (!text) return
+       let api = await fetch(`https://api.simsimi.net/v2/?text=${text}&lc=id`)
+        let res = await api.json()
+        m.reply(res.success)
+      
+
+// END SIMI SIMI:V
 			
 if (isCmd && budy.toLowerCase() != undefined) {
 if (m.chat.endsWith('broadcast')) return
