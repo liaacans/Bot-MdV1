@@ -34,12 +34,14 @@ var { addBadword, delBadword, isKasar, addCountKasar, isCountKasar, delCountKasa
 var { mediafireDl } = require('../message/mediafire.js')
 
 //---------------------------[ Waktu Asia & Time ]--------------------------------//
-const time = moment.tz('Asia/Jakarta').format("HH:mm:ss")
-const jam = moment().tz('Asia/Jakarta').format('HH:mm:ss')
+const jam = moment.tz('asia/jakarta').format('HH:mm:ss')
+const dt = moment(Date.now()).tz('Asia/Jakarta').locale('id').format('a')
 const hariini = moment.tz('Asia/Jakarta').format('dddd, DD MMMM YYYY')
-const barat = moment.tz('Asia/Jakarta').format('HH:mm:ss')
-const tengah = moment.tz('Asia/Makassar').format('HH:mm:ss')
-const timur = moment.tz('Asia/Jayapura').format('HH:mm:ss')
+const ucapanWaktu = "Selamat "+dt.charAt(0).toUpperCase() + dt.slice(1)
+const wib = moment.tz('Asia/Jakarta').format('HH : mm : ss')
+const wita = moment.tz('Asia/Makassar').format('HH : mm : ss')
+const wit = moment.tz('Asia/Jayapura').format('HH : mm : ss')
+const tanggal = moment.tz('Asia/Jakarta').format('DD/MM/YY')  
 
 //TIME
 const time2 = moment.tz('Asia/Jakarta').format('HH:mm:ss')  
@@ -145,12 +147,14 @@ if (!('antiviewonce' in chats)) chats.antiviewonce = false
 if (!('antilinkig' in chats)) chats.antilinkig = false
 if (!('antivirtex' in chats)) chats.antivirtex = false
 if (!('antibadword' in chats)) chats.antibadword = false
+if (!('autosimi' in chats)) chats.autosimi = true
 } else global.db.data.chats[m.chat] = {
 mute: false,
 antilink: false,
 antilinkig: false,
 antiwame: false,
 antivirtex: false,
+autosimi: true,
 antibadword: false,
 antiviewonce: false
 }
@@ -328,6 +332,13 @@ await sleep(15000)
 liaacans.sendMessage(m.chat, { delete: m.key })
 }
 }
+
+if (db.data.chats[m.chat].autosimi) {
+if (!text) return
+       let api = await fetch(`https://api.simsimi.net/v2/?text=${text}&lc=id`)
+        let res = await api.json()
+        m.reply(res.success)
+    }
 
 if (db.data.chats[m.chat].antiviewonce) {
 		if (m.isGroup && m.mtype == 'viewOnceMessage') {
@@ -949,7 +960,6 @@ await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubuserconten
          break
 case 'menu': case 'help': case 'command': {
 if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ buttonId: 'Daftar', buttonText: { displayText: 'DAFTAR' }, type: 1 }], `「 REGISTRASI 」\n\nSilahkan Daftar Terlebih Dahulu\nTekan button dibawah atau ketik #daftar`, creator, m)
-let kafloc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {locationMessage: {name: `${global.fake}`,jpegThumbnail: thumb}}}
 var menu_teks = `Hai Kak ${pushname}
 ˗ˏˋ˖🐰*${ucapanWaktu}* ָ ⋆ 𖥻
 ▬▭▬▭▬▭▬▭▬▭▬▭▬ 
@@ -970,9 +980,9 @@ var menu_teks = `Hai Kak ${pushname}
 
 ┌─❖ ⌜ 𝙄𝙉𝘿𝙊𝙉𝙀𝙎𝙄𝘼𝙉 𝙏𝙄𝙈𝙀 ⌟
 ├ *Hari Ini* : ${hariini}
-├ *Wib* : ${barat} WIB
-├ *Wita* : ${tengah} WITA
-├ *Wit* : ${timur} WIT
+├ *Wib* : ${wib} WIB
+├ *Wita* : ${wita} WITA
+├ *Wit* : ${wit} WIT
 └─❖
 
 ╔━❖ ⌜ MENU ADA DISINI ⌟
@@ -1037,82 +1047,69 @@ await liaacans.sendMessage(m.chat, { image: { url: 'https://d.top4top.io/p_2677h
 break
 case 'funmenu': {
 if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ buttonId: 'Daftar', buttonText: { displayText: 'DAFTAR' }, type: 1 }], `「 REGISTRASI 」\n\nSilahkan Daftar Terlebih Dahulu\nTekan button dibawah atau ketik #daftar`, creator, m)
-let kafloc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {locationMessage: {name: `${global.fake}`,jpegThumbnail: thumb}}}
 await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubusercontent.com/liaacans/liaacans/main/img/funmenu.jpg' }, caption: `${funMenu(prefix)}` }, { quoted: kafloc })
             }
             break
 case 'panelmenu': {
 if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ buttonId: 'Daftar', buttonText: { displayText: 'DAFTAR' }, type: 1 }], `「 REGISTRASI 」\n\nSilahkan Daftar Terlebih Dahulu\nTekan button dibawah atau ketik #daftar`, creator, m)
-let kafloc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {locationMessage: {name: `${global.fake}`,jpegThumbnail: thumb}}}
 await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubusercontent.com/liaacans/liaacans/main/img/panelmenu.jpg' }, caption: `${panelMenu(prefix)}` }, { quoted: kafloc })
             }
             break
 case 'groupmenu': {
 if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ buttonId: 'Daftar', buttonText: { displayText: 'DAFTAR' }, type: 1 }], `「 REGISTRASI 」\n\nSilahkan Daftar Terlebih Dahulu\nTekan button dibawah atau ketik #daftar`, creator, m)
-let kafloc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {locationMessage: {name: `${global.fake}`,jpegThumbnail: thumb}}}
 await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubusercontent.com/liaacans/liaacans/main/img/groupmenu.jpg' }, caption: `${gcMenu(prefix)}` }, { quoted: kafloc })
             }
             break
 case 'convertmenu': {
 if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ buttonId: 'Daftar', buttonText: { displayText: 'DAFTAR' }, type: 1 }], `「 REGISTRASI 」\n\nSilahkan Daftar Terlebih Dahulu\nTekan button dibawah atau ketik #daftar`, creator, m)
-let kafloc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {locationMessage: {name: `${global.fake}`,jpegThumbnail: thumb}}}
 await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubusercontent.com/liaacans/liaacans/main/img/convertmenu.jpg' }, caption: `${convertMenu(prefix)}` }, { quoted: kafloc })
             }
             break
 case 'randommenu': {
 if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ buttonId: 'Daftar', buttonText: { displayText: 'DAFTAR' }, type: 1 }], `「 REGISTRASI 」\n\nSilahkan Daftar Terlebih Dahulu\nTekan button dibawah atau ketik #daftar`, creator, m)
-let kafloc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {locationMessage: {name: `${global.fake}`,jpegThumbnail: thumb}}}
-await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubusercontent.com/liaacans/liaacans/main/img/randommenu' }, caption: `${randomMenu(prefix)}` }, { quoted: kafloc })
+await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubusercontent.com/liaacans/liaacans/main/img/randommenu.jpg' }, caption: `${randomMenu(prefix)}` }, { quoted: kafloc })
             }
             break
 case 'downloadmenu': {
 if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ buttonId: 'Daftar', buttonText: { displayText: 'DAFTAR' }, type: 1 }], `「 REGISTRASI 」\n\nSilahkan Daftar Terlebih Dahulu\nTekan button dibawah atau ketik #daftar`, creator, m)
 if(!isPremium)throw`Fitur Ini Khusus Untuk Premium`
-let kafloc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {locationMessage: {name: `${global.fake}`,jpegThumbnail: thumb}}}
             await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubusercontent.com/liaacans/liaacans/main/img/downloadmenu.jpg' }, caption: `${downloadMenu(prefix)}` }, { quoted: kafloc })
             }
             break
 case 'ownermenu': {
 if(!isCreator)throw`Fitur Ini Khusus Untuk Owner`
 if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ buttonId: 'Daftar', buttonText: { displayText: 'DAFTAR' }, type: 1 }], `「 REGISTRASI 」\n\nSilahkan Daftar Terlebih Dahulu\nTekan button dibawah atau ketik #daftar`, creator, m)
-let kafloc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {locationMessage: {name: `${global.fake}`,jpegThumbnail: thumb}}}
             await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubusercontent.com/liaacans/liaacans/main/img/ownermenu.jpg' }, caption: `${ownerMenu(prefix)}` }, { quoted: kafloc })
             }
             break
 case 'anonymousmenu': {
 if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ buttonId: 'Daftar', buttonText: { displayText: 'DAFTAR' }, type: 1 }], `「 REGISTRASI 」\n\nSilahkan Daftar Terlebih Dahulu\nTekan button dibawah atau ketik #daftar`, creator, m)
-let kafloc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {locationMessage: {name: `${global.fake}`,jpegThumbnail: thumb}}}
 await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubusercontent.com/liaacans/liaacans/main/img/anonymousmenu.jpg' }, caption: `${anonymousMenu(prefix)}` }, { quoted: kafloc })
             }
             break
 case 'databasemenu': {
 if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ buttonId: 'Daftar', buttonText: { displayText: 'DAFTAR' }, type: 1 }], `「 REGISTRASI 」\n\nSilahkan Daftar Terlebih Dahulu\nTekan button dibawah atau ketik #daftar`, creator, m)
-let kafloc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {locationMessage: {name: `${global.fake}`,jpegThumbnail: thumb}}}
 await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubusercontent.com/liaacans/liaacans/main/img/databasemenu.jpg' }, caption: `${databaseMenu(prefix)}` }, { quoted: kafloc })
             }
             break
 case 'islamicmenu': {
 if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ buttonId: 'Daftar', buttonText: { displayText: 'DAFTAR' }, type: 1 }], `「 REGISTRASI 」\n\nSilahkan Daftar Terlebih Dahulu\nTekan button dibawah atau ketik #daftar`, creator, m)
-let kafloc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {locationMessage: {name: `${global.fake}`,jpegThumbnail: thumb}}}
 await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubusercontent.com/liaacans/liaacans/main/img/islamicmenu.jpg' }, caption: `${islamicMenu(prefix)}` }, { quoted: kafloc })
             }
             break
 case 'chargermenu': {
 if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ buttonId: 'Daftar', buttonText: { displayText: 'DAFTAR' }, type: 1 }], `「 REGISTRASI 」\n\nSilahkan Daftar Terlebih Dahulu\nTekan button dibawah atau ketik #daftar`, creator, m)
-let kafloc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {locationMessage: {name: `${global.fake}`,jpegThumbnail: thumb}}}
 await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubusercontent.com/liaacans/liaacans/main/img/chargermenu.jpg' }, caption: `${chargerMenu(prefix)}` }, { quoted: kafloc })
             }
             break
 case 'makermenu': {
 if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ buttonId: 'Daftar', buttonText: { displayText: 'DAFTAR' }, type: 1 }], `「 REGISTRASI 」\n\nSilahkan Daftar Terlebih Dahulu\nTekan button dibawah atau ketik #daftar`, creator, m)
-let kafloc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {locationMessage: {name: `${global.fake}`,jpegThumbnail: thumb}}}
 await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubusercontent.com/liaacans/liaacans/main/img/makermenu.jpg' }, caption: `${makerMenu(prefix)}` }, { quoted: kafloc })
             }
             break
 case 'bugmenu': {
 if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ buttonId: 'Daftar', buttonText: { displayText: 'DAFTAR' }, type: 1 }], `「 REGISTRASI 」\n\nSilahkan Daftar Terlebih Dahulu\nTekan button dibawah atau ketik #daftar`, creator, m)
 if (!isCreator) throw mess.owner
-let kafloc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {locationMessage: {name: `${global.fake}`,jpegThumbnail: thumb}}}
 await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubusercontent.com/liaacans/liaacans/main/img/bugmenu.jpg' }, caption: `${bugMenu(prefix)}` }, { quoted: kafloc })
             }
             break
@@ -1129,13 +1126,11 @@ await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubuserconten
            break
 case 'donasi': {
 if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ buttonId: 'Daftar', buttonText: { displayText: 'DAFTAR' }, type: 1 }], `「 REGISTRASI 」\n\nSilahkan Daftar Terlebih Dahulu\nTekan button dibawah atau ketik #daftar`, creator, m)
-let kafloc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {locationMessage: {name: `${global.fake}`,jpegThumbnail: thumb}}}
 await liaacans.sendMessage(m.chat, { image: { url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEWa7AX9wcJcJkQ52mdHZ-gYlwvB9S2dA00QiBM6KCnUicwj3U5gTpxag&s=10' }, caption: `${donasiMenu()}` }, { quoted: kafloc })
 }
 break
 case 'mainmenu': {
 if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ buttonId: 'Daftar', buttonText: { displayText: 'DAFTAR' }, type: 1 }], `「 REGISTRASI 」\n\nSilahkan Daftar Terlebih Dahulu\nTekan button dibawah atau ketik #daftar`, creator, m)
-let kafloc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {locationMessage: {name: `${global.fake}`,jpegThumbnail: thumb}}}
 await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubusercontent.com/liaacans/liaacans/main/img/mainmenu.jpg' }, caption: `${mainMenu(prefix)}` }, { quoted: kafloc })
             }
 break
@@ -1146,7 +1141,6 @@ await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubuserconten
             break
 case 'sc': case 'script': case 'sourcecode': {
 if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ buttonId: 'Daftar', buttonText: { displayText: 'DAFTAR' }, type: 1 }], `「 REGISTRASI 」\n\nSilahkan Daftar Terlebih Dahulu\nTekan button dibawah atau ketik #daftar`, creator, m)
-let kafloc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {locationMessage: {name: `${global.fake}`,jpegThumbnail: thumb}}}
 source =`Mau Beli Sc Bot LiaaCans?\nCuman 50k Full All Fitur\n\nChat Whatsapp Owner\nhttps://wa.me/${global.nomorsc}`
 await liaacans.sendMessage(m.chat, { image: { url: 'https://d.top4top.io/p_2677hm2mw0.jpg' }, caption: `${source}` }, { quoted: kafloc })
             }
@@ -1473,6 +1467,20 @@ db.data.chats[m.chat].antivirtex = false
 m.reply(`antivirtex Tidak Aktif !`)
 } else {
 m.reply(`pilih off atau on\ncontoh : ${prefix}antivirtex on`)
+}
+}
+break
+case 'autosimi': {
+if (args[0] === "on") {
+if (db.data.chats[m.chat].autosimi) return m.reply(`Sudah Aktif Sebelumnya`)
+db.data.chats[m.chat].autosimi = true
+m.reply(`autosimi simi Aktif !`)
+} else if (args[0] === "off") {
+if (!db.data.chats[m.chat].autosimi) return m.reply(`Sudah Tidak Aktif Sebelumnya`)
+db.data.chats[m.chat].autosimi = false
+m.reply(`auto simi simi Tidak Aktif !`)
+} else {
+m.reply(`pilih off atau on\ncontoh : ${prefix}autosimi on`)
 }
 }
 break
@@ -2265,7 +2273,7 @@ let vcard = `BEGIN:VCARD\n` // metadata of the contact card
 + `TEL;type=CELL;type=VOICE;waid=${owner}:${owner}\n` // WhatsApp ID + phone number
 + `END:VCARD`
 let msg = await liaacans.sendMessage(m.chat, { contacts: { displayName: `${owner}`, contacts: [{ vcard }] } }, { quoted: fkontak })
-await liaacans.sendMessage(m.chat, { text: `JANGAN SPAM NOMOR OWNERKU!!` }, { quoted: kafloc })
+await liaacans.sendMessage(m.chat, { text: `JANGAN SPAM NOMOR OWNERKU!!` }, { quoted: floc })
 }
 break
 case 'toimage': case 'toimg': {
@@ -5011,13 +5019,6 @@ m.reply(util.format(eval(`(async () => { return ${budy.slice(3)} })()`)))
 m.reply(String(e))
 }
 }
-
-// JIKA ADA CHAT, INI OTOMATIS DI BALASNYA JIKA KLIAN CHAT KAYA DOI/TMEN🗿🙏
-if (!text) return 
-       let api = await fetch(`https://api.simsimi.net/v2/?text=${text}&lc=id`)
-        let res = await api.json()
-        m.reply(res.success)
-// END AUTO SIMI SIMI🗿 NANTI CREATOR AKAN NAMBAH ON/OFF NYA BIAR GA OTOMATIS LAGI🗿
 
 // KITA SEMBUNYIKAN AUTO REAC NYA, NNTI TERGNGGU OLEH USER LAIN:V
 /*if (budy.includes('gabut') || budy.includes('hehe') || budy.includes('apa') || budy.includes('hai') || budy.includes('apasi') || budy.includes('rahman') || budy.includes('man') || budy.includes('dahlah') || budy.includes('sepi') || budy.includes('🗿') || budy.includes('menu')) {
