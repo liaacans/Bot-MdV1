@@ -41,7 +41,6 @@ const ucapanWaktu = "Selamat "+dt.charAt(0).toUpperCase() + dt.slice(1)
 const wib = moment.tz('Asia/Jakarta').format('HH : mm : ss')
 const wita = moment.tz('Asia/Makassar').format('HH : mm : ss')
 const wit = moment.tz('Asia/Jayapura').format('HH : mm : ss')
-const tanggal = moment.tz('Asia/Jakarta').format('DD/MM/YY')  
 
 //TIME
 const time2 = moment.tz('Asia/Jakarta').format('HH:mm:ss')  
