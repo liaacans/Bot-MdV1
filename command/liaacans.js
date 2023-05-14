@@ -34,8 +34,8 @@ var { addBadword, delBadword, isKasar, addCountKasar, isCountKasar, delCountKasa
 var { mediafireDl } = require('../message/mediafire.js')
 
 //---------------------------[ Waktu Asia & Time ]--------------------------------//
+const rahmxtime = moment.tz('Asia/Jakarta').format('HH:mm:ss')
 const jam = moment.tz('asia/jakarta').format('HH:mm:ss')
-const dt = moment(Date.now()).tz('Asia/Jakarta').locale('id').format('a')
 const hariini = moment.tz('Asia/Jakarta').format('dddd, DD MMMM YYYY')
 const wib = moment.tz('Asia/Jakarta').format('HH : mm : ss')
 const wita = moment.tz('Asia/Makassar').format('HH : mm : ss')
@@ -920,7 +920,7 @@ if (isCmd && !itsMe) antiSpam.addFilter(m.chat)*/
 
 //Push command To Console
 if (command) {
-console.log('\x1b[1;31m~\x1b[1;37m>', '[\x1b[1;32m LIAACANS \x1b[1;37m]', jam, chalk.green(budy || m.mtype), 'Dari', chalk.blue(pushname), 'Di', chalk.yellow(groupName ? groupName : 'Private Chat' ), 'args :', chalk.white(args.length))
+console.log('\x1b[1;31m~\x1b[1;37m>', '[\x1b[1;32m LIAACANS \x1b[1;37m]', rahmxtime, chalk.green(budy || m.mtype), 'Dari', chalk.blue(pushname), 'Di', chalk.yellow(groupName ? groupName : 'Private Chat' ), 'args :', chalk.white(args.length))
 }
 //━━━━━━━━━━━━━━━[ FITURNYA ]━━━━━━━━━━━━━━━━━//
 
