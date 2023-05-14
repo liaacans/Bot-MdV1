@@ -377,7 +377,7 @@ return
 const ftroli ={key: {fromMe: false,"participant":"0@s.whatsapp.net", "remoteJid": "status@broadcast"}, "message": {orderMessage: {itemCount: 2022,status: 200, jpegThumbnail: thumb, surface: 200, message: '©Created By LiaaCans BOT', orderTitle: 'memek', sellerJid: '0@s.whatsapp.net'}}, contextInfo: {"forwardingScore":999,"isForwarded":true},sendEphemeral: true}
 		const fdoc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {documentMessage: {title: '© Created By RahmXBot',jpegThumbnail: thumb}}}
 		const fvn = {key: {participant: `0@s.whatsapp.net`, ...(m.chat ? { remoteJid: "status@broadcast" } : {})},message: { "audioMessage": {"mimetype":"audio/ogg; codecs=opus","seconds":359996400,"ptt": "true"}} } 
-		const fgif = {key: {participant: `0@s.whatsapp.net`, ...(m.chat ? { remoteJid: "status@broadcast" } : {})},message: {"videoMessage": { "title": fake, "h": `Hmm`,'seconds': '359996400', 'gifPlayback': 'true', 'caption': fake, 'jpegThumbnail': thumb}}}
+		const fgif = {key: {participant: `0@s.whatsapp.net`, ...(m.chat ? { remoteJid: "status@broadcast" } : {})},message: {"videoMessage": { "title": global.fake, "h": `Hmm`,'seconds': '359996400', 'gifPlayback': 'true', 'caption': global.fake, 'jpegThumbnail': global.thumb}}}
 		const fgclink = {key: {participant: "0@s.whatsapp.net","remoteJid": "0@s.whatsapp.net"},"message": {"groupInviteMessage": {"groupJid": "6288213840883-1616169743@g.us","inviteCode": "m","groupName": "YT Aulia Rahman Official", "caption": global.fake, 'jpegThumbnail': global.thumb}}}
 		const fvideo = {key: { fromMe: false,participant: `0@s.whatsapp.net`, ...(m.chat ? { remoteJid: "status@broadcast" } : {}) },message: { "videoMessage": { "title": global.fake, "h": `Hmm`,'seconds': '359996400', 'caption': global.fake, 'jpegThumbnail': global.thumb}}}
 		const floc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {locationMessage: {name: global.fake ,jpegThumbnail: thumb}}}
@@ -936,7 +936,7 @@ var verify_teks =`───「 𝗧𝗘𝗥𝗩𝗘𝗥𝗜𝗙𝗜𝗞𝗔𝗦�
 silahkan ketik #rules
 untuk membaca rules bot
 `
-await liaacans.sendMessage(m.chat, { image: { url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSV9oY3gT203Ee9YyNcj--APJouMxGnOkCj_A&usqp=CAU' }, caption: `${verify_teks}` }, { quoted: fgclink }, [m.sender])
+await liaacans.sendMessage(m.chat, { image: { url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSV9oY3gT203Ee9YyNcj--APJouMxGnOkCj_A&usqp=CAU' }, caption: `${verify_teks}` }, { quoted: ftrolii }, [m.sender])
 var inimenu = await fs.readFileSync('./json/audio/daftardirianda.mp3')
 liaacans.sendMessage(m.chat, {audio:inimenu, mimetype:'audio/mpeg', ptt:true}, {quoted: fvn})
 }
@@ -944,7 +944,7 @@ break
 case 'allmenu': {
 if (cekUser("id", m.sender) == null) return liaacans.sendButtonText(m.chat, [{ buttonId: 'Daftar', buttonText: { displayText: 'DAFTAR' }, type: 1 }], `「 REGISTRASI 」\n\nSilahkan Daftar Terlebih Dahulu\nTekan button dibawah atau ketik #daftar`, creator, m)
 let kafloc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {locationMessage: {name: `BOT TELAH ONLINE : ${runtime(process.uptime())}`,jpegThumbnail: thumb}}}
-await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubusercontent.com/liaacans/liaacans/main/img/allmenu.jpg' }, caption: `${menu(prefix, pushname, isPremium, ucapanWaktu, hariini, barat, tengah, timur)}` }, { quoted: kafloc })
+await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubusercontent.com/liaacans/liaacans/main/img/allmenu.jpg' }, caption: `${menu(prefix, pushname, isPremium, ucapanWaktu, wib, wita, wit)}` }, { quoted: fgif })
             }
          break
 case 'menu': case 'help': case 'command': {
@@ -1031,7 +1031,7 @@ var menu_teks = `Hai Kak ${pushname}
 🐰 𖦆 ۫  *Nanda*
 🐰 𖦆 ۫  *Adiwajshing/Baileys*
 🐰 𖦆𒀭ᥫ᭡ *「 Bot Whatsapp Verified 」* Ꮺ ָ࣪ ۰ .🐰 𖦆`
-await liaacans.sendMessage(m.chat, { image: { url: 'https://d.top4top.io/p_2677hm2mw0.jpg' }, caption: `${menu_teks}` }, { quoted: kafloc })
+await liaacans.sendMessage(m.chat, { image: { url: 'https://d.top4top.io/p_2677hm2mw0.jpg' }, caption: `${menu_teks}` }, { quoted: fgclink })
 }
 break
 case 'funmenu': {
