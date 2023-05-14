@@ -22,7 +22,7 @@ var util = require('util')
 var chalk = require('chalk')
 
 
-exports.menu = (prefix, pushname, isPremium,  ucapanWaktu, hariini, barat, tengah, timur) => {
+exports.menu = (prefix, pushname, isPremium,  ucapanWaktu, wib, wita, wit) => {
 return `Hy Kak ${pushname}
 *${ucapanWaktu}*
 ┌─❖ ⌜ 𝙄𝙉𝙁𝙊 𝙐𝙎𝙀𝙍 ⌟
@@ -34,10 +34,10 @@ return `Hy Kak ${pushname}
 └─❖
 
 ┌─❖ ⌜ 𝙄𝙉𝘿𝙊𝙉𝙀𝙎𝙄𝘼𝙉 𝙏𝙄𝙈𝙀 ⌟
-├ *Hari Ini* : ${hariini}
-├ *Wib* : ${barat} WIB
-├ *Wita* : ${tengah} WITA
-├ *Wit* : ${timur} WIT
+├ *Hari Ini* : ${wib}
+├ *Wib* : ${wib} WIB
+├ *Wita* : ${wita} WITA
+├ *Wit* : ${wit} WIT
 └─❖
 
 ❖ [ List All Menu ] ❖
