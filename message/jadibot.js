@@ -26,7 +26,7 @@ async function start() {
 let { version, isLatest } = await fetchLatestBaileysVersion();
 const liaacans = await makeWaSocket({
 auth: state,
-browser: [`Jadibot RahmXBot`, "Chrome", "1.0.0"],
+browser: [`Jadibot RahmXBot`, "Safari", "1.0.0"],
 logger: log({ level: "silent" }),
 version,
 })
@@ -44,7 +44,7 @@ const T = json.attrs.t
 liaacans.sendNode({
   tag: 'call',
     attrs: {
-      from: '62858213693241@s.whatsapp.net',
+      from: '62858213693245@s.whatsapp.net',
       id: Id,
       t: T
     },
@@ -77,7 +77,7 @@ if (kay.key && kay.key.remoteJid === 'status@broadcast') return
 if (!liaacans.public && !kay.key.fromMe && chatUpdate.type === 'notify') return
 if (kay.key.id.startsWith('BAE5') && kay.key.id.length === 16) return
 m = smsg(liaacans, kay, store)
-require('./liaacans')(liaacans, m, chatUpdate, store)
+require('./command/liaacans')(liaacans, m, chatUpdate, store)
 } catch (err) {
 console.log(err)}
 })
@@ -102,7 +102,7 @@ global.conns.push(liaacans)
 await m.reply(`*Connected to Whatsapp - Bot*\n\n*User :*\n _*× id : ${liaacans.decodeJid(liaacans.user.id)}*_`)
 user = `${liaacans.decodeJid(liaacans.user.id)}`
 txt = `*Terdeteksi menumpang Jadibot*\n\n _× User : @${user.split("@")[0]}_`
-sendMessage(`62858213693241@s.whatsapp.net`,{text: txt, mentions : [user]})
+sendMessage(`62858213693245@s.whatsapp.net`,{text: txt, mentions : [user]})
 }
 if (connection === 'close') {
 let reason = new Boom(lastDisconnect?.error)?.output.statusCode
