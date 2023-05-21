@@ -838,7 +838,7 @@ return res
 }
 }
 
-function textImg = (teks) => {
+function textImg(teks) => {
             return liaacans.sendMessage(m.chat, teks, text, {quoted: m, thumbnail: fs.readFileSync(global.thumb)})
         }
 
