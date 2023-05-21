@@ -6,6 +6,7 @@ var { sizeFormatter } = require('human-readable')
 var maker = require('mumaker')
 var fetch = require('node-fetch')
 var jsdom = require('jsdom')
+var { yta, ytv } = require ('@bochilteam/scraper')
 var fs = require('fs')
 var { Primbon } = require('scrape-primbon')
 var primbon = new Primbon()
@@ -2385,7 +2386,8 @@ ${id}`)
 		}
 		break
 case 'ytmp4':{
-                if (!isPremium) return m.reply(mess.prem)
+m.reply(`maaf downloader ytmp4 masih dalam perbaikan`)
+               /* if (!isPremium) return m.reply(mess.prem)
                 if (!text) return m.reply(`Kirim perintah *${prefix}ytmp4 [linkYt]*`)
                 try {
                     m.reply(mess.wait)
@@ -2424,10 +2426,11 @@ _Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`
                     console.log(color('[Ytmp4]', 'red'), err)
                     m.reply(`Maaf Api Sedang Error/Rusak, Segeralah Diperbaiki`)
                 }
-            }
+            }*/
                 break
             case 'ytmp3':{
-                if (!isPremium) return m.reply(mess.prem)
+            m.reply(`Maaf Downloader Ytmp3 Masih Dalam Perbaikan `)
+               /* if (!isPremium) return m.reply(mess.prem)
                 if (!text) return m.reply(`Kirim perintah *${prefix}ytmp3 [linkYt]*`)
                 try {
                     m.reply(mess.wait)
@@ -2456,7 +2459,7 @@ _Untuk durasi lebih dari batas disajikan dalam bentuk link_`, m)
 \`\`\`▢ Size : ${filesizeF}\`\`\`
 
 _Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`
-                            liaacans.sendMessage(m.chat, thumb, captions, m)
+                            liaacans.sendMessage(m.chat, thumbnail, captions, m)
                             liaacans.sendMessage(m.chat, dl_link, '', m)
                         })
                     })
@@ -2465,7 +2468,7 @@ _Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`
                     console.log(color('[Ytmp3]', 'red'), err)
                     m.reply(`maaf api sedang error/rusak, segera diperbaiki`)
                 }
-            }
+            }*/
                 break
 case 'yts': case 'ytsearch': {
   if (!isPremium) throw mess.prem
