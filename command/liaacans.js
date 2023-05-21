@@ -356,7 +356,7 @@ if (db.data.chats[m.chat].antiviewonce) {
                     if (!isBotAdmins) return m.reply(`Ehh bot gak admin T_T`)
                  if (isAdmins) return m.reply(`Eh maaf kamu admin, kamu jangan kata kata kasar yaa!`)
                 if (isCreator) return m.reply(`Ehh maaf kamu owner bot ku`)
-                        m.reply(`*「 ANTI BADWORD 」*\n\nSepertinya kamu sudah berkata kasar lebih dari 5x, maaf kamu akan di kick`)
+                        m.reply(`*「 ANTI TOXIC 」*\n\nSepertinya kamu sudah berkata kasar lebih dari 5x, maaf kamu akan di kick`)
                         liaacans.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
                         delCountKasar(m.sender, senbadword)
                     } else {
@@ -911,8 +911,10 @@ if (isCmd && !itsMe) antiSpam.addFilter(m.chat)*/
 
 //Push command To Console
 if (command) {
-console.log('\x1b[1;31m~\x1b[1;37m>', '[\x1b[1;32m LIAACANS \x1b[1;37m]', rahmxtime, chalk.green(budy || m.mtype), 'Dari', chalk.blue(pushname), 'Di', chalk.yellow(groupName ? groupName : 'Private Chat' ), 'args :', chalk.white(args.length))
+console.log(chalk.red('[ RAHMXBOT ]'), chalk.red(moment(mek.messageTimestamp * 1000).format('DD/MM/YYYY HH:mm:ss'), chalk.green(budy || m.mtype), 'Dari', chalk.blue(pushname), 'Di', chalk.green(groupName ? groupName : 'Private Chat' ), 'args :', chalk.yellow(args.length))
 }
+	
+
 //━━━━━━━━━━━━━━━[ FITURNYA ]━━━━━━━━━━━━━━━━━//
 
 switch(command) {
@@ -5101,7 +5103,7 @@ liaacans.copyNForward(m.chat, msgs[budy.toLowerCase()], true)
 
 } catch (err) {
 m.reply(util.format(err))
-console.log(`[Error], Ada Yang Error Kak🗿`)
+console.log(chalk.red(`[Error], Ada Yang Error Kak🗿`))
 }
 }
 
