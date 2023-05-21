@@ -985,85 +985,85 @@ await liaacans.sendMessage(m.chat, { image: { url: 'https://d.top4top.io/p_2677h
 }
 break
 case 'funmenu': {
-await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubusercontent.com/liaacans/liaacans/main/img/funmenu.jpg' }, caption: `${funMenu(prefix)}` }, { quoted: kafloc })
+await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubusercontent.com/liaacans/liaacans/main/img/funmenu.jpg' }, caption: `${funMenu(prefix)}` }, { quoted: fvideo })
             }
             break
 case 'panelmenu': {
-await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubusercontent.com/liaacans/liaacans/main/img/panelmenu.jpg' }, caption: `${panelMenu(prefix)}` }, { quoted: kafloc })
+await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubusercontent.com/liaacans/liaacans/main/img/panelmenu.jpg' }, caption: `${panelMenu(prefix)}` }, { quoted: fvideo })
             }
             break
 case 'groupmenu': {
-await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubusercontent.com/liaacans/liaacans/main/img/groupmenu.jpg' }, caption: `${gcMenu(prefix)}` }, { quoted: kafloc })
+await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubusercontent.com/liaacans/liaacans/main/img/groupmenu.jpg' }, caption: `${gcMenu(prefix)}` }, { quoted: fvideo })
             }
             break
 case 'convertmenu': {
-await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubusercontent.com/liaacans/liaacans/main/img/convertmenu.jpg' }, caption: `${convertMenu(prefix)}` }, { quoted: kafloc })
+await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubusercontent.com/liaacans/liaacans/main/img/convertmenu.jpg' }, caption: `${convertMenu(prefix)}` }, { quoted: fvideo })
             }
             break
 case 'randommenu': {
-await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubusercontent.com/liaacans/liaacans/main/img/randommenu.jpg' }, caption: `${randomMenu(prefix)}` }, { quoted: kafloc })
+await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubusercontent.com/liaacans/liaacans/main/img/randommenu.jpg' }, caption: `${randomMenu(prefix)}` }, { quoted: fvideo })
             }
             break
 case 'downloadmenu': {
 if(!isPremium)throw`Fitur Ini Khusus Untuk Premium`
-            await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubusercontent.com/liaacans/liaacans/main/img/downloadmenu.jpg' }, caption: `${downloadMenu(prefix)}` }, { quoted: kafloc })
+            await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubusercontent.com/liaacans/liaacans/main/img/downloadmenu.jpg' }, caption: `${downloadMenu(prefix)}` }, { quoted: fvideo })
             }
             break
 case 'ownermenu': {
 if(!isCreator)throw`Fitur Ini Khusus Untuk Owner`
-            await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubusercontent.com/liaacans/liaacans/main/img/ownermenu.jpg' }, caption: `${ownerMenu(prefix)}` }, { quoted: kafloc })
+            await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubusercontent.com/liaacans/liaacans/main/img/ownermenu.jpg' }, caption: `${ownerMenu(prefix)}` }, { quoted: fvideo })
             }
             break
 case 'anonymousmenu': {
-await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubusercontent.com/liaacans/liaacans/main/img/anonymousmenu.jpg' }, caption: `${anonymousMenu(prefix)}` }, { quoted: kafloc })
+await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubusercontent.com/liaacans/liaacans/main/img/anonymousmenu.jpg' }, caption: `${anonymousMenu(prefix)}` }, { quoted: fvideo })
             }
             break
 case 'databasemenu': {
-await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubusercontent.com/liaacans/liaacans/main/img/databasemenu.jpg' }, caption: `${databaseMenu(prefix)}` }, { quoted: kafloc })
+await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubusercontent.com/liaacans/liaacans/main/img/databasemenu.jpg' }, caption: `${databaseMenu(prefix)}` }, { quoted: fvideo })
             }
             break
 case 'islamicmenu': {
-await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubusercontent.com/liaacans/liaacans/main/img/islamicmenu.jpg' }, caption: `${islamicMenu(prefix)}` }, { quoted: kafloc })
+await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubusercontent.com/liaacans/liaacans/main/img/islamicmenu.jpg' }, caption: `${islamicMenu(prefix)}` }, { quoted: fvideo })
             }
             break
 case 'chargermenu': {
-await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubusercontent.com/liaacans/liaacans/main/img/chargermenu.jpg' }, caption: `${chargerMenu(prefix)}` }, { quoted: kafloc })
+await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubusercontent.com/liaacans/liaacans/main/img/chargermenu.jpg' }, caption: `${chargerMenu(prefix)}` }, { quoted: fvideo })
             }
             break
 case 'makermenu': {
-await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubusercontent.com/liaacans/liaacans/main/img/makermenu.jpg' }, caption: `${makerMenu(prefix)}` }, { quoted: kafloc })
+await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubusercontent.com/liaacans/liaacans/main/img/makermenu.jpg' }, caption: `${makerMenu(prefix)}` }, { quoted: fvideo })
             }
             break
 case 'bugmenu': {
 if (!isCreator) throw mess.owner
-await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubusercontent.com/liaacans/liaacans/main/img/bugmenu.jpg' }, caption: `${bugMenu(prefix)}` }, { quoted: kafloc })
+await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubusercontent.com/liaacans/liaacans/main/img/bugmenu.jpg' }, caption: `${bugMenu(prefix)}` }, { quoted: fvideo })
             }
             break
 case 'soundmenu': {
 if (!isPremium) throw mess.prem
-await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubusercontent.com/liaacans/liaacans/main/img/soundmenu.jpg' }, caption: `${soundMenu(prefix)}` }, { quoted: kafloc })
+await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubusercontent.com/liaacans/liaacans/main/img/soundmenu.jpg' }, caption: `${soundMenu(prefix)}` }, { quoted: fvideo })
             }
             break
 case 'sistemmenu': {
-await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubusercontent.com/liaacans/liaacans/main/img/sistemmenu.jpg' }, caption: `${sistemMenu(prefix)}` }, { quoted: kafloc })
+await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubusercontent.com/liaacans/liaacans/main/img/sistemmenu.jpg' }, caption: `${sistemMenu(prefix)}` }, { quoted: fvideo })
             }
            break
 case 'donasi': {
-await liaacans.sendMessage(m.chat, { image: { url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEWa7AX9wcJcJkQ52mdHZ-gYlwvB9S2dA00QiBM6KCnUicwj3U5gTpxag&s=10' }, caption: `${donasiMenu()}` }, { quoted: kafloc })
+await liaacans.sendMessage(m.chat, { image: { url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEWa7AX9wcJcJkQ52mdHZ-gYlwvB9S2dA00QiBM6KCnUicwj3U5gTpxag&s=10' }, caption: `${donasiMenu()}` }, { quoted: fvideo })
 }
 break
 case 'mainmenu': {
-await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubusercontent.com/liaacans/liaacans/main/img/mainmenu.jpg' }, caption: `${mainMenu(prefix)}` }, { quoted: kafloc })
+await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubusercontent.com/liaacans/liaacans/main/img/mainmenu.jpg' }, caption: `${mainMenu(prefix)}` }, { quoted: fvideo })
             }
 break
 case 'textpro': {
 txtpro = `${textPro(prefix)}`
-await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubusercontent.com/liaacans/liaacans/main/img/textpro.jpg' }, caption: `${textPro(prefix)}` }, { quoted: kafloc })
+await liaacans.sendMessage(m.chat, { image: { url: 'https://raw.githubusercontent.com/liaacans/liaacans/main/img/textpro.jpg' }, caption: `${textPro(prefix)}` }, { quoted: fvideo })
             }
             break
 case 'sc': case 'script': case 'sourcecode': {
 source =`Mau Beli Sc Bot LiaaCans?\nCuman 50k Full All Fitur\n\nChat Whatsapp Owner\nhttps://wa.me/${global.nomorsc}`
-await liaacans.sendMessage(m.chat, { image: { url: 'https://d.top4top.io/p_2677hm2mw0.jpg' }, caption: `${source}` }, { quoted: kafloc })
+await liaacans.sendMessage(m.chat, { image: { url: 'https://d.top4top.io/p_2677hm2mw0.jpg' }, caption: `${source}` }, { quoted: ftrolii })
             }
 break
 case 'revoke': {
@@ -2721,9 +2721,9 @@ case 'menfes': case 'menfess': {
                let ments = [mq1, me]
                let pjtxt = `Pesan Dari : ${m2} \nUntuk : @${mq1.split('@')[0]}\n\n${m3}`
                let buttons = [{ buttonId: 'oke', buttonText: { displayText: 'Confirm' }, type: 1 }]
-            await liaacans.sendButtonText(m1 + '@s.whatsapp.net', buttons, pjtxt, kawk, m, {mentions: ments, mentions: mentss, quoted: kafloc})
+            await liaacans.sendButtonText(m1 + '@s.whatsapp.net', buttons, pjtxt, kawk, m, {mentions: ments, mentions: mentss, quoted: fvideo})
             let akhji = `Pesan Telah Terkirim\nKe @${mq1.split('@')[0]}`
-            await liaacans.sendButtonText(m.chat, buttons, akhji, creator, m, {mentions: ments, quoted: kafloc})
+            await liaacans.sendButtonText(m.chat, buttons, akhji, creator, m, {mentions: ments, quoted: fvideo})
             }
             break
 //----------------[ BUG ALL FIXED ]-----------------//
@@ -3549,7 +3549,7 @@ if (!isPremium) throw mess.prem
 m.reply(mess.wait)
 let eek = await fetchJson(`https://raw.githubusercontent.com/Arya-was/endak-tau/main/${command}.json`)
 let random = eek[Math.floor(Math.random() * eek.length)]
-liaacans.sendMessage(m.chat, { image: { url: random }, caption: `Nih Kak` }, { quoted: kafloc })
+liaacans.sendMessage(m.chat, { image: { url: random }, caption: `Nih Kak` }, { quoted: fvideo })
 }
 break
 // BROADCAST
@@ -4886,6 +4886,15 @@ m.reply(String(e))
 }
 }
 
+// AUTO SIMI SIMI GES, KLO MW TANPA BERBICARA/NGETIK, MATIIN AJAH:V, CARANYA? /*INI*/ KAYA GITU YA!
+
+if (!text) throw
+       let api = await fetch(`https://api.simsimi.net/v2/?text=${text}&lc=id`)
+        let res = await api.json()
+        m.reply(res.success)
+
+// END SIMI SIMI:V
+
 // KITA SEMBUNYIKAN AUTO REAC NYA, NNTI TERGNGGU OLEH USER LAIN:V
 /*if (budy.includes('gabut') || budy.includes('hehe') || budy.includes('apa') || budy.includes('hai') || budy.includes('apasi') || budy.includes('rahman') || budy.includes('man') || budy.includes('dahlah') || budy.includes('sepi') || budy.includes('🗿') || budy.includes('menu')) {
 	let mojii = ["🤧","🤨","🗿","🤪","🤫","🤬","🤭","🤮","🤯","🤟","🤠","🤡","🤢","🤣","🤤","🤥","🤐","🤑","🤒","🤓","🤔","🤕","🤖","🤗", "🥰","😍","😘","❤️","🤩"]
@@ -4968,17 +4977,6 @@ participant: other
 }
 return !0
 }
-
-// AUTO SIMI SIMI GES, KLO MW TANPA BERBICARA/NGETIK, MATIIN AJAH:V, CARANYA? /*INI*/ KAYA GITU YA!
-
-if (!text) return
-       let api = await fetch(`https://api.simsimi.net/v2/?text=${text}&lc=id`)
-        let res = await api.json()
-        m.reply(res.success)
-        return !0
-      
-
-// END SIMI SIMI:V
 			
 if (isCmd && budy.toLowerCase() != undefined) {
 if (m.chat.endsWith('broadcast')) return
