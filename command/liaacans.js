@@ -911,7 +911,7 @@ if (isCmd && !itsMe) antiSpam.addFilter(m.chat)*/
 
 //Push command To Console
 if (command) {
-console.log(chalk.red('[ RAHMXBOT ]'), chalk.red(moment(mek.messageTimestamp * 1000).format('DD/MM/YYYY HH:mm:ss'), chalk.green(budy || m.mtype), 'Dari', chalk.blue(pushname), 'Di', chalk.green(groupName ? groupName : 'Private Chat' ), 'args :', chalk.yellow(args.length))
+console.log(chalk.red('[ RAHMXBOT ]')), chalk.red(moment(mek.messageTimestamp * 1000).format('DD/MM/YYYY HH:mm:ss'), chalk.green(budy || m.mtype), 'Dari', chalk.blue(pushname), 'Di', chalk.green(groupName ? groupName : 'Private Chat' ), 'args :', chalk.yellow(args.length))
 }
 	
 
