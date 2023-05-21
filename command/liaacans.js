@@ -2386,12 +2386,10 @@ ${id}`)
 		break
 case 'ytmp4':{
                 if (!isPremium) return m.reply(mess.prem)
-                if (args.length === 1) return m.reply(`Kirim perintah *${prefix}ytmp4 [linkYt]*`)
-                let isLinks2 = args[1].match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/)
-                if (!isLinks2) return m.reply(`linknya error, segera periksa kembali`)
+                if (!text) return m.reply(`Kirim perintah *${prefix}ytmp4 [linkYt]*`)
                 try {
                     m.reply(mess.wait)
-                    ytv(args[1])
+                    ytv(text)
                     .then((res) => {
                         const { dl_link, thumb, title, filesizeF, filesize } = res
                         axios.get(`https://tinyurl.com/api-create.php?url=${dl_link}`)
@@ -2430,12 +2428,10 @@ _Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`
                 break
             case 'ytmp3':{
                 if (!isPremium) return m.reply(mess.prem)
-                if (args.length === 1) return m.reply(`Kirim perintah *${prefix}ytmp3 [linkYt]*`)
-                let isLinks = args[1].match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/)
-                if (!isLinks) return m.reply(`linknya error, segera periksa kembali`)
+                if (!text) return m.reply(`Kirim perintah *${prefix}ytmp3 [linkYt]*`)
                 try {
                     m.reply(mess.wait)
-                    yta(args[1])
+                    yta(text)
                     .then((res) => {
                         const { dl_link, thumb, title, filesizeF, filesize } = res
                         axios.get(`https://tinyurl.com/api-create.php?url=${dl_link}`)
