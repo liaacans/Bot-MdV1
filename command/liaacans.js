@@ -33,6 +33,7 @@ var { color, bgcolor } = require('../message/color')
 var { buttonvirus } = require('../message/buttonvirus')
 var { addBadword, delBadword, isKasar, addCountKasar, isCountKasar, delCountKasar } = require("../message/badword");
 var { mediafireDl } = require('../message/mediafire.js')
+var _prem = require("../message/premium");
 
 //---------------------------[ Waktu Asia & Time ]--------------------------------//
 const rahmxtime = moment.tz('Asia/Jakarta').format('HH:mm:ss')
@@ -88,6 +89,7 @@ let badword = JSON.parse(fs.readFileSync('./json/badword.json'))
 let grupbadword = JSON.parse(fs.readFileSync('./json/grupbadword.json'))
 let senbadword = JSON.parse(fs.readFileSync('./json/senbadword.json'))
 let pendaftar = JSON.parse(fs.readFileSync('./json/user.json'))
+let premium = JSON.parse(fs.readFileSync('./json/premium2.json'))
 //━━━━━━━━━━━━━━━[ MODULE EXPORTS ]━━━━━━━━━━━━━━━━━//
 
 module.exports = liaacans = async (liaacans, m, chatUpdate, store) => {
@@ -116,6 +118,7 @@ var groupOwner = m.isGroup ? groupMetadata.owner : ''
 var isPremium = prem.includes(m.sender)
 var isAutoStick = _autostick.includes(m.chat)
 var isAutoSticker = m.isGroup ? autosticker.includes(m.chat) : false
+var isPremium = isCreator ? true : _prem.checkPremiumUser(m.sender, premium)
 var isUser = pendaftar.includes(m.sender)
 var isBadword = m.isGroup ? grupbadword.includes(m.chat) : false
 
@@ -450,6 +453,9 @@ message: {
 }
 }
 }
+
+// Premium
+        _prem.expiredCheck(premium)
 
 //━━━━━━━━━━━━━━━[ RESPON CMD ]━━━━━━━━━━━━━━━━━//
 
@@ -831,6 +837,10 @@ let res = liaacans.sendMessage(m.chat, { text: teks, mentions: mems }, { quoted:
 return res
 }
 }
+
+function textImg = (teks) => {
+            return liaacans.sendMessage(m.chat, teks, text, {quoted: m, thumbnail: fs.readFileSync(global.thumb)})
+        }
 
 global.addUserPanel = (email, username, expired, _db) => {
 var obj_add = {
@@ -3368,6 +3378,50 @@ teks += `- ${liaacans}\n`
 teks += `\n*Total : ${prem.length}*`
 liaacans.sendMessage(m.chat, { text: teks.trim() }, 'extendedTextMessage', { quoted: m, contextInfo: { "mentionedJid": prem } })
 break
+case 'addprem2':
+                if (!isCreator) return m.reply(mess.owner)
+                if (args.length < 2) return reply(`Penggunaan :\n*${prefix}addprem* @tag waktu\n*${prefix}addprem* nomor waktu\n\nContoh : ${command} @tag 30d`)
+                if (mentioned.length !== 0){
+                    for (let i = 0; i < mentioned.length; i++){
+                    _prem.addPremiumUser(mentioned[0], args[2], premium)
+                    }
+                    m.reply('Sukses')
+                } else {
+                    _prem.addPremiumUser(args[1] + '@s.whatsapp.net', args[2], premium)
+                    m.reply('Sukses')
+                }
+                break
+            case 'delprem2':
+                if (!isCreator) return m.reply(mess.owner)
+                if (args.length < 2) return reply(`Penggunaan :\n*${prefix}delprem* @tag\n*${prefix}delprem* nomor`)
+                if (mentioned.length !== 0){
+                    for (let i = 0; i < mentioned.length; i++){
+                        premium.splice(_prem.getPremiumPosition(mentioned[i], premium), 1)
+                        fs.writeFileSync('./json/premium.json', JSON.stringify(premium))
+                    }
+                    m.reply('Sukses')
+                } else {
+                    premium.splice(_prem.getPremiumPosition(args[1] + '@s.whatsapp.net', premium), 1)
+                    fs.writeFileSync('./json/premium2.json', JSON.stringify(premium))
+                }
+                break
+            case 'cekprem':
+            case 'cekpremium':
+                if (!isPremium) return m.reply(`Kamu bukan user premium, kirim perintah *${prefix}sewaprem* untuk membeli premium`)
+                let cekvip = ms(_prem.getPremiumExpired(sender, premium) - Date.now())
+                let premiumnya = `*Expire :* ${cekvip.days} day(s) ${cekvip.hours} hour(s) ${cekvip.minutes} minute(s)`
+                m.reply(premiumnya)
+                break
+            case 'listprem2':
+                let txt = `List Prem\nJumlah : ${premium.length}\n\n`
+                let men = [];
+                for (let i of premium){
+                    men.push(i.id)
+                    let cekvip = ms(i.expired - Date.now())
+                    txt += `*ID :* @${i.id.split("@")[0]}\n*Expire :* ${cekvip.days} day(s) ${cekvip.hours} hour(s) ${cekvip.minutes} minute(s) ${cekvip.seconds} second(s)\n\n`
+                }
+                mentions(txt, men, true)
+                break
         // Menu Store
         case 'item':
                     if (!m.isGroup) throw `Perintah Ini Khusus Untuk Grup`
