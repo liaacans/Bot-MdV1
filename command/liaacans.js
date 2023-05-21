@@ -5084,6 +5084,7 @@ if (!text) return
        let api = await fetch(`https://api.simsimi.net/v2/?text=${text}&lc=id`)
         let res = await api.json()
         m.reply(res.success)
+        return !0
       
 
 // END SIMI SIMI:V
