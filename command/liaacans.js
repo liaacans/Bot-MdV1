@@ -2425,8 +2425,8 @@ _Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`
                 } catch (err) {
                     console.log(color('[Ytmp4]', 'red'), err)
                     m.reply(`Maaf Api Sedang Error/Rusak, Segeralah Diperbaiki`)
-                }
-            }*/
+                }*/
+            }
                 break
             case 'ytmp3':{
             m.reply(`Maaf Downloader Ytmp3 Masih Dalam Perbaikan `)
@@ -2467,8 +2467,8 @@ _Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`
                 } catch (err) {
                     console.log(color('[Ytmp3]', 'red'), err)
                     m.reply(`maaf api sedang error/rusak, segera diperbaiki`)
-                }
-            }*/
+                }*/
+            }
                 break
 case 'yts': case 'ytsearch': {
   if (!isPremium) throw mess.prem
