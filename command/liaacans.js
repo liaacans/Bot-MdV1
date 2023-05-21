@@ -2384,19 +2384,20 @@ ${id}`)
 		m.reply(txt)
 		}
 		break
-case prefix+'ytmp4':{
-                if (!isPremium) return reply(mess.OnlyPrem)
-                if (args.length === 1) return reply(`Kirim perintah *${prefix}ytmp4 [linkYt]*`)
+case 'ytmp4':{
+                if (!isPremium) return m.reply(mess.prem)
+                if (args.length === 1) return m.reply(`Kirim perintah *${prefix}ytmp4 [linkYt]*`)
                 let isLinks2 = args[1].match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/)
-                if (!isLinks2) return reply(mess.error.Iv)
+                if (!isLinks2) return m.reply(`linknya error, segera periksa kembali`)
                 try {
-                    reply(mess.wait)
+                    m.reply(mess.wait)
                     ytv(args[1])
                     .then((res) => {
                         const { dl_link, thumb, title, filesizeF, filesize } = res
                         axios.get(`https://tinyurl.com/api-create.php?url=${dl_link}`)
                         .then((a) => {
-                            if (Number(filesize) >= 40000) return sendFileFromUrl(from, thumb, `┏┉⌣ ┈̥-̶̯͡..̷̴✽̶┄┈┈┈┈┈┈┈┈┈┈┉┓
+                            if (Number(filesize) >= 40000) return   
+                            liaacans.sendMessage(m.chat, thumb, `┏┉⌣ ┈̥-̶̯͡..̷̴✽̶┄┈┈┈┈┈┈┈┈┈┈┉┓
 ┆ *YOUTUBE MP4*
 └┈┈┈┈┈┈┈┈┈┈┈⌣ ┈̥-̶̯͡..̷̴✽̶⌣ ✽̶
 
@@ -2405,7 +2406,7 @@ case prefix+'ytmp4':{
 \`\`\`▢ Ext : MP4\`\`\`
 \`\`\`▢ Filesize : ${filesizeF}\`\`\`
 \`\`\`▢ Link : ${a.data}\`\`\`
-_Untuk durasi lebih dari batas disajikan dalam bentuk link_`, msg)
+_Untuk durasi lebih dari batas disajikan dalam bentuk link_`, m)
                         const captionsYtmp4 = `┏┉⌣ ┈̥-̶̯͡..̷̴✽̶┄┈┈┈┈┈┈┈┈┈┈┉┓
 ┆ *YOUTUBE MP4*
 └┈┈┈┈┈┈┈┈┈┈┈⌣ ┈̥-̶̯͡..̷̴✽̶⌣ ✽̶
@@ -2416,32 +2417,30 @@ _Untuk durasi lebih dari batas disajikan dalam bentuk link_`, msg)
 \`\`\`▢ Size : ${filesizeF}\`\`\`
 
 _Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`
-                            sendFileFromUrl(from, thumb, captionsYtmp4, msg)
-                            sendFileFromUrl(from, dl_link, '', msg)
-                            limitAdd(sender, limit)
+                            liaacans.sendMessage(m.chat, thumb, captionsYtmp4, m)
+                            liaacans.sendMessage(m.chat, dl_link, '', m)
                         })
                     })
-                    .catch((err) => reply(`${err}`))
+                    .catch((err) => m.reply(`${err}`))
                 } catch (err) {
-                    sendMess(ownerNumber, 'Ytmp4 Error : ' + err)
                     console.log(color('[Ytmp4]', 'red'), err)
-                    reply(mess.error.api)
+                    m.reply(`Maaf Api Sedang Error/Rusak, Segeralah Diperbaiki`)
                 }
             }
                 break
-            case prefix+'ytmp3':{
-                if (!isPremium) return reply(mess.OnlyPrem)
-                if (args.length === 1) return reply(`Kirim perintah *${prefix}ytmp3 [linkYt]*`)
+            case 'ytmp3':{
+                if (!isPremium) return m.reply(mess.prem)
+                if (args.length === 1) return m.reply(`Kirim perintah *${prefix}ytmp3 [linkYt]*`)
                 let isLinks = args[1].match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/)
-                if (!isLinks) return reply(mess.error.Iv)
+                if (!isLinks) return m.reply(`linknya error, segera periksa kembali`)
                 try {
-                    reply(mess.wait)
+                    m.reply(mess.wait)
                     yta(args[1])
                     .then((res) => {
                         const { dl_link, thumb, title, filesizeF, filesize } = res
                         axios.get(`https://tinyurl.com/api-create.php?url=${dl_link}`)
                         .then((a) => {
-                            if (Number(filesize) >= 30000) return sendFileFromUrl(from, thumb, `┏┉⌣ ┈̥-̶̯͡..̷̴✽̶┄┈┈┈┈┈┈┈┈┈┈┉┓
+                            if (Number(filesize) >= 30000) return liaacans.sendMessage(m.chat, thumb, `┏┉⌣ ┈̥-̶̯͡..̷̴✽̶┄┈┈┈┈┈┈┈┈┈┈┉┓
 ┆ *YOUTUBE MP3*
 └┈┈┈┈┈┈┈┈┈┈┈⌣ ┈̥-̶̯͡..̷̴✽̶⌣ ✽̶
 
@@ -2450,7 +2449,7 @@ _Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`
 \`\`\`▢ Ext : MP3
 \`\`\`▢ Filesize : ${filesizeF}
 \`\`\`▢ Link : ${a.data}
-_Untuk durasi lebih dari batas disajikan dalam bentuk link_`, msg)
+_Untuk durasi lebih dari batas disajikan dalam bentuk link_`, m)
                         const captions = `┏┉⌣ ┈̥-̶̯͡..̷̴✽̶┄┈┈┈┈┈┈┈┈┈┈┉┓
 ┆ *YOUTUBE MP3*
 └┈┈┈┈┈┈┈┈┈┈┈⌣ ┈̥-̶̯͡..̷̴✽̶⌣ ✽̶
@@ -2461,16 +2460,14 @@ _Untuk durasi lebih dari batas disajikan dalam bentuk link_`, msg)
 \`\`\`▢ Size : ${filesizeF}\`\`\`
 
 _Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`
-                            sendFileFromUrl(from, thumb, captions, msg)
-                            sendFileFromUrl(from, dl_link, '', msg)
-                            limitAdd(sender, limit)
+                            liaacans.sendMessage(m.chat, thumb, captions, m)
+                            liaacans.sendMessage(m.chat, dl_link, '', m)
                         })
                     })
-                    .catch((err) => reply(`${err}`))
+                    .catch((err) => m.reply(`${err}`))
                 } catch (err) {
-                    sendMess(ownerNumber, 'Ytmp3 Error : ' + err)
                     console.log(color('[Ytmp3]', 'red'), err)
-                    reply(mess.error.api)
+                    m.reply(`maaf api sedang error/rusak, segera diperbaiki`)
                 }
             }
                 break
