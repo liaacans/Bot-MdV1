@@ -3380,10 +3380,10 @@ liaacans.sendMessage(m.chat, { text: teks.trim() }, 'extendedTextMessage', { quo
 break
 case 'addprem2':
                 if (!isCreator) return m.reply(mess.owner)
-                if (args.length < 2) return reply(`Penggunaan :\n*${prefix}addprem* @tag waktu\n*${prefix}addprem* nomor waktu\n\nContoh : ${command} @tag 30d`)
-                if (mentioned.length !== 0){
-                    for (let i = 0; i < mentioned.length; i++){
-                    _prem.addPremiumUser(mentioned[0], args[2], premium)
+                if (args.length < 2) return m.reply(`Penggunaan :\n*${prefix}addprem* @tag waktu\n*${prefix}addprem* nomor waktu\n\nContoh : ${command} @tag 30d`)
+                if (m.mentionedJid.length !== 0){
+                    for (let i = 0; i < m.mentionedJid.length; i++){
+                    _prem.addPremiumUser(m.mentionedJid[0], args[2], premium)
                     }
                     m.reply('Sukses')
                 } else {
@@ -3393,10 +3393,10 @@ case 'addprem2':
                 break
             case 'delprem2':
                 if (!isCreator) return m.reply(mess.owner)
-                if (args.length < 2) return reply(`Penggunaan :\n*${prefix}delprem* @tag\n*${prefix}delprem* nomor`)
-                if (mentioned.length !== 0){
-                    for (let i = 0; i < mentioned.length; i++){
-                        premium.splice(_prem.getPremiumPosition(mentioned[i], premium), 1)
+                if (args.length < 2) return m.reply(`Penggunaan :\n*${prefix}delprem* @tag\n*${prefix}delprem* nomor`)
+                if (m.mentionedJid.length !== 0){
+                    for (let i = 0; i < m.mentionedJid.length; i++){
+                        premium.splice(_prem.getPremiumPosition(m.mentionedJid[i], premium), 1)
                         fs.writeFileSync('./json/premium.json', JSON.stringify(premium))
                     }
                     m.reply('Sukses')
@@ -3408,7 +3408,7 @@ case 'addprem2':
             case 'cekprem':
             case 'cekpremium':
                 if (!isPremium) return m.reply(`Kamu bukan user premium, kirim perintah *${prefix}sewaprem* untuk membeli premium`)
-                let cekvip = ms(_prem.getPremiumExpired(sender, premium) - Date.now())
+                let cekvip = ms(_prem.getPremiumExpired(m.sender, premium) - Date.now())
                 let premiumnya = `*Expire :* ${cekvip.days} day(s) ${cekvip.hours} hour(s) ${cekvip.minutes} minute(s)`
                 m.reply(premiumnya)
                 break
