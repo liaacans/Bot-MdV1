@@ -885,7 +885,7 @@ liaacans.updateBlockStatus(m.sender, 'block')
 }
 
 //Ku Sembunyikan AntiSpamnya Terganggu:v
-if (isCmd && antiSpam.isFiltered(m.chat) && !m.isGroup) {
+/*if (isCmd && antiSpam.isFiltered(m.chat) && !m.isGroup) {
 console.log(color('[SPAM]', 'red'), color(rahmxtime, 'yellow'), color(`${command} [${args.length}]`), 'm.chat', color(pushname))
 return m.reply('Kamu terdeteksi spam bot tanpa jeda, lakukan perintah setelah 3 detik')
 }
@@ -895,7 +895,7 @@ console.log(color('[SPAM]', 'red'), color(rahmxtime, 'yellow'), color(`${command
 return m.reply('Kamu terdeteksi spam bot tanpa jeda, lakukan perintah setelah 3 detik')
 }
 
-if (isCmd && !itsMe) antiSpam.addFilter(m.chat)
+if (isCmd && !itsMe) antiSpam.addFilter(m.chat)*/
 
 //Push command To Console
 if (command) {
