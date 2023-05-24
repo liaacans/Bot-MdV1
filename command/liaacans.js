@@ -229,7 +229,7 @@ if (m.chat) {
 
 //━━━━━━━━━━━━━━━[ Hitung Mundur ]━━━━━━━━━━━━━━━━━//
 
-countDownDate = new Date("2023-07-09").getTime();
+countDownDate = new Date(`${global.ultah}`).getTime();
 var now = new Date().getTime();
 var distance = countDownDate - now;
 var dayss = Math.floor(distance / (1000 * 60 * 60 * 24));
@@ -238,7 +238,7 @@ var minutess = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
 var secondss = Math.floor((distance % (1000 * 60)) / 1000);
 ultahown = `*${dayss} hari, ${hourss} jam, ${minutess} menit*`
 
-countDownDate = new Date("2024-03-10").getTime();
+countDownDate = new Date(`${global.ramadhan}`).getTime();
 var now = new Date().getTime();
 var distance = countDownDate - now;
 var dayss = Math.floor(distance / (1000 * 60 * 60 * 24));
@@ -247,7 +247,7 @@ var minutess = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
 var secondss = Math.floor((distance % (1000 * 60)) / 1000);
 Ramadhan = `*${dayss} hari, ${hourss} jam, ${minutess} menit*`
 
-countDownDate = new Date("2024-01-01").getTime();
+countDownDate = new Date(`${global.thnbru}`).getTime();
 var now = new Date().getTime();
 var distance = countDownDate - now;
 var dayss = Math.floor(distance / (1000 * 60 * 60 * 24));
@@ -256,7 +256,7 @@ var minutess = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
 var secondss = Math.floor((distance % (1000 * 60)) / 1000);
 tahunbaru = `*${dayss} hari, ${hourss} jam, ${minutess} menit*`
 
-countDownDate = new Date("2024-04-10").getTime();
+countDownDate = new Date(`${global.hrirya}`).getTime();
 var now = new Date().getTime();
 var distance = countDownDate - now;
 var dayss = Math.floor(distance / (1000 * 60 * 60 * 24));
@@ -926,6 +926,7 @@ var menu_teks = `Hai Kak ${pushname}
 ⌗ *Name* : *${pushname}*
 ⌗ *Status* : *${isCreator ? 'OWNER' : isPremium ? 'Premium' : 'Gratisan'}*
 ⌗ *Premium* : ${isPremium ? '✅' : `❌`}
+# *Limit* : ${isCreator ? 'UNLIMITED✅' : `${db.data.users[m.sender].limit}`}
 └─❖
 
 ┌─❖ ⌜ 𝙄𝙉𝘿𝙊𝙉𝙀𝙎𝙄𝘼𝙉 𝙏𝙄𝙈𝙀 ⌟
@@ -2396,90 +2397,30 @@ ${id}`)
 		}
 		break
 case 'ytmp4':{
-m.reply(`maaf downloader ytmp4 masih dalam perbaikan`)
-               /* if (!isPremium) return m.reply(mess.prem)
-                if (!text) return m.reply(`Kirim perintah *${prefix}ytmp4 [linkYt]*`)
-                try {
-                    m.reply(mess.wait)
-                    ytv(text)
-                    .then((res) => {
-                        const { dl_link, thumb, title, filesizeF, filesize } = res
-                        axios.get(`https://tinyurl.com/api-create.php?url=${dl_link}`)
-                        .then((a) => {
-                            if (Number(filesize) >= 40000) return   
-                            liaacans.sendMessage(m.chat, thumb, `┏┉⌣ ┈̥-̶̯͡..̷̴✽̶┄┈┈┈┈┈┈┈┈┈┈┉┓
-┆ *YOUTUBE MP4*
-└┈┈┈┈┈┈┈┈┈┈┈⌣ ┈̥-̶̯͡..̷̴✽̶⌣ ✽̶
-
-*Data Berhasil Didapatkan!*
-\`\`\`▢ Title : ${title}\`\`\`
-\`\`\`▢ Ext : MP4\`\`\`
-\`\`\`▢ Filesize : ${filesizeF}\`\`\`
-\`\`\`▢ Link : ${a.data}\`\`\`
-_Untuk durasi lebih dari batas disajikan dalam bentuk link_`, m)
-                        const captionsYtmp4 = `┏┉⌣ ┈̥-̶̯͡..̷̴✽̶┄┈┈┈┈┈┈┈┈┈┈┉┓
-┆ *YOUTUBE MP4*
-└┈┈┈┈┈┈┈┈┈┈┈⌣ ┈̥-̶̯͡..̷̴✽̶⌣ ✽̶
-
-*Data Berhasil Didapatkan!*
-\`\`\`▢ Title : ${title}\`\`\`
-\`\`\`▢ Ext : MP4\`\`\`
-\`\`\`▢ Size : ${filesizeF}\`\`\`
-
-_Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`
-                            liaacans.sendMessage(m.chat, thumb, captionsYtmp4, m)
-                            liaacans.sendMessage(m.chat, dl_link, '', m)
-                        })
-                    })
-                    .catch((err) => m.reply(`${err}`))
-                } catch (err) {
-                    console.log(color('[Ytmp4]', 'red'), err)
-                    m.reply(`Maaf Api Sedang Error/Rusak, Segeralah Diperbaiki`)
-                }*/
+let { yta } = require('../message/y2mate')
+if (!text) throw `Example : ${prefix + command} https://youtube.com/watch?v=PtFMh6Tccag%27 128kbps`
+if (!isPremium && global.db.data.users[m.sender].limit < 1) return m.reply(mess.endLimit) // respon ketika limit habis
+db.data.users[m.sender].limit -= 1 // -1 limit
+m.reply(mess.wait)
+let quality = args[1] ? args[1] : '128kbps'
+let media = await yta(text, quality)
+if (media.filesize >= 100000) return m.reply('File Melebihi Batas '+util.format(media))
+liaacans.sendImage(m.chat, media.thumb, `• Title : ${media.title}\n• File Size : ${media.filesizeF}\n• Url : ${isUrl(text)}\n• Ext : MP3\n• Resolusi : ${args[1] || '128kbps'}`, m)
+liaacans.sendMessage(m.chat, { audio: { url: media.dl_link }, mimetype: 'audio/mpeg', fileName: `${media.title}.mp3` }, { quoted: fvn })
             }
                 break
-            case 'ytmp3':{
-            m.reply(`Maaf Downloader Ytmp3 Masih Dalam Perbaikan `)
-               /* if (!isPremium) return m.reply(mess.prem)
-                if (!text) return m.reply(`Kirim perintah *${prefix}ytmp3 [linkYt]*`)
-                try {
-                    m.reply(mess.wait)
-                    yta(text)
-                    .then((res) => {
-                        const { dl_link, thumb, title, filesizeF, filesize } = res
-                        axios.get(`https://tinyurl.com/api-create.php?url=${dl_link}`)
-                        .then((a) => {
-                            if (Number(filesize) >= 30000) return liaacans.sendMessage(m.chat, thumb, `┏┉⌣ ┈̥-̶̯͡..̷̴✽̶┄┈┈┈┈┈┈┈┈┈┈┉┓
-┆ *YOUTUBE MP3*
-└┈┈┈┈┈┈┈┈┈┈┈⌣ ┈̥-̶̯͡..̷̴✽̶⌣ ✽̶
-
-*Data Berhasil Didapatkan!*
-\`\`\`▢ Title : ${title}
-\`\`\`▢ Ext : MP3
-\`\`\`▢ Filesize : ${filesizeF}
-\`\`\`▢ Link : ${a.data}
-_Untuk durasi lebih dari batas disajikan dalam bentuk link_`, m)
-                        const captions = `┏┉⌣ ┈̥-̶̯͡..̷̴✽̶┄┈┈┈┈┈┈┈┈┈┈┉┓
-┆ *YOUTUBE MP3*
-└┈┈┈┈┈┈┈┈┈┈┈⌣ ┈̥-̶̯͡..̷̴✽̶⌣ ✽̶
-
-*Data Berhasil Didapatkan!*
-\`\`\`▢ Title : ${title}\`\`\`
-\`\`\`▢ Ext : MP3\`\`\`
-\`\`\`▢ Size : ${filesizeF}\`\`\`
-
-_Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`
-                            liaacans.sendMessage(m.chat, thumbnail, captions, m)
-                            liaacans.sendMessage(m.chat, dl_link, '', m)
-                        })
-                    })
-                    .catch((err) => m.reply(`${err}`))
-                } catch (err) {
-                    console.log(color('[Ytmp3]', 'red'), err)
-                    m.reply(`maaf api sedang error/rusak, segera diperbaiki`)
-                }*/
+            case 'ytmp4': case 'ytvideo': {
+let { ytv } = require('../message/y2mate')
+if (!text) throw `Example : ${prefix + command} https://youtube.com/watch?v=PtFMh6Tccag`
+if (!isPremium && global.db.data.users[m.sender].limit < 2) return m.reply(mess.endLimit) // respon ketika limit habis
+db.data.users[m.sender].limit -= 2 // -2 limit
+m.reply(mess.wait)
+let quality = args[1] ? args[1] : '360p'
+let media = await ytv(text, quality)
+if (media.filesize >= 100000) return m.reply('File Melebihi Batas '+util.format(media))
+liaacans.sendMessage(m.chat, { video: { url: media.dl_link }, mimetype: 'video/mp4', fileName: `${media.title}.mp4`, caption: `• Title : ${media.title}\n• File Size : ${media.filesizeF}\n• Url : ${isUrl(text)}\n• Ext : MP3\n• Resolusi : ${args[1] || '360p'}` }, { quoted: fvn })
             }
-                break
+            break
 case 'yts': case 'ytsearch': {
   if (!isPremium) throw mess.prem
   m.reply(mess.wait)
@@ -3378,7 +3319,7 @@ teks += `- ${liaacans}\n`
 teks += `\n*Total : ${prem.length}*`
 liaacans.sendMessage(m.chat, { text: teks.trim() }, 'extendedTextMessage', { quoted: m, contextInfo: { "mentionedJid": prem } })
 break
-case 'addprem2':
+/*case 'addprem2': // FIX AE YA PREM NYA.
                 if (!isCreator) return m.reply(mess.owner)
                 if (args.length < 2) return m.reply(`Penggunaan :\n*${prefix}addprem* @tag waktu\n*${prefix}addprem* nomor waktu\n\nContoh : ${command} @tag 30d`)
                 if (m.mentionedJid.length !== 0){
@@ -3421,7 +3362,7 @@ case 'addprem2':
                     txt += `*ID :* @${i.id.split("@")[0]}\n*Expire :* ${cekvip.days} day(s) ${cekvip.hours} hour(s) ${cekvip.minutes} minute(s) ${cekvip.seconds} second(s)\n\n`
                 }
                 mentions(txt, men, true)
-                break
+                break*/
         // Menu Store
         case 'item':
                     if (!m.isGroup) throw `Perintah Ini Khusus Untuk Grup`
@@ -4897,6 +4838,10 @@ if (!text) throw `Use example .simi halo`
   m.reply(res.success)
   }
   break
+case 'ceklimit': case 'checklimit': case 'limit':{
+					m.reply('*LIMIT ANDA TINGGAL :* ' + (db.data.users[m.sender].limit))
+					}
+					break 
 //---------------[ AUTO RESPON ]------------------//
 // By Aulia Rahman (Auliahost-BOT)
 case 'rahman':{
