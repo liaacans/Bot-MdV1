@@ -2396,7 +2396,7 @@ ${id}`)
 		m.reply(txt)
 		}
 		break
-case 'ytmp4':{
+case 'ytmp3': case 'ytaudio': {
 let { yta } = require('../message/y2mate')
 if (!text) throw `Example : ${prefix + command} https://youtube.com/watch?v=PtFMh6Tccag%27 128kbps`
 if (!isPremium && global.db.data.users[m.sender].limit < 1) return m.reply(mess.endLimit) // respon ketika limit habis
