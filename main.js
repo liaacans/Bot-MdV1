@@ -43,6 +43,7 @@ game: {},
 settings: {},
 others: {},
 sticker: {},
+saldo: {},
 ...(global.db.data || {})
 }
 
@@ -259,104 +260,29 @@ console.log('Connected...', update)
 liaacans.ev.on('creds.update', saveState)
 
 // Add Other
-/** Send List Messaage
-  *
-  *@param {*} jid
-  *@param {*} text
-  *@param {*} footer
-  *@param {*} title
-  *@param {*} butText
-  *@param [*] sections
-  *@param {*} quoted
-  */
-liaacans.sendListMsg = (jid, text = '', footer = '', title = '' , butText = '', sects = [], quoted) => {
-let sections = sects
-var listMes = {
-text: text,
-footer: footer,
-title: title,
-buttonText: butText,
-sections
-}
-liaacans.sendMessage(jid, listMes, { quoted: quoted })
-}
-
-/** Send Button 5 Message
- * 
- * @param {*} jid
- * @param {*} text
- * @param {*} footer
- * @param {*} button
- * @returns 
- */
-liaacans.send5ButMsg = (jid, text = '' , footer = '', but = []) =>{
-let templateButtons = but
-var templateMessage = {
-text: text,
-footer: footer,
-templateButtons: templateButtons
-}
-liaacans.sendMessage(jid, templateMessage)
-}
-
 /** Send Button 5 Image
- *
- * @param {*} jid
- * @param {*} text
- * @param {*} footer
- * @param {*} image
- * @param [*] button
- * @param {*} options
- * @returns
- */
-liaacans.send5ButImg = async (jid , text = '' , footer = '', img, but = [], buff, options = {}) =>{
-liaacans.sendMessage(jid, { image: img, caption: text, footer: footer, templateButtons: but, ...options })
+*
+* @param {*} jid
+* @param {*} text
+* @param {*} footer
+* @param {*} image
+* @param [*] button
+* @param {*} options
+* @returns
+*/
+liaacans.send5ButImg = async (jid , text = '' , footer = '', img, but = [], options = {}) =>{
+let message = await prepareWAMessageMedia({ image: img }, { upload: liaacans.waUploadToServer })
+var template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
+templateMessage: {
+hydratedTemplate: {
+imageMessage: message.imageMessage,
+"hydratedContentText": text,
+"hydratedFooterText": footer,
+"hydratedButtons": but
 }
-
-  /** Send Button 5 Location
-   *
-   * @param {*} jid
-   * @param {*} text
-   * @param {*} footer
-   * @param {*} location
-   * @param [*] button
-   * @param {*} options
-   */
-  liaacans.send5ButLoc = async (jid , text = '' , footer = '', lok, but = [], options = {}) =>{
-  let bb = await liaacans.reSize(lok, 300, 150)
-  liaacans.sendMessage(jid, { location: { jpegThumbnail: bb }, caption: text, footer: footer, templateButtons: but, ...options })
-  }
-
-/** Send Button 5 Video
- *
- * @param {*} jid
- * @param {*} text
- * @param {*} footer
- * @param {*} Video
- * @param [*] button
- * @param {*} options
- * @returns
- */
-liaacans.send5ButVid = async (jid , text = '' , footer = '', vid, but = [], buff, options = {}) =>{
-let lol = await liaacans.reSize(buf, 300, 150)
-liaacans.sendMessage(jid, { video: vid, jpegThumbnail: lol, caption: text, footer: footer, templateButtons: but, ...options })
 }
-
-/** Send Button 5 Gif
- *
- * @param {*} jid
- * @param {*} text
- * @param {*} footer
- * @param {*} Gif
- * @param [*] button
- * @param {*} options
- * @returns
- */
-liaacans.send5ButGif = async (jid , text = '' , footer = '', gif, but = [], buff, options = {}) =>{
-let ahh = await liaacans.reSize(buf, 300, 150)
-let a = [1,2]
-let b = a[Math.floor(Math.random() * a.length)]
-liaacans.sendMessage(jid, { video: gif, gifPlayback: true, gifAttribution: b, caption: text, footer: footer, jpegThumbnail: ahh, templateButtons: but, ...options })
+}), options)
+liaacans.relayMessage(jid, template.message, { messageId: template.key.id })
 }
 
 /**
@@ -380,6 +306,11 @@ headerType: 2,
 liaacans.sendMessage(jid, {text: text}, {
          quoted,
          ...options
+/*
+tanpa button :
+liaacans.sendMessage(jid, {text: text}, {
+         quoted,
+         ...options*/
    })
 }
 
@@ -605,6 +536,17 @@ hydratedTemplate: {
 }
 }), options)
 liaacans.relayMessage(jid, template.message, { messageId: template.key.id })
+}
+
+liaacans.sendButMessage = (jid, buttons = [], text, footer, quoted = '', options = {}) => {
+let buttonMessage = {
+text,
+footer,
+buttons,
+headerType: 2,
+...options
+}
+liaacans.sendMessage(jid, buttonMessage, { quoted, ...options })
 }
 
 let mtype = Object.keys(message.message)[0]
