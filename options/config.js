@@ -17,16 +17,21 @@ const chalk = require('chalk')
 //━━━━━━━━━━━━━━━[ WEBSITE APIKEY ]━━━━━━━━━━━━━━━━━//
 
 global.APIs = {
-liaacans: 'https://zenzapis.xyz',
+liaacans: 'https://apikey-rahmxbot.cyclic.app',
 }
 
 //━━━━━━━━━━━━━━━[ APIKEY ]━━━━━━━━━━━━━━━━━//
 
 global.APIKeys = {
-'https://zenzapis.xyz': '9d30efca66',
+'https://apikey-rahmxbot.cyclic.app': 'RahmXBot',
 }
 
-//━━━━━━━━━━━━━━━[ SETTING ]━━━━━━━━━━━━━━━━━//
+//━━━━━━━━━━━━━━━[ SETTING LAINNYA ]━━━━━━━━━━━━━━━━━//
+global.ultah = '2023-07-09'
+global.ramadhan = '2024-03-10'
+global.hrirya = '2024-04-10'
+global.thnbru = '2023-07-09'
+//===============================================//
 global.domain = "-" // Isi Domain Lu
 global.apikey = '-' // Isi Apikey Plta Lu
 global.capikey = '-' // Isi Apikey Pltc Lu
@@ -43,8 +48,8 @@ global.pulsa = '081528965381' // UBAH NOMOR YG AKTIF!
 global.dana = '081528965381' // UBAH NOMOR DANA YG AKTIF!
 global.ovo = '085821676621' // UBAH NOMOR OVO YG AKTIF!
 global.gopay = '085821676621' // UBAH NOMOR GOPAY YG AKTIF!
-global.titlestic = 'Punya Aulia R. Chat Wa : 0858213693245' // GNTI NAMA BOT LU!
-global.packname = 'Mw Ambil Stikel ku? Izin Dlu Ke Orangnya Biar Ga Dituduh Maling🗿' // TRSERAH MO GANTI AP!
+global.titlestic = 'Punya Aulia R.' // GNTI NAMA BOT LU!
+global.packname = 'Chat Wa : 62858213693245' // TRSERAH MO GANTI AP!
 global.fake = 'LIAACANS BOT VERIFIED' // GNTI NMA BOT LU BANH!
 global.prefa = ['','!','.','/','#','$']
 global.sp = '⭔' // JGN DI UBAH²! NTR EROR
