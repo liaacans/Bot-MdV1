@@ -4886,11 +4886,11 @@ m.reply(String(e))
 
 // AUTO SIMI SIMI GES, KLO MW TANPA BERBICARA/NGETIK, MATIIN AJAH:V, CARANYA? /*INI*/ KAYA GITU YA!
 
-/*if (!text) return
+if (!text) return
        let api = await fetch(`https://api.simsimi.net/v2/?text=${text}&lc=id`)
         let res = await api.json()
-        m.reply(res.success)*/
-
+        m.reply(res.success)
+		
 // END SIMI SIMI:V
 
 // KITA SEMBUNYIKAN AUTO REAC NYA, NNTI TERGNGGU OLEH USER LAIN:V
