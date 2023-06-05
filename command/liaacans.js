@@ -298,7 +298,8 @@ liaacans.sendMessage(m.chat, { delete: m.key })
 }
 
 if (db.data.chats[m.chat].antivirtex) {
-if (budy.length > 5000) {
+if (budy.length > 5000)
+if (budy.includes('wa.me/settings')) {
 if (!isBotAdmins) return m.reply(`Ehh bot gak admin T_T`)
 if (isAdmins) return m.reply(`Ehh maaf kamu admin`)
 if (isCreator) return m.reply(`Ehh maaf kamu owner bot ku`)
@@ -393,7 +394,7 @@ const ftroli ={key: {fromMe: false,"participant":"0@s.whatsapp.net", "remoteJid"
 		const fgclink = {key: {participant: "0@s.whatsapp.net","remoteJid": "0@s.whatsapp.net"},"message": {"groupInviteMessage": {"groupJid": "6288213840883-1616169743@g.us","inviteCode": "m","groupName": "YT Aulia Rahman Official", "caption": global.fake, 'jpegThumbnail': global.thumb}}}
 		const fvideo = {key: { fromMe: false,participant: `0@s.whatsapp.net`, ...(m.chat ? { remoteJid: "status@broadcast" } : {}) },message: { "videoMessage": { "title": global.fake, "h": `Hmm`,'seconds': '359996400', 'caption': global.fake, 'jpegThumbnail': global.thumb}}}
 		const floc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {locationMessage: {name: global.fake ,jpegThumbnail: thumb}}}
-		const fkontak = { key: {participant: `0@s.whatsapp.net`, ...(m.chat ? { remoteJid: `status@broadcast` } : {}) }, message: { 'contactMessage': { 'jpegThumbnail': global.thumb, jpegThumbnail: thumb,sendEphemeral: true}}}
+		const fkontak = { key: {participant: `0@s.whatsapp.net`, ...(m.chat ? { remoteJid: `status@broadcast` } : {}) }, message: { 'contactMessage': { 'jpegThumbnail': thumb, jpegThumbnail: thumb,sendEphemeral: true}}}
 	    const fakestatus = {key: {fromMe: false,participant: `0@s.whatsapp.net`, ...(m.chat ? { remoteJid: "status@broadcast" } : {})},message: { "imageMessage": {"url": "https://mmg.whatsapp.net/d/f/At0x7ZdIvuicfjlf9oWS6A3AR9XPh0P-hZIVPLsI70nM.enc","mimetype": "image/jpeg","caption": global.fake,"fileSha256": "+Ia+Dwib70Y1CWRMAP9QLJKjIJt54fKycOfB2OEZbTU=","fileLength": "28777","height": 1080,"width": 1079,"mediaKey": "vXmRR7ZUeDWjXy5iQk17TrowBzuwRya0errAFnXxbGc=","fileEncSha256": "sR9D2RS5JSifw49HeBADguI23fWDz1aZu4faWG/CyRY=","directPath": "/v/t62.7118-24/21427642_840952686474581_572788076332761430_n.enc?oh=3f57c1ba2fcab95f2c0bb475d72720ba&oe=602F3D69","mediaKeyTimestamp": "1610993486","jpegThumbnail": fs.readFileSync('./image/image.jpg'),"scansSidecar": "1W0XhfaAcDwc7xh1R8lca6Qg/1bB4naFCSngM2LKO2NoP5RI7K+zLw=="}}}
 	    const ftrolii = { 
 key: {
@@ -2228,16 +2229,18 @@ case 'tomp3': {
 if (/document/.test(mime)) throw `Kirim/Reply Video/Audio Yang Ingin Dijadikan MP3 Dengan Caption ${prefix + command}`
 if (!/video/.test(mime) && !/audio/.test(mime)) throw `Kirim/Reply Video/Audio Yang Ingin Dijadikan MP3 Dengan Caption ${prefix + command}`
 if (!quoted) throw `Kirim/Reply Video/Audio Yang Ingin Dijadikan MP3 Dengan Caption ${prefix + command}`
+db.data.users[m.sender].limit -= 1 // -1 limit
 m.reply(mess.wait)
 let media = await quoted.download()
 let { toAudio } = require('../message/converter')
 let audio = await toAudio(media, 'mp4')
-liaacans.sendMessage(m.chat, {document: audio, mimetype: 'audio/mpeg', fileName: `Convert By ${liaacans.user.name}.mp3`}, { quoted: fkontak })
+liaacans.sendMessage(m.chat, {document: audio, mimetype: 'audio/mpeg', ptt:true}, { quoted: fkontak })
 }
 break
 case 'tomp4': case 'tovideo': {
 if (!quoted) throw 'Reply Image'
 if (!/webp/.test(mime)) throw `balas stiker dengan caption *${prefix + command}*`
+db.data.users[m.sender].limit -= 1 // -1 limit
 m.reply(mess.wait)
 let { webp2mp4File } = require('../message/uploader')
 let media = await liaacans.downloadAndSaveMediaMessage(quoted)
@@ -2652,7 +2655,7 @@ case 'delete': case 'del': {
             break
 case 'delete2': case 'del2': { // fix by aulia rahman
 if (!text) throw `Reply Untuk Menghapus Pesan Orang Lain`
-liaacans.sendMessage(m.chat, { delete: text })
+liaacans.sendMessage(m.chat, { delete: m.quoted })
 }
 break
 case 'menfes': case 'menfess': { 
@@ -3321,14 +3324,14 @@ liaacans.sendMessage(m.chat, { text: teks.trim() }, 'extendedTextMessage', { quo
 break
 /*case 'addprem2': // FIX AE YA PREM NYA.
                 if (!isCreator) return m.reply(mess.owner)
-                if (args.length < 2) return m.reply(`Penggunaan :\n*${prefix}addprem* @tag waktu\n*${prefix}addprem* nomor waktu\n\nContoh : ${command} @tag 30d`)
+                if (!text) return m.reply(`Penggunaan :\n*${prefix}addprem* @tag waktu\n*${prefix}addprem* nomor waktu\n\nContoh : ${command} @tag 30d`)
                 if (m.mentionedJid.length !== 0){
                     for (let i = 0; i < m.mentionedJid.length; i++){
-                    _prem.addPremiumUser(m.mentionedJid[0], args[2], premium)
+                    _prem.addPremiumUser(m.mentionedJid[0], text, premium)
                     }
                     m.reply('Sukses')
                 } else {
-                    _prem.addPremiumUser(args[1] + '@s.whatsapp.net', args[2], premium)
+                    _prem.addPremiumUser(args[1] + '@s.whatsapp.net', text, premium)
                     m.reply('Sukses')
                 }
                 break
@@ -4751,9 +4754,9 @@ case 'ai':
             if (m.isGroup) throw mess.grup
                if (!isCreator && !isAdmins) throw mess.admin
             db.data.absen = db.data.absen || {}
-            if (!(m.chat in db.data.absen)) return liaacans.sendButtonText(m.chat, lang.noAbsen(), `© ${ownername}`, `.absenstart`, lang.StartAbsen(), m)
+            if (!(m.chat in db.data.absen)) return liaacans.sendButtonText(m.chat, lang.noAbsen(), `© ${creator}`, `.absenstart`, lang.StartAbsen(), m)
 
-            let absen = db.data.absen[from][1]
+            let absen = db.data.absen[m.chat][1]
             const wasVote = absen.includes(m.sender)
             if (wasVote) return m.reply(lang.DahAbsen())
             absen.push(m.sender)
@@ -4773,15 +4776,15 @@ Total: ${absen.length}
 
 Kirim perintah .absen untuk absen dan .cekabsen untuk mengecek absen 📝
 `.trim()
-            await liaacans.sendButtonText(m.chat, caption, `© ${ownername}`, `.absen`, `Absen`, `.cekabsen`, `Check Absen`, m, absen)
+            await liaacans.sendButtonText(m.chat, caption, `© ${creator}`, `.absen`, `Absen`, `.cekabsen`, `Check Absen`, m, absen)
 
-            //alpha.sendTextWithMentions(m.chat, caption, m)
+            //liaacans.sendTextWithMentions(m.chat, caption, m)
             break
          case 'cekabsen': {
             if (m.isGroup) throw mess.grup
                if (!isCreator && !isAdmins) throw mess.admin
             db.data.absen = db.data.absen || {}
-            if (!(m.chat in db.data.absen)) return liaacans.sendButtonText(m.chat, lang.noAbsen(), `© ${ownername}`, `.absenstart`, lang.StartAbsen(), m)
+            if (!(m.chat in db.data.absen)) return liaacans.sendButtonText(m.chat, lang.noAbsen(), `© ${creator}`, `.absenstart`, lang.StartAbsen(), m)
 
             let dd = new Date
             let datee = dd.toLocaleDateString('id', {
@@ -4800,9 +4803,9 @@ Total: ${absenn.length}
 
 Kirim perintah .absen untuk absen dan .deleteabsen untuk menghapus absen 📝
 `.trim()
-            liaacans.sendButtonText(m.chat, captionn, `© ${ownername}`, `.absen`, `Absen`, `.deleteabsen`, `Delete Absen`, m, absenn)
+            liaacans.sendButtonText(m.chat, captionn, `© ${creator}`, `.absen`, `Absen`, `.deleteabsen`, `Delete Absen`, m, absenn)
 
-            //alpha.sendTextWithMentions(m.chat, captionn, m)
+            //liaacans.sendTextWithMentions(m.chat, captionn, m)
          }
          break
 
@@ -4811,7 +4814,7 @@ Kirim perintah .absen untuk absen dan .deleteabsen untuk menghapus absen 📝
             if (m.isGroup) throw mess.grup
                if (!isCreator && !isAdmins) throw mess.admin
             db.data.absen = db.data.absen || {}
-            if (!(from in db.data.absen)) return liaacans.sendButtonText(m.chat, lang.noAbsen(), `© ${ownername}`, `.absenstart`, lang.StartAbsen(), m)
+            if (!(m.chat in db.data.absen)) return liaacans.sendButtonText(m.chat, lang.noAbsen(), `© ${creator}`, `.absenstart`, lang.StartAbsen(), m)
 
             delete db.data.absen[m.chat]
             m.reply(lang.DelAbsen())
@@ -4822,10 +4825,10 @@ Kirim perintah .absen untuk absen dan .deleteabsen untuk menghapus absen 📝
             if (m.isGroup) throw mess.grup
                if (!isCreator && !isAdmins) throw mess.admin
             db.data.absen = db.data.absen || {}
-            if (from in db.data.absen) return liaacans.sendButtonText(m.chat, lang.adaAbsen() + `\n\nKirim perintah .cekabsen untuk mengecek absen dan .deleteabsen untuk menghapus absen 📝`, `© ${ownername}`, `.cekabsen`, `Check Absen`, `.deleteabsen`, `Delete Absen`, m)
+            if (m.chat in db.data.absen) return liaacans.sendButtonText(m.chat, lang.adaAbsen() + `\n\nKirim perintah .cekabsen untuk mengecek absen dan .deleteabsen untuk menghapus absen 📝`, `© ${creator}`, `.cekabsen`, `Check Absen`, `.deleteabsen`, `Delete Absen`, m)
 
             db.data.absen[m.chat] = [
-               await liaacans.sendButtonText(m.chat, lang.SAbsen(), `© ${ownername}`, `.absen`, `Absen`, m),
+               await liaacans.sendButtonText(m.chat, lang.SAbsen(), `© ${creator}`, `.absen`, `Absen`, m),
 
                [], q ? q : ''
             ]
@@ -4886,11 +4889,11 @@ m.reply(String(e))
 
 // AUTO SIMI SIMI GES, KLO MW TANPA BERBICARA/NGETIK, MATIIN AJAH:V, CARANYA? /*INI*/ KAYA GITU YA!
 
-if (!text) return
+/*if (!text) return
        let api = await fetch(`https://api.simsimi.net/v2/?text=${text}&lc=id`)
         let res = await api.json()
-        m.reply(res.success)
-		
+        m.reply(res.success)*/
+
 // END SIMI SIMI:V
 
 // KITA SEMBUNYIKAN AUTO REAC NYA, NNTI TERGNGGU OLEH USER LAIN:V
