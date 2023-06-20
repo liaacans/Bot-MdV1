@@ -43,7 +43,6 @@ game: {},
 settings: {},
 others: {},
 sticker: {},
-saldo: {},
 ...(global.db.data || {})
 }
 
@@ -141,16 +140,7 @@ Silahkan Intro Terlebih Dahulu Ya!
 ║➸ ʜᴏʙʙʏ       :
 ║➸ ꜱᴛᴀᴛᴜꜱ      :
 ╚══════════════════╝`
-const buttonMessage = {
-text: welcome,
-footer: 'Note : Jangan Lupa Baca Desk Terlebih Dahulu\n© Created By Auliahost-BOT',
-mentionedJid: [num],
-buttons: [
-{ buttonId: 'welcome cug', buttonText: {displayText: 'Semoga Betah Di Group Ini Ya️'}, type: 1}
-],
-headerType: 1
-}
-liaacans.sendMessage(anu.id, buttonMessage, {quoted:kafloc})
+liaacans.sendMessage(anu.id, welcome, {quoted:kafloc})
 } else if (anu.action == 'remove') {
 let kafloc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {locationMessage: {name: `${global.fake}`,jpegThumbnail: global.thumb}}}
 let pushname = m.pushname
@@ -158,16 +148,7 @@ left = `┌─❖「 𝙶𝙾𝙾𝙳 𝙱𝚈𝙴 @${num.split("@")[0]}  」
 │✑ 𝙱𝙴𝙱𝙰𝙽 𝙶𝚁𝙾𝚄𝙿 𝙺𝙴𝙻𝚄𝙰𝚁
 │✑ 𝙹𝙰𝙽𝙶𝙰𝙽 𝙻𝚄𝙿𝙰 𝙱𝙰𝚆𝙰 𝙶𝙾𝚁𝙴𝙽𝙶𝙰𝙽 𝚈𝙰 𝙺𝙰𝙺! 
    └───────────────┈ ⳹`
-const buttonMessage = {
-text: left,
-footer: '© Created By Auliahost-BOT',
-mentionedJid: [num],
-buttons: [
-{ buttonId: 'left cug', buttonText: {displayText: 'Sayonaraa👋...️'}, type: 1}
-],
-headerType: 1
-}
-liaacans.sendMessage(anu.id, buttonMessage, {quoted:kafloc})
+liaacans.sendMessage(anu.id, left, {quoted:kafloc})
 }
 }
 } catch (err) {
