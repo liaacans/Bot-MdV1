@@ -24,7 +24,7 @@ var speed = require('performance-now')
 var FormData = require("form-data")
 var { smsg, formatp, tanggal, formatDate, getTime, isUrl, sleep, clockString, runtime, fetchJson, getBuffer, jsonformat, format, parseMention, getRandom, makeid, reSize, textParse } = require('../message/myfunc')
 var { pinterest, wallpaper, wikimedia, quotesAnime } = require('../message/scraper')
-var { jadibot, listJadibot } = require('../message/jadibot')
+var { jadibot, m } = require('../message/jadibot')
 var { addResponList, delResponList, isAlreadyResponList, isAlreadyResponListGroup, sendResponList, updateResponList, getDataResponList } = require('../message/respon-list')
 var { addRespons, checkRespons, deleteRespons } = require('../message/respon')
 var { menu, funMenu, gcMenu, convertMenu, randomMenu, downloadMenu, ownerMenu, anonymousMenu, databaseMenu, islamicMenu, chargerMenu, makerMenu, bugMenu, soundMenu, donasiMenu, mainMenu, topupMenu, sistemMenu, panelMenu, textPro } = require('../message/help')
@@ -65,6 +65,18 @@ var ucapanWaktu = 'Selamat Pagi 🌉'
  } 
 
 //━━━━━━━━━━━━━━━[ DATABASE ]━━━━━━━━━━━━━━━━━//
+
+global.db = JSON.parse(fs.readFileSync('./json/database.json'))
+global.db.data = {
+users: {},
+chats: {},
+database: {},
+game: {},
+settings: {},
+others: {},
+sticker: {},
+...(global.db.data || {})
+}
 
 var tebaklagu = db.data.game.tebaklagu = []
 var _family100 = db.data.game.family100 = []
@@ -298,8 +310,7 @@ liaacans.sendMessage(m.chat, { delete: m.key })
 }
 
 if (db.data.chats[m.chat].antivirtex) {
-if (budy.length > 5000)
-if (budy.includes('wa.me/settings')) {
+if (budy.length > 5000) {
 if (!isBotAdmins) return m.reply(`Ehh bot gak admin T_T`)
 if (isAdmins) return m.reply(`Ehh maaf kamu admin`)
 if (isCreator) return m.reply(`Ehh maaf kamu owner bot ku`)
@@ -379,7 +390,7 @@ if (db.data.chats[m.chat].mute && !isCreator) {
 return
 }
 
-// Auto Regist
+// Auto Regist || By. Aulia Rhman
         if (isCmd && !isUser){
 			pendaftar.push(m.sender)
 			fs.writeFileSync('./json/user.json', JSON.stringify(pendaftar))
@@ -387,12 +398,14 @@ return
 
 
 //━━━━━━━━━━━━━━━[ FAKE ]━━━━━━━━━━━━━━━━━//
+const freply = (teks) => {
+liaacans.sendMessage(m.chat, { text: teks, contextInfo:{"externalAdReply": {"title": `HUTOD-TEPOD`,"body": `👋🏻 Hai kak ${pushname}`, "previewType": "PHOTO","thumbnail": thumb,"sourceUrl": `https://youtu.be/6TN4bjeEvLs`}}}, { quoted: m})}
 const ftroli ={key: {fromMe: false,"participant":"0@s.whatsapp.net", "remoteJid": "status@broadcast"}, "message": {orderMessage: {itemCount: 2022,status: 200, jpegThumbnail: thumb, surface: 200, message: '©Created By LiaaCans BOT', orderTitle: 'memek', sellerJid: '0@s.whatsapp.net'}}, contextInfo: {"forwardingScore":999,"isForwarded":true},sendEphemeral: true}
 		const fdoc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {documentMessage: {title: '© Created By RahmXBot',jpegThumbnail: thumb}}}
 		const fvn = {key: {participant: `0@s.whatsapp.net`, ...(m.chat ? { remoteJid: "status@broadcast" } : {})},message: { "audioMessage": {"mimetype":"audio/ogg; codecs=opus","seconds":359996400,"ptt": "true"}} } 
 		const fgif = {key: {participant: `0@s.whatsapp.net`, ...(m.chat ? { remoteJid: "status@broadcast" } : {})},message: {"videoMessage": { "title": global.fake, "h": `Hmm`,'seconds': '359996400', 'gifPlayback': 'true', 'caption': global.fake, 'jpegThumbnail': global.thumb}}}
 		const fgclink = {key: {participant: "0@s.whatsapp.net","remoteJid": "0@s.whatsapp.net"},"message": {"groupInviteMessage": {"groupJid": "6288213840883-1616169743@g.us","inviteCode": "m","groupName": "YT Aulia Rahman Official", "caption": global.fake, 'jpegThumbnail': global.thumb}}}
-		const fvideo = {key: { fromMe: false,participant: `0@s.whatsapp.net`, ...(m.chat ? { remoteJid: "status@broadcast" } : {}) },message: { "videoMessage": { "title": global.fake, "h": `Hmm`,'seconds': '359996400', 'caption': global.fake, 'jpegThumbnail': global.thumb}}}
+		const fvideo = {key: { fromMe: false,participant: `0@s.whatsapp.net`, ...(m.chat ? { remoteJid: "status@broadcast" } : {}) },message: { "videoMessage": { "title": global.fake, "h": `Hmm`,'seconds': '359996400', 'caption': global.fake, 'jpegThumbnail': thumb}}}
 		const floc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {locationMessage: {name: global.fake ,jpegThumbnail: thumb}}}
 		const fkontak = { key: {participant: `0@s.whatsapp.net`, ...(m.chat ? { remoteJid: `status@broadcast` } : {}) }, message: { 'contactMessage': { 'jpegThumbnail': thumb, jpegThumbnail: thumb,sendEphemeral: true}}}
 	    const fakestatus = {key: {fromMe: false,participant: `0@s.whatsapp.net`, ...(m.chat ? { remoteJid: "status@broadcast" } : {})},message: { "imageMessage": {"url": "https://mmg.whatsapp.net/d/f/At0x7ZdIvuicfjlf9oWS6A3AR9XPh0P-hZIVPLsI70nM.enc","mimetype": "image/jpeg","caption": global.fake,"fileSha256": "+Ia+Dwib70Y1CWRMAP9QLJKjIJt54fKycOfB2OEZbTU=","fileLength": "28777","height": 1080,"width": 1079,"mediaKey": "vXmRR7ZUeDWjXy5iQk17TrowBzuwRya0errAFnXxbGc=","fileEncSha256": "sR9D2RS5JSifw49HeBADguI23fWDz1aZu4faWG/CyRY=","directPath": "/v/t62.7118-24/21427642_840952686474581_572788076332761430_n.enc?oh=3f57c1ba2fcab95f2c0bb475d72720ba&oe=602F3D69","mediaKeyTimestamp": "1610993486","jpegThumbnail": fs.readFileSync('./image/image.jpg'),"scansSidecar": "1W0XhfaAcDwc7xh1R8lca6Qg/1bB4naFCSngM2LKO2NoP5RI7K+zLw=="}}}
@@ -425,7 +438,7 @@ participant: `0@s.whatsapp.net`, ...(m.chat ? { remoteJid: "" } : {})
 "fileName": global.fake,
 "fileEncSha256": "ybdZlRjhY+aXtytT0G2HHN4iKWCFisG2W69AVPLg5yk="
 }}}
-const freply = {
+const freplyrahmx = {
 key: {
 fromMe: false, 
 participant: `0@s.whatsapp.net`, 
@@ -450,7 +463,7 @@ message: {
 "imageMessage": { 
 "mimetype": "image/jpeg", 
 "caption": `${buttonvirus}`, 
-"jpegThumbnail": "./image/thumbnail.jpg"
+"jpegThumbnail": thumb
 }
 }
 }
@@ -840,7 +853,7 @@ return res
 }
 
 function textImg(teks) {
-            return liaacans.sendMessage(m.chat, teks, text, {quoted: m, thumbnail: fs.readFileSync(global.thumb)})
+            return liaacans.sendMessage(m.chat, teks, text, {quoted: m, thumbnail: fs.readFileSync('./image/thumbnail.jpg')})
         }
 
 global.addUserPanel = (email, username, expired, _db) => {
@@ -851,6 +864,12 @@ expired: expired
 }
 _db.push(obj_add)
 fs.writeFileSync('./json/userpanel/user.json', JSON.stringify(_db, null, 3))
+}
+
+try {
+ppuser = await liaacans.profilePictureUrl(m.sender, 'image')
+} catch (err) {
+ppuser = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png?q=60'
 }
 
 //TEMPLATE BUTTON!
@@ -1525,9 +1544,9 @@ await liaacans.sendMessage(m.chat, { disappearingMessagesInChat: false }).then((
 }
 break
 case 'ffcover': case 'crossfire': case 'galaxy': case 'glass': case 'neon': case 'beach': case 'igcertificate': case 'ytcertificate': {
-                if (!text) throw 'No Query Text'
+                if (!q) throw 'No Query Text'
                 m.reply(mess.wait)
-                liaacans.sendMessage(m.chat, { image: { url: api('liaacans', '/ephoto/' + command, { text: text }, 'apikey') }, caption: `Ephoto ${command}` }, { quoted: m })
+                liaacans.sendMessage(m.chat, { image: { url: fetchJson(`https://api.lolhuman.xyz/api/ephoto1/${command}?apikey=${global.apilolhuman}&text=${q}`) }, caption: `Ephoto ${command}` }, { quoted: m })
             }
             break
 case 'blackpink': {
@@ -2399,31 +2418,35 @@ ${id}`)
 		m.reply(txt)
 		}
 		break
-case 'ytmp3': case 'ytaudio': {
-let { yta } = require('../message/y2mate')
-if (!text) throw `Example : ${prefix + command} https://youtube.com/watch?v=PtFMh6Tccag%27 128kbps`
-if (!isPremium && global.db.data.users[m.sender].limit < 1) return m.reply(mess.endLimit) // respon ketika limit habis
-db.data.users[m.sender].limit -= 1 // -1 limit
-m.reply(mess.wait)
-let quality = args[1] ? args[1] : '128kbps'
-let media = await yta(text, quality)
-if (media.filesize >= 100000) return m.reply('File Melebihi Batas '+util.format(media))
-liaacans.sendImage(m.chat, media.thumb, `• Title : ${media.title}\n• File Size : ${media.filesizeF}\n• Url : ${isUrl(text)}\n• Ext : MP3\n• Resolusi : ${args[1] || '128kbps'}`, m)
-liaacans.sendMessage(m.chat, { audio: { url: media.dl_link }, mimetype: 'audio/mpeg', fileName: `${media.title}.mp3` }, { quoted: fvn })
-            }
-                break
-            case 'ytmp4': case 'ytvideo': {
-let { ytv } = require('../message/y2mate')
-if (!text) throw `Example : ${prefix + command} https://youtube.com/watch?v=PtFMh6Tccag`
-if (!isPremium && global.db.data.users[m.sender].limit < 2) return m.reply(mess.endLimit) // respon ketika limit habis
-db.data.users[m.sender].limit -= 2 // -2 limit
-m.reply(mess.wait)
-let quality = args[1] ? args[1] : '360p'
-let media = await ytv(text, quality)
-if (media.filesize >= 100000) return m.reply('File Melebihi Batas '+util.format(media))
-liaacans.sendMessage(m.chat, { video: { url: media.dl_link }, mimetype: 'video/mp4', fileName: `${media.title}.mp4`, caption: `• Title : ${media.title}\n• File Size : ${media.filesizeF}\n• Url : ${isUrl(text)}\n• Ext : MP3\n• Resolusi : ${args[1] || '360p'}` }, { quoted: fvn })
-            }
-            break
+case 'ytmp3':
+			if (args.length == 0) return m.reply(`Example: ${prefix + command} https://www.youtube.com/watch?v=qZIQAk-BUEc`)
+			m.reply(mess.wait)
+			axios
+				.get(`https://api.lolhuman.xyz/api/ytaudio2?apikey=${global.apilolhuman}&url=${args[0]}`)
+				.then(({ data }) => {
+					var caption = `❖ Title    : *${data.result.title}*\n`
+					caption += `❖ Size     : *${data.result.size}*`
+					liaacans.sendMessage(m.chat, { image: { url: data.result.thumbnail }, caption }, { quoted: fkontak }).then(() => {
+						liaacans.sendMessage(m.chat, { audio: { url: data.result.link }, mimetype: 'audio/mp4', fileName: `${data.result.title}.mp3` }, { quoted: fvn })
+					})
+				})
+				.catch(console.error)
+			break
+			
+		    case 'ytmp4':
+			if (args.length == 0) return m.reply(`Example: ${prefix + command} https://www.youtube.com/watch?v=qZIQAk-BUEc`)
+			m.reply(mess.wait)
+			axios
+				.get(`https://api.lolhuman.xyz/api/ytvideo2?apikey=${global.apilolhuman}&url=${args[0]}`)
+				.then(({ data }) => {
+					var caption = `❖ Title    : *${data.result.title}*\n`
+					caption += `❖ Size     : *${data.result.size}*`
+					liaacans.sendMessage(m.chat, { image: { url: data.result.thumbnail }, caption }, { quoted: fkontak }).then(() => {
+						liaacans.sendMessage(m.chat, { video: { url: data.result.link }, mimetype: 'video/mp4', fileName: `${data.result.title}.mp4` }, { quoted: fvideo })
+					})
+				})
+				.catch(console.error)
+			break
 case 'yts': case 'ytsearch': {
   if (!isPremium) throw mess.prem
   m.reply(mess.wait)
@@ -2446,16 +2469,14 @@ case 'yts': case 'ytsearch': {
   liaacans.sendMessage(m.chat, { image: { url: search.all[0].thumbnail },  caption: teks }, { quoted: fkontak })
   }
   break
-case 'play':
+/*case 'play': {
   if (!isPremium) throw mess.prem
   if (!text) return `Example : ${prefix + command} story wa anime`
   let yts = require("yt-search")
   let search = await yts(text)
   let anu = search.videos[Math.floor(Math.random() * search.videos.length)]
-  let buttons = [{buttonId: `ytmp3 ${anu.url}`, buttonText: {displayText: 'Audio 🎵'}, type: 1}, {buttonId: `ytmp4 ${anu.url}`, buttonText: {displayText: 'Video 🎦'}, type: 1}]
-  let buttonMessage = {
-  image: { url: anu.thumbnail },
-  caption: `*----- DATA DITEMUKAN -----*
+  m.reply(mess.wait)
+  let caption = `*----- DATA DITEMUKAN -----*
   
 *📄 Title :* ${anu.title}
 *⌚ Duration :* ${anu.timestamp}
@@ -2463,12 +2484,9 @@ case 'play':
 *📤 Upload :* ${anu.ago}
 *👨‍🎤 Channel :* ${anu.author.url}
 *🔗 Url :* ${anu.url}`,
-  footer: creator,
-  buttons: buttons,
-  headerType: 4
+  liaacans.sendMessage(m.chat, { image: { url: Error }, caption }, { quoted: fkontak })
   }
-  liaacans.sendMessage(m.chat, buttonMessage, { quoted: fkontak })
-  break
+  break*/
 case 'tiktokmp3': case 'tiktokaudio': {
                 if (!isPremium) throw mess.prem
                 if (!text) throw 'Masukkan Query Link!'
@@ -2505,7 +2523,7 @@ case 'tiktokmp3': case 'tiktokaudio': {
                 if (!isPremium) throw mess.prem
                 if (!text) throw 'No Query Title'
                 m.reply(mess.wait)
-                let anu = await fetchJson(api('liaacans', '/downloader/joox', { query: text }, 'apikey'))
+                let anu = await fetchJson(`https://api.lolhuman.xyz/api/jooxplay?apikey=${global.apilolhuman}&query=${text}`)
                 await liaacans.sendImage(m.chat, anu.result.img, `⭔ Title : ${anu.result.lagu}\n⭔ Album : ${anu.result.album}\n⭔ Singer : ${anu.result.penyanyi}\n⭔ Publish : ${anu.result.publish}\n⭔ Lirik :\n${anu.result.lirik.result}`, m)
                 liaacans.sendMessage(m.chat, { audio: { url: anu.result.mp4aLink }, mimetype: 'audio/mpeg', fileName: anu.result.lagu+'.m4a' }, { quoted: msg })
             }
@@ -2560,7 +2578,7 @@ case 'tiktokmp3': case 'tiktokaudio': {
 	        if (!isPremium) throw mess.prem
                 if (!text) throw 'Masukkan Query Link!'
                 m.reply(mess.wait)
-                let anu = await fetchJson(api('zenz', '/api/downloader/facebook', { url: text }, 'apikey'))
+                let anu = await fetchJson(`https://api.lolhuman.xyz/api/facebook?apikey=${global.apilolhuman}&url=${text}`)
                 liaacans.sendMessage(m.chat, { video: { url: anu.result.url }, caption: `⭔ Title : ${anu.result.title}`}, { quoted: fkontak })
             }
             break
@@ -2568,7 +2586,7 @@ case 'tiktokmp3': case 'tiktokaudio': {
 	        if (!isPremium) throw mess.prem
                 if (!text) throw 'Masukkan Query Link!'
                 m.reply(mess.wait)
-                let anu = await fetchJson(api('zenz', '/api/downloader/pinterestdl', { url: text }, 'apikey'))
+                let anu = await fetchJson(`https://api.lolhuman.xyz/api/pinterestdl?apikey=${global.apilolhuman}&url=${text}`)
                 liaacans.sendMessage(m.chat, { video: { url: anu.result }, caption: `Download From ${text}` }, { quoted: fkontak })
             }
             break
@@ -2654,8 +2672,8 @@ case 'delete': case 'del': {
             }
             break
 case 'delete2': case 'del2': { // fix by aulia rahman
-if (!text) throw `Reply Untuk Menghapus Pesan Orang Lain`
-liaacans.sendMessage(m.chat, { delete: m.quoted })
+if (!q) throw `Reply Untuk Menghapus Pesan Orang Lain`
+liaacans.sendMessage(m.chat, { delete: m.key })
 }
 break
 case 'menfes': case 'menfess': { 
@@ -3268,13 +3286,13 @@ rules = `☰⟥⟝⟞⟝❨ *Rᴜʟᴇs Mʏ Bᴏᴛ* ❩⟞⟝⟞⟤☰
 └─┈⟅`
              m.reply(rules)
              break
-case 'jadibot': { // Fix Aja Kalau Bisa Kak!
+case 'jadibot': { // Fix By Aulia Rahman
 if(!isPremium) throw mess.prem
-jadibot(liaacans, m, m.chat)
+if(m.isGroup) throw mess.private
+await jadibot(liaacans, m, m.chat)
 }
 break
 case 'listjadibot':
-if (!isPremium) throw mess.prem
 try {
 let user = [... new Set([...global.conns.filter(liaacans => liaacans.user).map(liaacans => liaacans.user)])]
 te = "*List Jadibot*\n\n"
@@ -3474,7 +3492,7 @@ case 'ssweb-pc':
 case 'ssweb-hp':{ // fix ssweb by rhmxbot
 if (!text) return m.reply(`Masukan parameter url\n*Contoh:*\n${prefix+command} https://google.com`)
 m.reply(mess.wait)
-let anu =`https://sh.xznsenpai.xyz/api/ssweb?type=dekstop&url=${text}`
+let anu =`https://api.lolhuman.xyz/api/ssweb?apikey=${global.apilolhuman}&url=${q}`
 liaacans.sendMessage(m.chat, { image: {url: anu}, caption: 'Done!'}, {quoted:m})
 }
 break
@@ -4836,7 +4854,7 @@ Kirim perintah .absen untuk absen dan .deleteabsen untuk menghapus absen 📝
          break*/ // FIX AE ABSEN NYA
 case 'simi': case 'simsimi': {
 if (!text) throw `Use example .simi halo`
-  let api = await fetch(`https://api.simsimi.net/v2/?text=${text}&lc=id`)
+  let api = await fetch(`https://simsimi.fun/api/v2/?mode=talk&lang=id&message=${text}&filter=true`)
   let res = await api.json()
   m.reply(res.success)
   }
@@ -4845,6 +4863,139 @@ case 'ceklimit': case 'checklimit': case 'limit':{
 					m.reply('*LIMIT ANDA TINGGAL :* ' + (db.data.users[m.sender].limit))
 					}
 					break 
+case 'idgroup': {
+if (!isCreator) throw mess.owner
+m.reply(`▰▰▰▰▰▰▱▱ 98% 𝚠𝚊𝚒𝚝!!`)
+let getGroups = await liaacans.groupFetchAllParticipating()
+let groups = Object.entries(getGroups).slice(0).map((entry) => entry[1])
+let anu = groups.map((v) => v.id)
+let teks = `⬣ *LIST GROUP ANDA*\n\nTotal Group : ${anu.length} GROUP\n\n`
+for (let x of anu) {
+let metadata2 = await liaacans.groupMetadata(x)
+teks += `❏ *INFO GROUP*\n│⭔ *NAMA :* ${metadata2.subject}\n│⭔ *ID :* ${metadata2.id}\n│⭔ *MEMBER :* ${metadata2.participants.length}\n╰────|\n\n`
+}
+m.reply(teks + `Untuk Penggunaan Silahkan Ketik\nCommand ${prefix}pushkontak id|teks\n\nCreated By © *RahmXBot*`)
+}
+break
+break
+case 'pushmember': {
+if (!isCreator) throw mess.owner
+if (!text) return m.reply(`Penggunaan Salah Silahkan Gunakan Seperti Ini\n${prefix+command} Teks`)
+await m.reply("_Wᴀɪᴛɪɴɢ ɪɴ ᴘʀᴏɢʀᴇss !!_")
+let getGroups = await liaacans.groupFetchAllParticipating()
+let groups = Object.entries(getGroups).slice(0).map((entry) => entry[1])
+let anu = groups.map((v) => v.id)
+for (let xnxx of anu) {
+await liaacans.sendMessage(xnxx, { text: text })
+await sleep(2000)
+}
+m.reply("*SUCCESFUL ✅*")
+}
+break
+case 'cekmember': {
+if (!isCreator) throw mess.owner
+if (!q) return m.reply("Id Nya Mana Kak?")
+let cekmd = await liaacans.groupMetadata(q)
+let txrk = await liaacans.sendMessage(m.chat, { text: `Nama Group : ${cekmd.subject}\nMember : ${cekmd.participants.length} Orang` }, { quoted: msg })
+await liaacans.sendMessage(m.chat, { text: `Jika Mau Push Kontak Gunakan Command Di Bawah\n${prefix}pushkontak ${q}|Hallo Save Ziro\n\nCommand Di Atas Teks Nya Hanya Contoh Jadi Ubah Aja Yaa` }, { quoted: txrk })
+}
+break
+case 'pushkontak':
+if (!isCreator) throw mess.owner
+if (m.isGroup) return m.reply(`Fitur Ini Hanya Bisa Digunakan Di Private Chat`)
+if (!q) return m.reply(`Penggunaan Salah Silahkan Gunakan Command Seperti Ini\n${prefix+command} idgroup|tekspushkontak\nUntuk Liat Id Group Silahkan Ketik .idgroup`)
+await m.reply("_Wᴀɪᴛɪɴɢ ɪɴ ᴘʀᴏɢʀᴇss !!_")
+const hay = q.split("|")[1]
+const groupMetadataa = !m.isGroup? await liaacans.groupMetadata(`${q.split("|")[0]}`).catch(e => {}) : ""
+const participantss = !m.isGroup? await groupMetadataa.participants : ""
+const halls = await participantss.filter(v => v.id.endsWith('.net')).map(v => v.id)
+for (let mem of halls) {
+liaacans.sendMessage(mem, { text: hay })
+await sleep(2000)
+}
+m.reply("*SUCCESFUL ✅*")
+break
+case 'pushkontakv2':
+if (!isCreator) throw mess.owner
+if (!m.isGroup) return m.reply(`Maaf Kak Fitur ${prefix+command} Hanya Bisa Di Gunakan Di Dalam Group\nUntuk Memasukan Bot Ke Dalam Group Yang Di Ingin Kan\nSilahkan Ketik Command .join linkgroup`)
+if (!text) return m.reply(`Penggunaan Salah Silahkan Gunakan Command Seperti Ini\n${prefix+command} teks`)
+await m.reply("_Wᴀɪᴛɪɴɢ ɪɴ ᴘʀᴏɢʀᴇss !!_")
+const halsss = await participants.filter(v => v.id.endsWith('.net')).map(v => v.id)
+for (let men of halsss) {
+liaacans.sendMessage(men, { text: text })
+await sleep(2000)
+}
+m.reply("*SUCCESFUL ✅*")
+break
+case "qc": {
+if (!quoted){
+const getname = await liaacans.getName(mentionUser[0])
+const json = {
+"type": "quote",
+"format": "png",
+"backgroundColor": "#FFFFFF",
+"width": 512,
+"height": 768,
+"scale": 2,
+"messages": [
+{
+"entities": [],
+"avatar": true,
+"from": {
+"id": 1,
+"name": getname,
+"photo": {
+"url": ppuser
+}
+},
+"text": quotedMsg.chats,
+"replyMessage": {}
+}
+]
+};
+const response = axios.post('https://bot.lyo.su/quote/generate', json, {
+headers: {'Content-Type': 'application/json'}
+}).then(res => {
+const buffer = Buffer(res.data.result.image, 'base64')
+const opt = { packname: global.packname, author: global.author }
+liaacans.sendImageAsSticker(m.chat, buffer, m, opt)
+});
+} else if (q) {
+const json = {
+"type": "quote",
+"format": "png",
+"backgroundColor": "#FFFFFF",
+"width": 512,
+"height": 768,
+"scale": 2,
+"messages": [
+{
+"entities": [],
+"avatar": true,
+"from": {
+"id": 1,
+"name": pushname,
+"photo": {
+"url": ppuser
+}
+},
+"text": q,
+"replyMessage": {}
+}
+]
+};
+const response = axios.post('https://bot.lyo.su/quote/generate', json, {
+headers: {'Content-Type': 'application/json'}
+}).then(res => {
+const buffer = Buffer(res.data.result.image, 'base64')
+const opt = { packname: global.packname, author: global.author }
+liaacans.sendImageAsSticker(m.chat, buffer, m, opt)
+});
+} else {
+m.reply(`Kirim perintah ${command} text atau reply pesan dengan perintah ${command}`)
+}
+}
+break
 //---------------[ AUTO RESPON ]------------------//
 // By Aulia Rahman (Auliahost-BOT)
 case 'rahman':{
@@ -4889,11 +5040,11 @@ m.reply(String(e))
 
 // AUTO SIMI SIMI GES, KLO MW TANPA BERBICARA/NGETIK, MATIIN AJAH:V, CARANYA? /*INI*/ KAYA GITU YA!
 
-/*if (!text) return
-       let api = await fetch(`https://api.simsimi.net/v2/?text=${text}&lc=id`)
+/*if (!q) return
+       let api = await fetch(`https://simsimi.fun/api/v2/?mode=talk&lang=id&message=${q}&filter=true`)
         let res = await api.json()
-        m.reply(res.success)*/
-
+        m.reply(res.success)
+*/
 // END SIMI SIMI:V
 
 // KITA SEMBUNYIKAN AUTO REAC NYA, NNTI TERGNGGU OLEH USER LAIN:V
