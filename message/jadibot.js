@@ -26,14 +26,53 @@ const liaacans = makeWaSocket({ logger: pino ({ level: 'silent' }), printQRInTer
 
 store.bind(liaacans.ev)
 
-// anticall auto block
-liaacans.ws.on('CB:call', async (json) => {
-const callerId = json.content[0].attrs['call-creator']
-if (json.content[0].tag == 'offer') {
-let pa7rick = await liaacans.sendContact(callerId, global.owner)
-liaacans.sendMessage(callerId, { text: `Sistem otomatis block!\nJangan menelpon bot!\nSilahkan Hubungi Owner Untuk Dibuka !`}, { quoted : pa7rick })
-await sleep(8000)
-await liaacans.updateBlockStatus(callerId, "block")
+liaacans.ev.on('group-participants.update', async (anu) => {
+console.log(anu)
+try {
+let metadata = await liaacans.groupMetadata(anu.id)
+let participants = anu.participants
+for (let num of participants) {
+// Get Profile Picture User
+try {
+ppuser = await liaacans.profilePictureUrl(num, 'image')
+} catch {
+ppuser = 'https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg'
+}
+
+// Get Profile Picture Group
+try {
+ppgroup = await liaacans.profilePictureUrl(anu.id, 'image')
+} catch {
+ppgroup = 'https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg'
+}
+
+if (anu.action == 'add') {
+let kafloc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {locationMessage: {name: `${global.fake}`,jpegThumbnail: global.thumb}}}
+welcome = `𝙷𝚊𝚕𝚘 𝙺𝚊𝚔 @${num.split("@")[0]}
+Silahkan Intro Terlebih Dahulu Ya!
+┌─❖        *「 ᴋᴀʀᴛᴜ ɪɴᴛʀᴏ 」*
+║➸ ɴᴀᴍᴀ       :
+║➸ ᴜᴍᴜʀ       :
+║➸ ᴋᴇʟᴀꜱ       :
+║➸ ᴀꜱᴀʟ        :
+║➸ ɢᴇɴᴅᴇʀ      :
+║➸ ᴀɢᴀᴍᴀ       :
+║➸ ʜᴏʙʙʏ       :
+║➸ ꜱᴛᴀᴛᴜꜱ      :
+╚══════════════════╝`
+liaacans.sendMessage(anu.id, { text: welcome }, {quoted:kafloc})
+} else if (anu.action == 'remove') {
+let kafloc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {locationMessage: {name: `${global.fake}`,jpegThumbnail: global.thumb}}}
+let pushname = m.pushname
+left = `┌─❖「 𝙶𝙾𝙾𝙳 𝙱𝚈𝙴 @${num.split("@")[0]}  」
+│✑ 𝙱𝙴𝙱𝙰𝙽 𝙶𝚁𝙾𝚄𝙿 𝙺𝙴𝙻𝚄𝙰𝚁
+│✑ 𝙹𝙰𝙽𝙶𝙰𝙽 𝙻𝚄𝙿𝙰 𝙱𝙰𝚆𝙰 𝙶𝙾𝚁𝙴𝙽𝙶𝙰𝙽 𝚈𝙰 𝙺𝙰𝙺! 
+   └───────────────┈ ⳹`
+liaacans.sendMessage(anu.id, { text: left }, {quoted:kafloc})
+}
+}
+} catch (err) {
+console.log(err)
 }
 })
 
