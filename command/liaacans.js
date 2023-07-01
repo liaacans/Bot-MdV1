@@ -3287,7 +3287,6 @@ rules = `☰⟥⟝⟞⟝❨ *Rᴜʟᴇs Mʏ Bᴏᴛ* ❩⟞⟝⟞⟤☰
              m.reply(rules)
              break
 case 'jadibot': { // Fix By Aulia Rahman
-if(!isPremium) throw mess.prem
 if(m.isGroup) throw mess.private
 await jadibot(liaacans, m, m.chat)
 }
