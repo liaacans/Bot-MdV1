@@ -140,7 +140,7 @@ Silahkan Intro Terlebih Dahulu Ya!
 ║➸ ʜᴏʙʙʏ       :
 ║➸ ꜱᴛᴀᴛᴜꜱ      :
 ╚══════════════════╝`
-liaacans.sendMessage(anu.id, welcome, {quoted:kafloc})
+liaacans.sendMessage(anu.id, { text: welcome }, {quoted:kafloc})
 } else if (anu.action == 'remove') {
 let kafloc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {locationMessage: {name: `${global.fake}`,jpegThumbnail: global.thumb}}}
 let pushname = m.pushname
@@ -148,7 +148,7 @@ left = `┌─❖「 𝙶𝙾𝙾𝙳 𝙱𝚈𝙴 @${num.split("@")[0]}  」
 │✑ 𝙱𝙴𝙱𝙰𝙽 𝙶𝚁𝙾𝚄𝙿 𝙺𝙴𝙻𝚄𝙰𝚁
 │✑ 𝙹𝙰𝙽𝙶𝙰𝙽 𝙻𝚄𝙿𝙰 𝙱𝙰𝚆𝙰 𝙶𝙾𝚁𝙴𝙽𝙶𝙰𝙽 𝚈𝙰 𝙺𝙰𝙺! 
    └───────────────┈ ⳹`
-liaacans.sendMessage(anu.id, left, {quoted:kafloc})
+liaacans.sendMessage(anu.id, { text: left }, {quoted:kafloc})
 }
 }
 } catch (err) {
