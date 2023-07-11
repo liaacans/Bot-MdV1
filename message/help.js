@@ -320,6 +320,7 @@ NOTE : FITUR SOUND MENU NYA 74 YA, TAPI OWNERNYA MLES NGETIK:V
 ├│${prefix}tinyurl
 ├│${prefix}sewabot
 ├│${prefix}spamcall
+├│${prefix}autosimi
 ├│${prefix}tts
 ├│${prefix}ssweb-pc
 ├│${prefix}infogempa
@@ -435,6 +436,7 @@ return `┌─❖ ⌜ Random Menu ⌟
 ├│${prefix}google
 ├│${prefix}wikimedia
 ├│${prefix}ai
+├│${prefix}qc
 └─❖`
 }
 
@@ -472,6 +474,11 @@ return `┌─❖ ⌜ Owner Menu ⌟
 ├│${prefix}listgc
 ├│${prefix}listpc
 ├│${prefix}creategc
+├│${prefix}idgroup
+├│${prefix}pushmember
+├│${prefix}cekmember
+├│${prefix}pushkontak
+├│${prefix}pushkontakv2
 ├│${prefix}leave
 ├│${prefix}block
 ├│${prefix}unblock
@@ -639,6 +646,7 @@ return `┌─❖ ⌜ Main Menu ⌟
 ├│${prefix}sewabot
 ├│${prefix}tts
 ├│${prefix}spamcall
+├│${prefix}autosimi
 ├│${prefix}ssweb-pc
 ├│${prefix}ssweb-hp
 ├│${prefix}infogempa
