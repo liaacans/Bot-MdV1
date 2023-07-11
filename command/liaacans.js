@@ -160,12 +160,14 @@ if (!('antilink' in chats)) chats.antilink = false
 if (!('antiwame' in chats)) chats.antiwame = false
 if (!('antiviewonce' in chats)) chats.antiviewonce = false
 if (!('antilinkig' in chats)) chats.antilinkig = false
+if (!('autosimi' in chats)) chats.autosimi = false
 if (!('antivirtex' in chats)) chats.antivirtex = false
 if (!('antibadword' in chats)) chats.antibadword = false
 } else global.db.data.chats[m.chat] = {
 mute: false,
 antilink: false,
 antilinkig: false,
+autosimi: false,
 antiwame: false,
 antivirtex: false,
 antibadword: false,
@@ -384,6 +386,16 @@ if (db.data.chats[m.chat].antiviewonce) {
             }
         }
         
+//━━━━━━━━━━━━━━━[ AUTO SIMI FALSE / TRUE ]━━━━━━━━━━━━━━━━━//
+
+if (db.data.chats[m.chat].autosimi) {
+if (!q) return
+       let api = await fetch(`https://simsimi.fun/api/v2/?mode=talk&lang=id&message=${q}&filter=true`)
+        let res = await api.json()
+        m.reply(res.success)
+     }
+    
+ 
 //━━━━━━━━━━━━━━━[ MUTE & PENDAFTARAN ]━━━━━━━━━━━━━━━━━//
 
 if (db.data.chats[m.chat].mute && !isCreator) {
@@ -940,7 +952,7 @@ var menu_teks = `Hai Kak ${pushname}
 ˗ˏˋ˖🧺 *Pukul : ${jam}*
 ˗ˏˋ˖🧺 *Runtime Bot*
 ˗ˏˋ˖🧺 *${runtime(process.uptime())}*
-˗ˏˋ˖🧺 *Prefix : 「 ${prefix} 」*
+˗ˏˋ˖🧺 *Prefix : 「 MULTI PREFIX 」*
 ▬▭▬▭▬▭▬▭▬▭▬▭▬ 
 ┌─❖ ⌜ ˗ˏˋ˖🐰*USER INFO* ָ ⋆ 𖥻 ⌟
 ⌗ *Name* : *${pushname}*
@@ -983,6 +995,7 @@ var menu_teks = `Hai Kak ${pushname}
 ┃
 ┣ ❖ ${prefix}runtime
 ┣ ❖ ${prefix}ping
+┣ ❖ ${prefix}autosimi
 ┣ ❖ ${prefix}pemilik
 ┃
 ╚━❖
@@ -1385,6 +1398,20 @@ db.data.chats[m.chat].antilink = false
 m.reply(`Antilink Tidak Aktif !`)
 } else {
 m.reply(`pilih off atau on\ncontoh : ${prefix}antilink on`)
+}
+}
+break
+case 'autosimi': {
+if (args[0] === "on") {
+if (db.data.chats[m.chat].autosimi) return m.reply(`Sudah Aktif Sebelumnya`)
+db.data.chats[m.chat].autosimi = true
+m.reply(`Auto Simsimi Aktif !`)
+} else if (args[0] === "off") {
+if (!db.data.chats[m.chat].autosimi) return m.reply(`Sudah Tidak Aktif Sebelumnya`)
+db.data.chats[m.chat].autosimi = false
+m.reply(`Auto Simsimi Tidak Aktif !`)
+} else {
+m.reply(`pilih off atau on\ncontoh : ${prefix}autosimi on`)
 }
 }
 break
@@ -2288,8 +2315,7 @@ case 'pinterest': {
   m.reply(mess.wait)
   let anu = await pinterest(text)
   result = anu[Math.floor(Math.random() * anu.length)]
-  let buttonspinterest = [{buttonId: `pinterest ${text}`, buttonText: {displayText: 'Next Result'}, type: 1}]
-  liaacans.sendMessage(m.chat, { image: { url: result }, caption: 'Source Url : '+result, buttons: buttonspinterest }, { quoted: fkontak })
+  liaacans.sendMessage(m.chat, { image: { url: result }, caption: 'Source Url : '+result }, { quoted: fkontak })
   }
   break
 case 'wallpaper': {
@@ -2297,16 +2323,14 @@ case 'wallpaper': {
   m.reply(mess.wait)
   let anu = await wallpaper(text)
   result = anu[Math.floor(Math.random() * anu.length)]
-  let buttonswallpaper = [{buttonId: `wallpaper ${text}`, buttonText: {displayText: 'Next Result'}, type: 1}]
-  liaacans.sendMessage(m.chat, { image: { url: result.image[0] }, caption: `Source Url : ${result.image[2] || result.image[1] || result.image[0]}`, buttons: buttonswallpaper }, { quoted: fkontak })
+  liaacans.sendMessage(m.chat, { image: { url: result.image[0] }, caption: `Source Url : ${result.image[2] || result.image[1] || result.image[0]}` }, { quoted: fkontak })
   }
   break
 case 'quotesanime': {
   m.reply(mess.wait)
   let anu = await quotesAnime()
   result = anu[Math.floor(Math.random() * anu.length)]
-  let buttonsquotes = [{buttonId: `quotesanime`, buttonText: {displayText: 'Next Result'}, type: 1}]
-  liaacans.sendButtonText(m.chat, buttonsquotes, `${result.quotes}\n\nBy : ${result.karakter}`, global.ownerName, m)
+  liaacans.sendMessage(m.chat, `${result.quotes}\n\nBy : ${result.karakter}`, m)
   }
   break
 case 'wikimedia': {
@@ -2673,7 +2697,7 @@ case 'delete': case 'del': {
             break
 case 'delete2': case 'del2': { // fix by aulia rahman
 if (!q) throw `Reply Untuk Menghapus Pesan Orang Lain`
-liaacans.sendMessage(m.chat, { delete: m.key })
+liaacans.sendMessage(m.chat, { delete: m.quoted })
 }
 break
 case 'menfes': case 'menfess': { 
@@ -3287,6 +3311,7 @@ rules = `☰⟥⟝⟞⟝❨ *Rᴜʟᴇs Mʏ Bᴏᴛ* ❩⟞⟝⟞⟤☰
              m.reply(rules)
              break
 case 'jadibot': { // Fix By Aulia Rahman
+if(!isPremium) throw mess.prem
 if(m.isGroup) throw mess.private
 await jadibot(liaacans, m, m.chat)
 }
@@ -3575,8 +3600,7 @@ m.reply(`Sukses Mengirim Broadcast`)
 		for (let yoi of chitt) {
 		await sleep(1500)
 		let txt = `「 Broadcast Bot 」\n\n${text}`
-		let buttons = [{ buttonId: 'sewabot', buttonText: { displayText: 'SEWA BOT' }, type: 1 },{ buttonId: 'rules', buttonText: { displayText: 'RULES BOT' }, type: 1 }]
-            await liaacans.sendButtonText(yoi, buttons, txt, creator, m, {quoted: fkontak})
+            await liaacans.sendMessage(yoi, txt, m, {quoted: fkontak})
 		}
 		m.reply('Sukses Broadcast')
 }
@@ -3591,8 +3615,7 @@ m.reply(`Sukses Mengirim Group Broadcast`)
 for (let i of anu) {
 await sleep(1500)
 let txt = `「 Broadcast Bot 」\n\n${text}`
-let buttons = [{ buttonId: 'donasi', buttonText: { displayText: 'DONASI' }, type: 1 },{ buttonId: 'rules', buttonText: { displayText: 'RULES BOT' }, type: 1 }]
-await liaacans.sendButtonText(i, buttons, txt, creator, m, {quoted: fkontak})
+await liaacans.sendMessage(i, txt, m, {quoted: fkontak})
 }
 m.reply(`Sukses Mengirim Broadcast Ke Group`)
 }
@@ -3635,8 +3658,8 @@ case 'tinyurl': { // by rahman (gw)
             break
 case 'shortlink': { // by rahman (gw)
             	if (!text) throw 'Masukkan Query Link!'
-                let anu = await fetchJson(`https://link2u.mwebs.id/q/?u=${text}`)
-                liaacans.sendMessage(m.chat,{ text: anu.data + `\nNih Bro`}, { quoted: fdoc })
+                let anu = await fetchJson(`https://link2u.biz.id/api?api=5b0cab6f0cd650a325187e162047f8436ae618d8&url=${text}`)
+                liaacans.sendMessage(m.chat,{ text: anu.data + `\n*[SUKSES]* SUDAH TERSHORTENER`}, { quoted: fdoc })
             }
             break
 case 'closetime':
@@ -4377,7 +4400,7 @@ var wifegerak = ano.split('\n')
 
 var wifegerakx = wifegerak[Math.floor(Math.random() * wifegerak.length)]
 
-encmedia = await liaacans.sendImageAsSticker(m.chat, wifegerakx, m, { packname: global.packname, author: global.author, })
+encmedia = await liaacans.sendImageAsSticker(m.chat, wifegerakx, m, { packname: global.packname, author: global.titlestic, })
 
 await fs.unlinkSync(encmedia)
 
@@ -4393,7 +4416,7 @@ var wifegerak = ano.split('\n')
 
 var wifegerakx = wifegerak[Math.floor(Math.random() * wifegerak.length)]
 
-encmedia = await liaacans.sendImageAsSticker(m.chat, wifegerakx, m, { packname: global.packname, author: global.author, })
+encmedia = await liaacans.sendImageAsSticker(m.chat, wifegerakx, m, { packname: global.packname, author: global.titlestic, })
 
 await fs.unlinkSync(encmedia)
 
@@ -4409,7 +4432,7 @@ var wifegerak = ano.split('\n')
 
 var wifegerakx = wifegerak[Math.floor(Math.random() * wifegerak.length)]
 
-encmedia = await liaacans.sendImageAsSticker(m.chat, wifegerakx, m, { packname: global.packname, author: global.author, })
+encmedia = await liaacans.sendImageAsSticker(m.chat, wifegerakx, m, { packname: global.packname, author: global.titlestic, })
 
 await fs.unlinkSync(encmedia)
 
@@ -4425,7 +4448,7 @@ var wifegerak = ano.split('\n')
 
 var wifegerakx = wifegerak[Math.floor(Math.random() * wifegerak.length)]
 
-encmedia = await liaacans.sendImageAsSticker(m.chat, wifegerakx, m, { packname: global.packname, author: global.author, })
+encmedia = await liaacans.sendImageAsSticker(m.chat, wifegerakx, m, { packname: global.packname, author: global.titlestic, })
 
 await fs.unlinkSync(encmedia)
 
@@ -4441,7 +4464,7 @@ var wifegerak = ano.split('\n')
 
 var wifegerakx = wifegerak[Math.floor(Math.random() * wifegerak.length)]
 
-encmedia = await liaacans.sendImageAsSticker(m.chat, wifegerakx, m, { packname: global.packname, author: global.author, })
+encmedia = await liaacans.sendImageAsSticker(m.chat, wifegerakx, m, { packname: global.packname, author: global.titlestic, })
 
 await fs.unlinkSync(encmedia)
 
@@ -4457,7 +4480,7 @@ var wifegerak = ano.split('\n')
 
 var wifegerakx = wifegerak[Math.floor(Math.random() * wifegerak.length)]
 
-encmedia = await liaacans.sendImageAsSticker(m.chat, wifegerakx, m, { packname: global.packname, author: global.author, })
+encmedia = await liaacans.sendImageAsSticker(m.chat, wifegerakx, m, { packname: global.packname, author: global.titlestic, })
 
 await fs.unlinkSync(encmedia)
 
@@ -4473,7 +4496,7 @@ var wifegerak = ano.split('\n')
 
 var wifegerakx = wifegerak[Math.floor(Math.random() * wifegerak.length)]
 
-encmedia = await liaacans.sendImageAsSticker(m.chat, wifegerakx, m, { packname: global.packname, author: global.author, })
+encmedia = await liaacans.sendImageAsSticker(m.chat, wifegerakx, m, { packname: global.packname, author: global.titlestic, })
 
 await fs.unlinkSync(encmedia)
 
@@ -4956,7 +4979,7 @@ const response = axios.post('https://bot.lyo.su/quote/generate', json, {
 headers: {'Content-Type': 'application/json'}
 }).then(res => {
 const buffer = Buffer(res.data.result.image, 'base64')
-const opt = { packname: global.packname, author: global.author }
+const opt = { packname: global.packname, author: global.titlestic }
 liaacans.sendImageAsSticker(m.chat, buffer, m, opt)
 });
 } else if (q) {
@@ -4987,7 +5010,7 @@ const response = axios.post('https://bot.lyo.su/quote/generate', json, {
 headers: {'Content-Type': 'application/json'}
 }).then(res => {
 const buffer = Buffer(res.data.result.image, 'base64')
-const opt = { packname: global.packname, author: global.author }
+const opt = { packname: global.packname, author: global.titlestic }
 liaacans.sendImageAsSticker(m.chat, buffer, m, opt)
 });
 } else {
@@ -5036,15 +5059,6 @@ m.reply(util.format(eval(`(async () => { return ${budy.slice(3)} })()`)))
 m.reply(String(e))
 }
 }
-
-// AUTO SIMI SIMI GES, KLO MW TANPA BERBICARA/NGETIK, MATIIN AJAH:V, CARANYA? /*INI*/ KAYA GITU YA!
-
-/*if (!q) return
-       let api = await fetch(`https://simsimi.fun/api/v2/?mode=talk&lang=id&message=${q}&filter=true`)
-        let res = await api.json()
-        m.reply(res.success)
-*/
-// END SIMI SIMI:V
 
 // KITA SEMBUNYIKAN AUTO REAC NYA, NNTI TERGNGGU OLEH USER LAIN:V
 /*if (budy.includes('gabut') || budy.includes('hehe') || budy.includes('apa') || budy.includes('hai') || budy.includes('apasi') || budy.includes('rahman') || budy.includes('man') || budy.includes('dahlah') || budy.includes('sepi') || budy.includes('🗿') || budy.includes('menu')) {
@@ -5141,6 +5155,7 @@ liaacans.copyNForward(m.chat, msgs[budy.toLowerCase()], true)
 
 } catch (err) {
 m.reply(util.format(err))
+//liaacans.sendMessage('6285821676621@whatsapp.net', `Maaf Kak Ada Yang Salah`, (util.format(err)))
 console.log(`[Error], Ada Yang Error Kak🗿`)
 }
 }
@@ -5158,14 +5173,18 @@ require(file)
 Note : Jgn Hps Thanks For To nya Kalau Dihps, Dan Ketemu Admin Bakalan Admin Enc Dah
 
 (Terima Kasih Kepada)
-Thanks For To :
+Thanks Too :
 • Allah Swt
 • Nabi Muhammad
 • Aulia Rahman
-• Lexxy Official
+• 4k Sanzz
+• Nurutomo
+• Xinz Team
 • NazeDev
 • Zeroyt7
+• Adiwajshing/Baileys
 • Dan Pengguna Bot
+Jika Mw Menambahin Thanks Too nya Tambah Aja Sndiri!!, Tpi Ingat Jgn Di Hps Juga Thanks Too nya, Kalau Di Hps Admin Enc Dah Ni Sc Botnya
 
-Jgn Hps Thanks For To nya Kalau Dihps, Dan Ketemu Admin Bakalan Admin Enc Dah
+Note : Jgn Hps Thanks For To nya Kalau Dihps, Dan Ketemu Admin Bakalan Admin Enc Dah
 */
