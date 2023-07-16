@@ -14,29 +14,19 @@ SELAIN NO ITU CLONE YA!
 const fs = require('fs')
 const chalk = require('chalk')
 
-//━━━━━━━━━━━━━━━[ WEBSITE APIKEY ]━━━━━━━━━━━━━━━━━//
 
-global.APIs = {
-liaacans: 'https://apikey-rahmxbot.cyclic.app',
-}
-
-//━━━━━━━━━━━━━━━[ APIKEY ]━━━━━━━━━━━━━━━━━//
-
-global.APIKeys = {
-'https://apikey-rahmxbot.cyclic.app': 'RahmXBot',
-}
-
-//━━━━━━━━━━━━━━━[ SETTING LAINNYA ]━━━━━━━━━━━━━━━━━//
-global.ultah = '2023-07-09'
-global.ramadhan = '2024-03-10'
-global.hrirya = '2024-04-10'
-global.thnbru = '2023-07-09'
+//━━━━━━━━━━━━━━━[ SETTING ]━━━━━━━━━━━━━━━━━//
+global.ultah = '2023-07-09' // 2023-00-00 
+global.ramadhan = '2024-03-10' // 2023-00-00
+global.hrirya = '2024-04-10' // 2023-00-00
+global.thnbru = '2023-01-01' // 2023-00-00
 //===============================================//
 global.domain = "-" // Isi Domain Lu
 global.apikey = '-' // Isi Apikey Plta Lu
 global.capikey = '-' // Isi Apikey Pltc Lu
 global.thumb = fs.readFileSync('./image/thumbnail.jpg') // JGN DI UBAH!
 global.jumlah = '1000000000'
+global.apilolhuman = 'b2cd31437395ad125a839aec' // PASANG DISINI APIKEY LOLHUMAN, CREATE APIKEY DI WEB : https://api.lolhuman.xyz
 global.name = 'Aulia Rahman (Owner)', // GNTI NAMA LU!
 global.nomorsc = '62858213693245'
 global.creatorr = '© Created By RahmXBot' // GANTI NAMA BOT LU BANH!
@@ -48,9 +38,9 @@ global.pulsa = '081528965381' // UBAH NOMOR YG AKTIF!
 global.dana = '081528965381' // UBAH NOMOR DANA YG AKTIF!
 global.ovo = '085821676621' // UBAH NOMOR OVO YG AKTIF!
 global.gopay = '085821676621' // UBAH NOMOR GOPAY YG AKTIF!
-global.titlestic = 'Punya Aulia R.' // GNTI NAMA BOT LU!
-global.packname = 'Chat Wa : 62858213693245' // TRSERAH MO GANTI AP!
-global.fake = 'LIAACANS BOT VERIFIED' // GNTI NMA BOT LU BANH!
+global.packname = '© Created By' // TRSERAH MO GANTI AP!
+global.titlestic = 'RahmXBot Verified✅' // GNTI NAMA BOT LU!
+global.fake = 'RAHMXBOT VERIFIED' // GNTI NMA BOT LU BANH!
 global.prefa = ['','!','.','/','#','$']
 global.sp = '⭔' // JGN DI UBAH²! NTR EROR
 global.mess = {
@@ -63,7 +53,7 @@ group: 'Fitur Ini Digunakan Hanya Untuk Group!',
 private: 'Fitur Ini Digunakan Hanya Untuk Private Chat!',
 bot: 'Fitur Ini Khusus Pengguna Nomor Bot',
 errorApi: 'Maaf Api Sedang Error!',
-wait: '*[WAIT]* SEDANG DIPROSES, HARAP TUNGGU SEBENTAR!',
+wait: '*[WAIT]* SEDANG DIPROSES, HARAP TUNGGU SEBENTAR! PLEASE JEDA 5 DETIK',
 endLimit: 'Limit Harian Anda Telah Habis, Limit Akan Direset Setiap Jam 12',
 }
 global.limitawal = {
