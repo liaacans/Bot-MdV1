@@ -4949,8 +4949,9 @@ await sleep(2000)
 }
 m.reply("*SUCCESFUL ✅*")
 break
-case "qc": {
+case 'qc': {
 if (!quoted){
+await m.reply(`*[WAIT]* SEDANG DI PROSES, HARAP JEDA 5 DETIK!!`)
 const getname = await liaacans.getName(mentionUser[0])
 const json = {
 "type": "quote",
