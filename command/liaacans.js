@@ -483,7 +483,7 @@ message: {
 }
 
 // Premium
-        prem.expiredCheck(premium)
+       var prem_.expiredCheck(premium)
 
 //━━━━━━━━━━━━━━━[ RESPON CMD ]━━━━━━━━━━━━━━━━━//
 
