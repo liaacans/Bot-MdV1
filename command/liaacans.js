@@ -33,6 +33,7 @@ var { color, bgcolor } = require('../message/color')
 var { buttonvirus } = require('../message/buttonvirus')
 var { addBadword, delBadword, isKasar, addCountKasar, isCountKasar, delCountKasar } = require("../message/badword");
 var { mediafireDl } = require('../message/mediafire.js')
+global.prem = fs.readFileSync('../message/premium2.js'); // jgn di ubah coy
 //var _prem = require("../message/premium2");
 
 //---------------------------[ Waktu Asia & Time ]--------------------------------//
