@@ -131,7 +131,7 @@ var groupOwner = m.isGroup ? groupMetadata.owner : ''
 var isPremium = prem.includes(m.sender)
 var isAutoStick = _autostick.includes(m.chat)
 var isAutoSticker = m.isGroup ? autosticker.includes(m.chat) : false
-var isPremium = isCreator ? true : _prem.checkPremiumUser(m.sender, premium)
+var isPremium = isCreator ? true : prem.checkPremiumUser(m.sender, premium)
 var isUser = pendaftar.includes(m.sender)
 var isBadword = m.isGroup ? grupbadword.includes(m.chat) : false
 
@@ -482,7 +482,7 @@ message: {
 }
 
 // Premium
-        _prem.expiredCheck(premium)
+        prem.expiredCheck(premium)
 
 //━━━━━━━━━━━━━━━[ RESPON CMD ]━━━━━━━━━━━━━━━━━//
 
