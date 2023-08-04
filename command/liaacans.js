@@ -33,7 +33,7 @@ var { color, bgcolor } = require('../message/color')
 var { buttonvirus } = require('../message/buttonvirus')
 var { addBadword, delBadword, isKasar, addCountKasar, isCountKasar, delCountKasar } = require("../message/badword");
 var { mediafireDl } = require('../message/mediafire.js')
-var _prem = require("../message/premium");
+//var _prem = require("../message/premium2");
 
 //---------------------------[ Waktu Asia & Time ]--------------------------------//
 const rahmxtime = moment.tz('Asia/Jakarta').format('HH:mm:ss')
@@ -115,6 +115,7 @@ var args = body.trim().split(/ +/).slice(1)
 var pushname = m.pushName || "No Name"
 var botNumber = await liaacans.decodeJid(liaacans.user.id)
 var isCreator = [botNumber, ...global.owner].map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
+var isPacar = [botNumber, ...global.pacarku].map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
 var itsMe = m.sender == botNumber ? true : false
 var text = q = args.join(" ")
 var quoted = m.quoted ? m.quoted : m
@@ -2187,6 +2188,18 @@ let msg = await liaacans.sendMessage(m.chat, { contacts: { displayName: `${owner
 await liaacans.sendMessage(m.chat, { text: `JANGAN SPAM NOMOR OWNERKU!!` }, { quoted: floc })
 }
 break
+case 'pacar': case 'owner2': case 'pemilik': {
+let vcard = `BEGIN:VCARD\n` // metadata of the contact card
++ `VERSION:3.0\n`
++ `N:;${npacar}.;;;`
++ `FN:${npacar}.\n` // full name
++ `ORG:${npacar};\n` // the organization of the contact
++ `TEL;type=CELL;type=VOICE;waid=${pacarku}:${pacarku}\n` // WhatsApp ID + phone number
++ `END:VCARD`
+let msg = await liaacans.sendMessage(m.chat, { contacts: { displayName: `${pacar}`, contacts: [{ vcard }] } }, { quoted: fkontak })
+await liaacans.sendMessage(m.chat, { text: `Please Jangan Chat Cewek Gw!!` }, { quoted: floc })
+}
+break
 case 'toimage': case 'toimg': {
 if (!quoted) throw 'Reply Image'
 if (!/webp/.test(mime)) throw `balas stiker dengan caption *${prefix + command}*`
@@ -2696,7 +2709,7 @@ case 'delete': case 'del': {
             }
             break
 case 'delete2': case 'del2': { // fix by aulia rahman
-if (!q) throw `Reply Untuk Menghapus Pesan Orang Lain`
+if (!m.quoted) throw `Reply Untuk Menghapus Pesan Orang Lain`
 liaacans.sendMessage(m.chat, { delete: m.quoted })
 }
 break
@@ -3364,50 +3377,51 @@ teks += `- ${liaacans}\n`
 teks += `\n*Total : ${prem.length}*`
 liaacans.sendMessage(m.chat, { text: teks.trim() }, 'extendedTextMessage', { quoted: m, contextInfo: { "mentionedJid": prem } })
 break
-/*case 'addprem2': // FIX AE YA PREM NYA.
-                if (!isCreator) return m.reply(mess.owner)
-                if (!text) return m.reply(`Penggunaan :\n*${prefix}addprem* @tag waktu\n*${prefix}addprem* nomor waktu\n\nContoh : ${command} @tag 30d`)
-                if (m.mentionedJid.length !== 0){
-                    for (let i = 0; i < m.mentionedJid.length; i++){
-                    _prem.addPremiumUser(m.mentionedJid[0], text, premium)
-                    }
-                    m.reply('Sukses')
-                } else {
-                    _prem.addPremiumUser(args[1] + '@s.whatsapp.net', text, premium)
-                    m.reply('Sukses')
+case 'addprem2':
+				if (!isCreator) return m.reply(mess.owner)
+				{ q, args } {
+				if (args.length < 2)
+				return m.reply(
+				`Penggunaan :\n*#addprem2* @tag waktu\n*#addprem* nomor waktu\n\nContoh : #addprem2 @tag 30d`
+				);
+				if (m.mentionedJid.length !== 0) {
+				for (let i = 0; i < m.mentionedJid.length; i++) {
+				prem.addPremiumUser(m.mentionedJid[0], args[1], premium);
+						}
+				liaacans.sendMessage(m.chat, { text: "Sukses Premium" }, { quoted: fkontak });
+					} else {
+				prem.addPremiumUser(args[0] + "@s.whatsapp.net", args[1], premium);
+				liaacans.sendMessage(m.chat, { text: "Sukses Via Nomor" }, { quoted: fkontak });
+						}
+					}
+				break
+			case 'delprem2':
+				if (!isCreator) return m.reply(mess.owner)
+				{ q, args, arg } {
+				if (args.length < 1) return m.reply(`Penggunaan :\n*#delprem2* @tag\n*#delprem2* nomor`);
+				if (m.mentionedJid.length !== 0) {
+					for (let i = 0; i < m.mentionedJid.length; i++) {
+						premium.splice(prem.getPremiumPosition(m.mentionedJid[i], premium), 1);
+						fs.writeFileSync("./json/premium2.json", JSON.stringify(premium));
+					}
+					liaacans.sendMessage(m.chat, { text: "Sukses Delete" }, { quoted: fkontak });
+				} else {
+				premium.splice(prem.getPremiumPosition(args[0] + "@s.whatsapp.net", premium), 1);
+				fs.writeFileSync("./json/premium2.json", JSON.stringify(premium));
+				naze.sendMessage(m.chat, { text: "Sukses Via Nomer" }, { quoted: fkontak });
+				}
+				} 
+				break
+		case 'listprem': {
+			if (!isCreator) return m.reply(mess.owner)
+			let data = require("./json/premium2.json")
+			let txt = `*------「 LIST PREMIUM 」------*\n\n`
+                    for (let i of data) {
+                txt += `*Nomer : ${i.id}*\n*Expired : ${i.expired} Second*\n\n`
                 }
-                break
-            case 'delprem2':
-                if (!isCreator) return m.reply(mess.owner)
-                if (args.length < 2) return m.reply(`Penggunaan :\n*${prefix}delprem* @tag\n*${prefix}delprem* nomor`)
-                if (m.mentionedJid.length !== 0){
-                    for (let i = 0; i < m.mentionedJid.length; i++){
-                        premium.splice(_prem.getPremiumPosition(m.mentionedJid[i], premium), 1)
-                        fs.writeFileSync('./json/premium.json', JSON.stringify(premium))
-                    }
-                    m.reply('Sukses')
-                } else {
-                    premium.splice(_prem.getPremiumPosition(args[1] + '@s.whatsapp.net', premium), 1)
-                    fs.writeFileSync('./json/premium2.json', JSON.stringify(premium))
-                }
-                break
-            case 'cekprem':
-            case 'cekpremium':
-                if (!isPremium) return m.reply(`Kamu bukan user premium, kirim perintah *${prefix}sewaprem* untuk membeli premium`)
-                let cekvip = ms(_prem.getPremiumExpired(m.sender, premium) - Date.now())
-                let premiumnya = `*Expire :* ${cekvip.days} day(s) ${cekvip.hours} hour(s) ${cekvip.minutes} minute(s)`
-                m.reply(premiumnya)
-                break
-            case 'listprem2':
-                let txt = `List Prem\nJumlah : ${premium.length}\n\n`
-                let men = [];
-                for (let i of premium){
-                    men.push(i.id)
-                    let cekvip = ms(i.expired - Date.now())
-                    txt += `*ID :* @${i.id.split("@")[0]}\n*Expire :* ${cekvip.days} day(s) ${cekvip.hours} hour(s) ${cekvip.minutes} minute(s) ${cekvip.seconds} second(s)\n\n`
-                }
-                mentions(txt, men, true)
-                break*/
+            m.reply(txt)
+			}
+			break
         // Menu Store
         case 'item':
                     if (!m.isGroup) throw `Perintah Ini Khusus Untuk Grup`
@@ -3656,9 +3670,9 @@ case 'tinyurl': { // by rahman (gw)
                 liaacans.sendMessage(m.chat,{ text: anu.data + `\nNih Bro`}, { quoted: fdoc })
             }
             break
-case 'shortlink': { // by rahman (gw)
-            	if (!text) throw 'Masukkan Query Link!'
-                let anu = await fetchJson(`https://link2u.biz.id/api?api=5b0cab6f0cd650a325187e162047f8436ae618d8&url=${text}`)
+case 'shortener': { // by rahman (gw)
+            	if (!q) throw 'Masukkan Query Link!'
+                let anu = await fetchJson(`https://link2u.biz.id/api?api=5b0cab6f0cd650a325187e162047f8436ae618d8&url=${q}`) 
                 liaacans.sendMessage(m.chat,{ text: anu.data + `\n*[SUKSES]* SUDAH TERSHORTENER`}, { quoted: fdoc })
             }
             break
@@ -5039,6 +5053,11 @@ liaacans.sendButtonText(m.chat, buttons, ucslm, creator)
 break
 case 'sayang':{
 m.reply(`apa sayang akuu🥰`)
+}
+break
+case 'syg': case 'ayang': case 'aku gbut': case 'km syng ga sama aku?': case 'gatau': case 'mwachhh': case 'muach': case 'anjai': case 'bngst': case 'asu': case 'asw': case 'babi': case 'kntl': case 'kntol': case 'kontol': case 'ajg': case 'anj': case 'anjing': case 'ngen': case 'ngentod': {
+let aww = fs.readFileSync(`./json/audio/${command}`)
+liaacans.sendMessage(m.chat, { audio: aww, mimetype: 'audio/mpeg', ptt:true }, { quoted: fvn })
 }
 break
 //━━━━━━━━━━━━━━━[ AKHIR FITUR ]━━━━━━━━━━━━━━━━━//
