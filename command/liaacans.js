@@ -483,7 +483,7 @@ message: {
 }
 
 // Premium
-       var iniprem.expiredCheck(premium)
+       iniprem.expiredCheck(premium)
 
 //━━━━━━━━━━━━━━━[ RESPON CMD ]━━━━━━━━━━━━━━━━━//
 
