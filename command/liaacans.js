@@ -10,7 +10,7 @@ var { yta, ytv } = require ('@bochilteam/scraper')
 var fs = require('fs')
 var { Primbon } = require('scrape-primbon')
 var primbon = new Primbon()
-var ms = require('ms')
+var ms = require("parse-ms")
 var util = require('util')
 var chalk = require('chalk')
 var { exec, spawn, execSync } = require("child_process")
@@ -32,8 +32,9 @@ var { antiSpam } = require('../message/antispam')
 var { color, bgcolor } = require('../message/color')
 var { buttonvirus } = require('../message/buttonvirus')
 var { addBadword, delBadword, isKasar, addCountKasar, isCountKasar, delCountKasar } = require("../message/badword");
-var { mediafireDl } = require('../message/mediafire.js')
-iniprem = require('../message/premium2.js'); // jgn di ubah coy
+var { mediafireDl } = require('../message/mediafire')
+var { addBanned, unBanned, BannedExpired, cekBannedUser } = require('../message/banned')
+iniprem = require('../message/premium2'); // jgn di ubah coy
 //var _prem = require("../message/premium2");
 
 //---------------------------[ Waktu Asia & Time ]--------------------------------//
@@ -103,6 +104,7 @@ let grupbadword = JSON.parse(fs.readFileSync('./json/grupbadword.json'))
 let senbadword = JSON.parse(fs.readFileSync('./json/senbadword.json'))
 let pendaftar = JSON.parse(fs.readFileSync('./json/user.json'))
 let premium = JSON.parse(fs.readFileSync('./json/premium2.json'))
+let ban = JSON.parse(fs.readFileSync('./json/ban.json'))
 //━━━━━━━━━━━━━━━[ MODULE EXPORTS ]━━━━━━━━━━━━━━━━━//
 
 module.exports = liaacans = async (liaacans, m, chatUpdate, store) => {
@@ -135,6 +137,7 @@ var isAutoSticker = m.isGroup ? autosticker.includes(m.chat) : false
 var isPremium = isCreator ? true : iniprem.checkPremiumUser(m.sender, premium)
 var isUser = pendaftar.includes(m.sender)
 var isBadword = m.isGroup ? grupbadword.includes(m.chat) : false
+var isBan = cekBannedUser(m.sender, ban)
 
 	
 //━━━━━━━━━━━━━━━[ FUNCTION ]━━━━━━━━━━━━━━━━━//
@@ -918,6 +921,11 @@ if (m.sender.startsWith('60')) {
 liaacans.updateBlockStatus(m.sender, 'block')
 }
 
+// Banned
+        if (isBan) return
+        BannedExpired(ban)
+        
+        
 //Ku Sembunyikan AntiSpamnya Terganggu:v
 /*if (isCmd && antiSpam.isFiltered(m.chat) && !m.isGroup) {
 console.log(color('[SPAM]', 'red'), color(rahmxtime, 'yellow'), color(`${command} [${args.length}]`), 'm.chat', color(pushname))
@@ -996,6 +1004,8 @@ var menu_teks = `Hai Kak ${pushname}
 ╔━❖ ⌜ MENU LAINNYA ⌟
 ┃
 ┣ ❖ ${prefix}runtime
+┣ ❖ ${prefix}listprem
+┣ ❖ ${prefix}cekprem
 ┣ ❖ ${prefix}ping
 ┣ ❖ ${prefix}autosimi
 ┣ ❖ ${prefix}pemilik
@@ -3351,7 +3361,7 @@ liaacans.sendMessage(m.sender, {audio:{url:tts}, mimetype:'audio/mpeg', ptt:true
 }
 break
 //------------------< Premium >-------------------
-case 'addprem':
+/*case 'addprem':
 if (!isCreator) return m.reply(mess.owner)
 if (!args[0]) return m.reply(`Penggunaan ${prefix+command} nomor\nContoh ${prefix+command} 6285807264974`)
 prrkek = q.split("|")[0].replace(/[^0-9]/g, '')+`@s.whatsapp.net`
@@ -3377,13 +3387,13 @@ teks += `- ${liaacans}\n`
 }
 teks += `\n*Total : ${prem.length}*`
 liaacans.sendMessage(m.chat, { text: teks.trim() }, 'extendedTextMessage', { quoted: m, contextInfo: { "mentionedJid": prem } })
-break
-case 'addprem2':
+break*/
+case 'addprem':
 				if (!isCreator) return m.reply(mess.owner)
 				{ q, args } {
 				if (args.length < 2)
 				return m.reply(
-				`Penggunaan :\n*#addprem2* @tag waktu\n*#addprem* nomor waktu\n\nContoh : #addprem2 @tag 30d`
+				`Penggunaan :\n*#addprem* @tag waktu\n*#addprem* nomor waktu\n\nContoh : #addprem @tag 30d`
 				);
 				if (m.mentionedJid.length !== 0) {
 				for (let i = 0; i < m.mentionedJid.length; i++) {
@@ -3396,10 +3406,10 @@ case 'addprem2':
 						}
 					}
 				break
-			case 'delprem2':
+			case 'delprem':
 				if (!isCreator) return m.reply(mess.owner)
 				{ q, args, arg } {
-				if (args.length < 1) return m.reply(`Penggunaan :\n*#delprem2* @tag\n*#delprem2* nomor`);
+				if (args.length < 1) return m.reply(`Penggunaan :\n*#delprem* @tag\n*#delprem* nomor`);
 				if (m.mentionedJid.length !== 0) {
 					for (let i = 0; i < m.mentionedJid.length; i++) {
 						premium.splice(prem.getPremiumPosition(m.mentionedJid[i], premium), 1);
@@ -3413,16 +3423,75 @@ case 'addprem2':
 				}
 				} 
 				break
-		case 'listprem2': {
+		case 'listprem': {
 			if (!isCreator) return m.reply(mess.owner)
-			let data = fs.writeFileSync("./json/premium2.json")
 			let txt = `*------「 LIST PREMIUM 」------*\n\n`
-                    for (let i of data) {
-                txt += `*Nomer : ${i.id}*\n*Expired : ${i.expired} Second*\n\n`
+                    for (let i of premium) {
+              let cekvip = ms(iniprem.getPremiumExpired(m.sender, premium) - Date.now())
+                txt += `*ID :* @${i.id.split("@")[0]}\n*Expire :* ${cekvip.days} day(s) ${cekvip.hours} hour(s) ${cekvip.minutes} minute(s) ${cekvip.seconds} second(s)\n\n`
                 }
             m.reply(txt)
 			}
 			break
+			case 'cekprem':
+            case 'cekpremium':
+                if (!isPremium) return m.reply(`Kamu bukan user premium, kirim perintah *${prefix}sewaprem* untuk membeli premium`)
+                let cekvip = ms(iniprem.getPremiumExpired(m.sender, premium) - Date.now())
+                let premiumnya = `*Expire :* ${cekvip.days} day(s) ${cekvip.hours} hour(s) ${cekvip.minutes} minute(s)`
+                m.reply(premiumnya)
+                break
+//------------------< BAN >-------------------
+        /*    case 'ban':
+                if (!isCreator && !isPacar) throw mess.owner
+                if (mentioned.length !== 0){
+                    for (let i = 0; i < mentioned.length; i++){
+                        addBanned(mentioned[0], args[2], ban)
+                    }
+                    m.reply('Sukses')
+                } else if (isQuotedMsg) {
+                    if (quotedMsg.sender === global.owner) return m.reply(`Tidak bisa ban Owner`)
+                    addBanned(quotedMsg.sender, args[1], ban)
+                    m.reply(`Sukses ban target`)
+                } else if (!isNaN(args[1])) {
+                    addBanned(args[1] + '@s.whatsapp.net', args[2], ban)
+                    m.reply('Sukses')
+                } else {
+                    m.reply(`Kirim perintah ${prefix}ban @tag atau nomor atau reply pesan orang yang ingin di ban`)
+                }
+                break
+            case 'unban':
+                if (!isCrrator && !isPacar) throw mess.owner
+                if (mentioned.length !== 0){
+                    for (let i = 0; i < mentioned.length; i++){
+                        unBanned(mentioned[i], ban)
+                    }
+                    m.reply('Sukses')
+                }if (isQuotedMsg) {
+                    unBanned(quotedMsg.sender, ban)
+                    m.reply(`Sukses unban target`) 
+                } else if (!isNaN(args[1])) {
+                    unBanned(args[1] + '@s.whatsapp.net', ban)
+                    m.reply('Sukses')
+                } else {
+                    m.reply(`Kirim perintah ${prefix}unban @tag atau nomor atau reply pesan orang yang ingin di unban`)
+                }
+                break
+            case 'listban':
+                let txtx = `List Banned\nJumlah : ${ban.length}\n\n`
+                let menx = [];
+                for (let i of ban){
+                    menx.push(i.id)
+                    txtx += `*ID :* @${i.id.split("@")[0]}\n`
+                    if (i.expired === 'PERMANENT'){
+                        let cekvip = 'PERMANENT'
+                        txtx += `*Expire :* PERMANENT\n\n`
+                    } else {
+                        let cekvip = ms(i.expired - Date.now())
+                        txtx += `*Expire :* ${cekvip.days} day(s) ${cekvip.hours} hour(s) ${cekvip.minutes} minute(s) ${cekvip.seconds} second(s)\n\n`
+                    }
+                }
+                mentions(txtx, menx, true)
+                break*/
         // Menu Store
         case 'item':
                     if (!m.isGroup) throw `Perintah Ini Khusus Untuk Grup`
@@ -4965,7 +5034,7 @@ await sleep(2000)
 m.reply("*SUCCESFUL ✅*")
 break
 case 'qc': {
-await liaacans.sendMessage(m.chat, { text: `*[WAIT]* SEDANG DI PROSES, HARAP JEDA 5 DETIK!!`})
+m.reply(`*[WAIT]* SEDANG DI PROSES, HARAP JEDA 5 DETIK!!`)
 if (!quoted){
 const getname = await liaacans.getName(mentionUser[0])
 const json = {
