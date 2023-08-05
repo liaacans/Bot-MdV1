@@ -3409,13 +3409,13 @@ case 'addprem2':
 				} else {
 				premium.splice(prem.getPremiumPosition(args[0] + "@s.whatsapp.net", premium), 1);
 				fs.writeFileSync("./json/premium2.json", JSON.stringify(premium));
-				naze.sendMessage(m.chat, { text: "Sukses Via Nomer" }, { quoted: fkontak });
+				liaacans.sendMessage(m.chat, { text: "Sukses Via Nomer" }, { quoted: fkontak });
 				}
 				} 
 				break
 		case 'listprem2': {
 			if (!isCreator) return m.reply(mess.owner)
-			let data = require("./json/premium2.json")
+			let data = fs.writeFileSync("./json/premium2.json")
 			let txt = `*------「 LIST PREMIUM 」------*\n\n`
                     for (let i of data) {
                 txt += `*Nomer : ${i.id}*\n*Expired : ${i.expired} Second*\n\n`
