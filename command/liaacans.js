@@ -33,7 +33,7 @@ var { color, bgcolor } = require('../message/color')
 var { buttonvirus } = require('../message/buttonvirus')
 var { addBadword, delBadword, isKasar, addCountKasar, isCountKasar, delCountKasar } = require("../message/badword");
 var { mediafireDl } = require('../message/mediafire.js')
-prem_ = fs.readFileSync('../message/premium2.js'); // jgn di ubah coy
+iniprem = require('../message/premium2.js'); // jgn di ubah coy
 //var _prem = require("../message/premium2");
 
 //---------------------------[ Waktu Asia & Time ]--------------------------------//
@@ -132,7 +132,7 @@ var groupOwner = m.isGroup ? groupMetadata.owner : ''
 var isPremium = prem.includes(m.sender)
 var isAutoStick = _autostick.includes(m.chat)
 var isAutoSticker = m.isGroup ? autosticker.includes(m.chat) : false
-var isPremium = isCreator ? true : prem_.checkPremiumUser(m.sender, premium)
+var isPremium = isCreator ? true : iniprem.checkPremiumUser(m.sender, premium)
 var isUser = pendaftar.includes(m.sender)
 var isBadword = m.isGroup ? grupbadword.includes(m.chat) : false
 
@@ -483,7 +483,7 @@ message: {
 }
 
 // Premium
-       var prem_.expiredCheck(premium)
+       var iniprem.expiredCheck(premium)
 
 //━━━━━━━━━━━━━━━[ RESPON CMD ]━━━━━━━━━━━━━━━━━//
 
@@ -3387,11 +3387,11 @@ case 'addprem2':
 				);
 				if (m.mentionedJid.length !== 0) {
 				for (let i = 0; i < m.mentionedJid.length; i++) {
-				prem_.addPremiumUser(m.mentionedJid[0], args[1], premium);
+				iniprem.addPremiumUser(m.mentionedJid[0], args[1], premium);
 						}
 				liaacans.sendMessage(m.chat, { text: "Sukses Premium" }, { quoted: fkontak });
 					} else {
-				prem_.addPremiumUser(args[0] + "@s.whatsapp.net", args[1], premium);
+				iniprem.addPremiumUser(args[0] + "@s.whatsapp.net", args[1], premium);
 				liaacans.sendMessage(m.chat, { text: "Sukses Via Nomor" }, { quoted: fkontak });
 						}
 					}
