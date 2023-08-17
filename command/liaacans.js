@@ -249,7 +249,7 @@ if (m.chat) {
 
 //━━━━━━━━━━━━━━━[ Hitung Mundur ]━━━━━━━━━━━━━━━━━//
 
-countDownDate = new Date(`${global.ultah}`).getTime();
+countDownDate = new Date("2023-07-09").getTime();
 var now = new Date().getTime();
 var distance = countDownDate - now;
 var dayss = Math.floor(distance / (1000 * 60 * 60 * 24));
@@ -258,7 +258,7 @@ var minutess = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
 var secondss = Math.floor((distance % (1000 * 60)) / 1000);
 ultahown = `*${dayss} hari, ${hourss} jam, ${minutess} menit*`
 
-countDownDate = new Date(`${global.ramadhan}`).getTime();
+countDownDate = new Date("2024-03-10").getTime();
 var now = new Date().getTime();
 var distance = countDownDate - now;
 var dayss = Math.floor(distance / (1000 * 60 * 60 * 24));
@@ -267,7 +267,7 @@ var minutess = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
 var secondss = Math.floor((distance % (1000 * 60)) / 1000);
 Ramadhan = `*${dayss} hari, ${hourss} jam, ${minutess} menit*`
 
-countDownDate = new Date(`${global.thnbru}`).getTime();
+countDownDate = new Date("2024-01-01").getTime();
 var now = new Date().getTime();
 var distance = countDownDate - now;
 var dayss = Math.floor(distance / (1000 * 60 * 60 * 24));
@@ -276,7 +276,7 @@ var minutess = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
 var secondss = Math.floor((distance % (1000 * 60)) / 1000);
 tahunbaru = `*${dayss} hari, ${hourss} jam, ${minutess} menit*`
 
-countDownDate = new Date(`${global.hrirya}`).getTime();
+countDownDate = new Date("2024-04-10").getTime();
 var now = new Date().getTime();
 var distance = countDownDate - now;
 var dayss = Math.floor(distance / (1000 * 60 * 60 * 24));
