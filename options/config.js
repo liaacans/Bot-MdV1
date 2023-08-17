@@ -61,7 +61,7 @@ endLimit: 'Limit Harian Anda Telah Habis, Limit Akan Direset Setiap Jam 12',
 }
 global.limitawal = {
 premium: "Unlimited",
-free: 10
+free: 30
 }
 
 let file = require.resolve(__filename)
@@ -71,3 +71,24 @@ console.log(chalk.redBright(`Update'${__filename}'`))
 delete require.cache[file]
 require(file)
 })
+
+
+/*
+Note : Jgn Hps Thanks For To nya Kalau Dihps, Dan Ketemu Admin Bakalan Admin Enc Dah
+
+(Terima Kasih Kepada)
+Thanks Too :
+• Allah Swt
+• Nabi Muhammad
+• Aulia Rahman
+• 4k Sanzz
+• Nurutomo
+• Xinz Team
+• NazeDev
+• Zeroyt7
+• Adiwajshing/Baileys
+• Dan Pengguna Bot
+Jika Mw Menambahin Thanks Too nya Tambah Aja Sndiri!!, Tpi Ingat Jgn Di Hps Juga Thanks Too nya, Kalau Di Hps Admin Enc Dah Ni Sc Botnya
+
+Note : Jgn Hps Thanks For To nya Kalau Dihps, Dan Ketemu Admin Bakalan Admin Enc Dah
+*/
