@@ -16,11 +16,7 @@ const chalk = require('chalk')
 
 
 //━━━━━━━━━━━━━━━[ SETTING ]━━━━━━━━━━━━━━━━━//
-global.ultah = '2023-07-09' // 2023-00-00 
-global.ramadhan = '2024-03-10' // 2023-00-00
-global.hrirya = '2024-04-10' // 2023-00-00
-global.thnbru = '2023-01-01' // 2023-00-00
-//===============================================//
+
 global.domain = "-" // Isi Domain Lu
 global.apikey = '-' // Isi Apikey Plta Lu
 global.capikey = '-' // Isi Apikey Pltc Lu
