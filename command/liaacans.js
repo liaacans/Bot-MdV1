@@ -5247,7 +5247,7 @@ case 'translate':{
             case 'attp':
                 try {
                 if (args.length == 0) return newReply(`Example: ${prefix + command} FallZx`)
-                await liaacans.sendMessage(m.chat, {sticker: {url:`https://api.lolhuman.xyz/api/attp?apikey=${apilolhuman}&text=${args[0]}` }, { quoted: m })
+                await liaacans.sendMessage(m.chat, {sticker: {url:`https://api.lolhuman.xyz/api/attp?apikey=${apilolhuman}&text=${args[0]}` }}, { quoted: m })
             } catch (e) {
                 m.reply(`Maap Api Sedang Maintenance`)
             }
