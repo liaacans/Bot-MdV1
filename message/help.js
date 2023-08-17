@@ -1,20 +1,21 @@
 /*
-CREDIT BY : AULIA RAHMAN
-NOTE : JGN DI HPS CREDITNYA YA AJG!!
-EDIT MENU NYA DISINI YAK!
+Note : Jgn Hps Thanks For To nya Kalau Dihps, Dan Ketemu Admin Bakalan Admin Enc Dah
 
-NOTE : JANGAN DI HAPUS TQ YA AJG!
-MINIMAL ADA PEMBUATNYA LAH KAK
-
-Thanks To :
+(Terima Kasih Kepada)
+Thanks Too :
 • Allah Swt
 • Nabi Muhammad
 • Aulia Rahman
-• Lexxy Official
+• 4k Sanzz
+• Nurutomo
+• Xinz Team
 • NazeDev
 • Zeroyt7
-• Kayla
+• Adiwajshing/Baileys
 • Dan Pengguna Bot
+Jika Mw Menambahin Thanks Too nya Tambah Aja Sndiri!!, Tpi Ingat Jgn Di Hps Juga Thanks Too nya, Kalau Di Hps Admin Enc Dah Ni Sc Botnya
+
+Note : Jgn Hps Thanks For To nya Kalau Dihps, Dan Ketemu Admin Bakalan Admin Enc Dah
 */
 require('../options/config')
 var fs = require('fs')
@@ -104,6 +105,8 @@ return `Hy Kak ${pushname}
 ├│${prefix}stickerwm
 ├│${prefix}emojimix
 ├│${prefix}emojimix2
+├│${prefix}tohd
+├│${prefix}jadianime
 └─❖
 ┌─❖ ⌜ Random Menu ⌟
 ├│${prefix}pinterest
@@ -139,6 +142,20 @@ return `Hy Kak ${pushname}
 ├│${prefix}memancing
 ├│${prefix}masasubur
 ├│${prefix}zodiak
+└─❖
+┌─❖ ⌜ Random Menu 2 ⌟
+├│${prefix}kbbi
+├│${prefix}brainly
+├│${prefix}roboguru
+├│${prefix}jadwaltv
+├│${prefix}translate
+├│${prefix}lirik
+├│${prefix}infocuaca
+├│${prefix}attp
+├│${prefix}ttp
+├│${prefix}bucinsertifikat
+├│${prefix}tololsertifikat
+├│${prefix}pacarsertifikat
 ├│${prefix}quotesanime
 ├│${prefix}google
 ├│${prefix}wikimedia
@@ -168,6 +185,13 @@ return `Hy Kak ${pushname}
 ├│${prefix}fbdl
 ├│${prefix}pindl
 ├│${prefix}umma
+└─❖
+┌─❖ ⌜ Stalk Menu ⌟
+├│${prefix}igstalk
+├│${prefix}ttstalk
+├│${prefix}mlstalk
+├│${prefix}ghstalk
+├│${prefix}twstalk
 └─❖
 ┌─❖ ⌜ Charger Menu ⌟
 ├│${prefix}bass
@@ -215,6 +239,16 @@ return `Hy Kak ${pushname}
 ├│${prefix}glass
 ├│${prefix}galaxy
 ├│${prefix}neon
+├│${prefix}randomcolor
+├│${prefix}akira
+├│${prefix}akiyama
+├│${prefix}ana
+├│${prefix}asuna
+├│${prefix}ayuzawa
+├│${prefix}boruto
+├│${prefix}elaina
+├│${prefix}loli
+├│${prefix}sagiri
 └─❖
 ┌─❖ ⌜ Bug Menu (khusus owner) ⌟
 ├│${prefix}inibug
@@ -394,6 +428,8 @@ return `┌─❖ ⌜ Converter Menu ⌟
 ├│${prefix}stickerwm
 ├│${prefix}emojimix
 ├│${prefix}emojimix2
+├│${prefix}tohd
+├│${prefix}jadianime
 └─❖`
 }
 
@@ -548,6 +584,16 @@ return `┌─❖ ⌜ Maker Menu ⌟
 ├│${prefix}glass
 ├│${prefix}galaxy
 ├│${prefix}neon
+├│${prefix}randomcolor
+├│${prefix}akira
+├│${prefix}akiyama
+├│${prefix}ana
+├│${prefix}asuna
+├│${prefix}ayuzawa
+├│${prefix}boruto
+├│${prefix}elaina
+├│${prefix}loli
+├│${prefix}sagiri
 └─❖`
 }
 
@@ -724,6 +770,37 @@ return `┌──⭓ *Text Pro Menu*
 └───────⭓`
 }
 
+exports.randomMenu2 = (prefix) => {
+return `┌─❖ ⌜ Random Menu 2 ⌟
+├│${prefix}kbbi
+├│${prefix}brainly
+├│${prefix}roboguru
+├│${prefix}jadwaltv
+├│${prefix}translate
+├│${prefix}lirik
+├│${prefix}infocuaca
+├│${prefix}attp
+├│${prefix}ttp
+├│${prefix}bucinsertifikat
+├│${prefix}tololsertifikat
+├│${prefix}pacarsertifikat
+├│${prefix}quotesanime
+├│${prefix}google
+├│${prefix}wikimedia
+├│${prefix}ai
+└─❖`
+}
+
+exports.stalkMenu = (prefix) => {
+return `┌─❖ ⌜ Stalk Menu ⌟
+├│${prefix}igstalk
+├│${prefix}ttstalk
+├│${prefix}mlstalk
+├│${prefix}ghstalk
+├│${prefix}twstalk
+└─❖`
+}
+
 ////////////////// BATAS NGEUPDATE /////////////////////
 let file = require.resolve(__filename)
 fs.watchFile(file, () => {
@@ -734,16 +811,21 @@ require(file)
 })
 
 /*
-NOTE : JANGAN DI HAPUS TQ YA AJG!
-MINIMAL ADA PEMBUATNYA LAH KAK
+Note : Jgn Hps Thanks For To nya Kalau Dihps, Dan Ketemu Admin Bakalan Admin Enc Dah
 
-Thanks To :
+(Terima Kasih Kepada)
+Thanks Too :
 • Allah Swt
 • Nabi Muhammad
 • Aulia Rahman
-• Lexxy Official
+• 4k Sanzz
+• Nurutomo
+• Xinz Team
 • NazeDev
 • Zeroyt7
-• Kayla
+• Adiwajshing/Baileys
 • Dan Pengguna Bot
+Jika Mw Menambahin Thanks Too nya Tambah Aja Sndiri!!, Tpi Ingat Jgn Di Hps Juga Thanks Too nya, Kalau Di Hps Admin Enc Dah Ni Sc Botnya
+
+Note : Jgn Hps Thanks For To nya Kalau Dihps, Dan Ketemu Admin Bakalan Admin Enc Dah
 */
