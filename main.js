@@ -127,6 +127,8 @@ ppgroup = 'https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Ga
 }
 
 if (anu.action == 'add') {
+await sleep(5000)
+liaacans.sendMessage(anu.id, `Hai Aku ${global.fake}, Silahkan Ketik ${prefix}menu Ya Kak!`, MessageType.text)
 let kafloc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {locationMessage: {name: `${global.fake}`,jpegThumbnail: global.thumb}}}
 welcome = `𝙷𝚊𝚕𝚘 𝙺𝚊𝚔 @${num.split("@")[0]}
 Silahkan Intro Terlebih Dahulu Ya!
@@ -195,7 +197,7 @@ let list = []
 for (let i of kon) {
 list.push({
 displayName: await liaacans.getName(i + '@s.whatsapp.net'),
-vcard: `BEGIN:VCARD\nVERSION:3.0\nN:${await liaacans.getName(i + '@s.whatsapp.net')}\nFN:${await liaacans.getName(i + '@s.whatsapp.net')}\nitem1.TEL;waid=${i}:${i}\nitem1.X-ABLabel:Ponsel\nitem2.EMAIL;type=INTERNET:okeae2410@gmail.com\nitem2.X-ABLabel:Email\nitem3.URL:https://instagram.com/cak_haho\nitem3.X-ABLabel:Instagram\nitem4.ADR:;;Indonesia;;;;\nitem4.X-ABLabel:Region\nEND:VCARD`
+vcard: `BEGIN:VCARD\nVERSION:3.0\nN:${await liaacans.getName(i + '@s.whatsapp.net')}\nFN:${await liaacans.getName(i + '@s.whatsapp.net')}\nitem1.TEL;waid=${i}:${i}\nitem1.X-ABLabel:Ponsel\nitem2.EMAIL;type=INTERNET:cloudpediastore@gmail.com\nitem2.X-ABLabel:Email\nitem3.URL:https://instagram.com/xzy.liaackep\nitem3.X-ABLabel:Instagram\nitem4.ADR:;;Indonesia;;;;\nitem4.X-ABLabel:Region\nEND:VCARD`
 })
 }
 liaacans.sendMessage(jid, { contacts: { displayName: `${list.length} Kontak`, contacts: list }, ...opts }, { quoted })
@@ -399,6 +401,9 @@ await liaacans.sendMessage(jid, { sticker: { url: buffer }, ...options }, { quot
 return buffer
 }
 	
+liaacans.sendPoll = (jid, name = '', values = [], selectableCount = 1) => { return liaacans.sendMessage(jid, { poll: { name, values, selectableCount }}) }
+
+
 /**
 * 
 * @param {*} message 
@@ -618,3 +623,23 @@ console.log(chalk.redBright(`Update ${__filename}`))
 delete require.cache[file]
 require(file)
 })
+
+/*
+Note : Jgn Hps Thanks For To nya Kalau Dihps, Dan Ketemu Admin Bakalan Admin Enc Dah
+
+(Terima Kasih Kepada)
+Thanks Too :
+• Allah Swt
+• Nabi Muhammad
+• Aulia Rahman
+• 4k Sanzz
+• Nurutomo
+• Xinz Team
+• NazeDev
+• Zeroyt7
+• Adiwajshing/Baileys
+• Dan Pengguna Bot
+Jika Mw Menambahin Thanks Too nya Tambah Aja Sndiri!!, Tpi Ingat Jgn Di Hps Juga Thanks Too nya, Kalau Di Hps Admin Enc Dah Ni Sc Botnya
+
+Note : Jgn Hps Thanks For To nya Kalau Dihps, Dan Ketemu Admin Bakalan Admin Enc Dah
+*/
