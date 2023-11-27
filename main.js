@@ -16,9 +16,26 @@ Pulsa : 081528965381
 */
 
 require('./options/config')
-const { default: liaacansConnect, useSingleFileAuthState, DisconnectReason, fetchLatestBaileysVersion, generateForwardMessageContent, prepareWAMessageMedia, generateWAMessageFromContent, generateMessageID, downloadContentFromMessage, makeInMemoryStore, jidDecode, proto } = require("@adiwajshing/baileys")
-const { state, saveState } = useSingleFileAuthState(`./session/qrmd.json`)
+const { default: WADefault,
+    useMultiFileAuthState,
+    DisconnectReason,
+    fetchLatestBaileysVersion,
+    generateForwardMessageContent,
+    prepareWAMessageMedia,
+    generateWAMessageFromContent,
+    generateMessageID,
+    downloadContentFromMessage,
+    makeInMemoryStore,
+    jidDecode,
+    proto,
+    makeCacheableSignalKeyStore, PHONENUMBER_MCC
+} = require("@adiwajshing/baileys")
+const NodeCache = require("node-cache")
+const readline = require("readline")
+const { parsePhoneNumber } = require("libphonenumber-js")
 const pino = require('pino')
+const pairingCode = true
+const useMobile = false
 const { Boom } = require('@hapi/boom')
 const fs = require('fs')
 const yargs = require('yargs/yargs')
@@ -27,6 +44,8 @@ const qrcode = require('qrcode')
 const FileType = require('file-type')
 const path = require('path')
 const PhoneNumber = require('awesome-phonenumber')
+const rl = readline.createInterface({ input: process.stdin, output: process.stdout })
+const question = (text) => new Promise((resolve) => rl.question(text, resolve))
 const { imageToWebp, videoToWebp, writeExifImg, writeExifVid } = require('./message/exif')
 const { smsg, isUrl, generateMessageTag, getBuffer, getSizeMedia, fetchJson, await, sleep } = require('./message/myfunc')
 
@@ -46,13 +65,53 @@ sticker: {},
 ...(global.db.data || {})
 }
 
+function nocache(module, cb = () => {}) {
+    fs.watchFile(require.resolve(module), async () => {
+        await uncache(require.resolve(module))
+        cb(module)
+    })
+}
+
+function uncache(module = '.') {
+    return new Promise((resolve, reject) => {
+        try {
+            delete require.cache[require.resolve(module)]
+            resolve()
+        }
+        catch (e) {
+            reject(e)
+        }
+    })
+}
+
 async function startliaacans() {
-const liaacans = liaacansConnect({
-logger: pino({ level: 'silent' }),
-printQRInTerminal: true,
-browser: ['Liaa Cans Multi Device','Safari','1.0.0'],
-auth: state
-})
+const {
+        state,
+        saveCreds
+    } = await useMultiFileAuthState(`./session/${sessionName}`)
+    const { version, isLatest } = await fetchLatestBaileysVersion();
+    const msgRetryCounterCache = new NodeCache()
+    const liaacans = WADefault({
+        version,
+        logger: pino({ level: "fatal" }).child({ level: "fatal" }),
+        printQRInTerminal: !pairingCode,
+        mobile: useMobile, 
+        browser: ['RahmXBot - Chrome', '', ''],
+        auth: {
+         creds: state.creds,
+         keys: makeCacheableSignalKeyStore(state.keys, pino({ level: "fatal" }).child({ level: "fatal" })),
+      },
+	    generateHighQualityLinkPreview: true, // make high preview link
+      getMessage: async (key) => {
+         let jid = jidNormalizedUser(key.remoteJid)
+         let msg = await store.loadMessage(jid, key.id)
+
+         return msg?.message || ""
+      },
+      msgRetryCounterCache, // Resolve waiting messages
+      defaultQueryTimeoutMs: undefined,
+
+    })
 
 store.bind(liaacans.ev)
     
@@ -82,6 +141,38 @@ require("./command/liaacans")(liaacans, m, chatUpdate, store)
 console.log(err)
 }
 })
+
+if (pairingCode && !liaacans.authState.creds.registered) {
+      if (useMobile) throw new Error('Cannot use pairing code with mobile api')
+
+      let phoneNumber
+      if (!!pairingNumber) {
+         phoneNumber = pairingNumber.replace(/[^0-9]/g, '')
+
+         if (!Object.keys(PHONENUMBER_MCC).some(v => phoneNumber.startsWith(v))) {
+            console.log("Start with your country's WhatsApp code, Example : 62xxx")
+            process.exit(0)
+         }
+      } else {
+         phoneNumber = await question(`Please type your WhatsApp number : `)
+         phoneNumber = phoneNumber.replace(/[^0-9]/g, '')
+
+         // Ask again when entering the wrong number
+         if (!Object.keys(PHONENUMBER_MCC).some(v => phoneNumber.startsWith(v))) {
+            console.log("Start with your country's WhatsApp code, Example : 62xxx")
+
+            phoneNumber = await question(`Please type your WhatsApp number : `)
+            phoneNumber = phoneNumber.replace(/[^0-9]/g, '')
+            rl.close()
+         }
+      }
+
+      setTimeout(async () => {
+         let code = await liaacans.requestPairingCode(phoneNumber)
+         code = code?.match(/.{1,4}/g)?.join("-") || code
+         console.log(`Your Pairing Code : `, code)
+      }, 3000)
+    }
 
 // Group Update
 liaacans.ev.on('groups.update', async pea => {
@@ -127,8 +218,6 @@ ppgroup = 'https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Ga
 }
 
 if (anu.action == 'add') {
-await sleep(5000)
-liaacans.sendMessage(anu.id, `Hai Aku ${global.fake}, Silahkan Ketik ${prefix}menu Ya Kak!`, MessageType.text)
 let kafloc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {locationMessage: {name: `${global.fake}`,jpegThumbnail: global.thumb}}}
 welcome = `𝙷𝚊𝚕𝚘 𝙺𝚊𝚔 @${num.split("@")[0]}
 Silahkan Intro Terlebih Dahulu Ya!
