@@ -1,3 +1,23 @@
+/*
+Note : Jgn Hps Thanks For To nya Kalau Dihps, Dan Ketemu Admin Bakalan Admin Enc Dah
+
+(Terima Kasih Kepada)
+Thanks Too :
+• Allah Swt
+• Nabi Muhammad
+• Aulia Rahman
+• 4k Sanzz
+• Nurutomo
+• Xinz Team
+• NazeDev
+• Zeroyt7
+• Adiwajshing/Baileys
+• Dan Pengguna Bot
+Jika Mw Menambahin Thanks Too nya Tambah Aja Sndiri!!, Tpi Ingat Jgn Di Hps Juga Thanks Too nya, Kalau Di Hps Admin Enc Dah Ni Sc Botnya
+
+Note : Jgn Hps Thanks For To nya Kalau Dihps, Dan Ketemu Admin Bakalan Admin Enc Dah
+*/
+
 const fs = require('fs');
 const toMs = require('ms');
 
