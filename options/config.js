@@ -1,22 +1,30 @@
 /*
-JNGN DIHPS CREATORNYA!
-CREATOR : AULIA RAHMAN
-JNGN DIHPS CREATORNYA!
-DONASI LAH BIAR ADMIN UP LAGI!
-DANA : 081528965381
-OVO : 085821676621
-PULSA : 081528965381
-SELAIN NO DIBAWAH INI CLONE YA!
-NOMOR WA OWNER : 085821676621
-SELAIN NO ITU CLONE YA!
+Note : Jgn Hps Thanks For To nya Kalau Dihps, Dan Ketemu Admin Bakalan Admin Enc Dah
+
+(Terima Kasih Kepada)
+Thanks Too :
+• Allah Swt
+• Nabi Muhammad
+• Aulia Rahman
+• 4k Sanzz
+• Nurutomo
+• Xinz Team
+• NazeDev
+• Zeroyt7
+• Adiwajshing/Baileys
+• Dan Pengguna Bot
+Jika Mw Menambahin Thanks Too nya Tambah Aja Sndiri!!, Tpi Ingat Jgn Di Hps Juga Thanks Too nya, Kalau Di Hps Admin Enc Dah Ni Sc Botnya
+
+Note : Jgn Hps Thanks For To nya Kalau Dihps, Dan Ketemu Admin Bakalan Admin Enc Dah
 */
 
 const fs = require('fs')
 const chalk = require('chalk')
 
-
 //━━━━━━━━━━━━━━━[ SETTING ]━━━━━━━━━━━━━━━━━//
 
+global.sessionName = 'Hatimu' // Ubah Aja Sesuai Otakmu:v
+global.pairingNumber = "" //pairing number to install bot 
 global.domain = "-" // Isi Domain Lu
 global.apikey = '-' // Isi Apikey Plta Lu
 global.capikey = '-' // Isi Apikey Pltc Lu
@@ -25,18 +33,18 @@ global.iniprem = fs.readFileSync('./message/premium2.js'); // jgn di ubah coy
 global.jumlah = '1000000000'
 global.apilolhuman = 'b2cd31437395ad125a839aec' // PASANG DISINI APIKEY LOLHUMAN, CREATE APIKEY DI WEB : https://api.lolhuman.xyz
 global.name = 'Aulia Rahman (Owner)', // GNTI NAMA LU!
-global.npacar = 'Kepo Lo', // GANTI NAMA SENDIRI AJA, GSH NMA PCR LO
+global.npacar = 'Chananya Cntik🎉', // GANTI NAMA SENDIRI AJA, GSH NMA PCR LO
 global.nomorsc = '62858213693245'
 global.creatorr = '© Created By RahmXBot' // GANTI NAMA BOT LU BANH!
 global.owner = ['62858213693245'] // GNTI NOMOR LU!
-global.pacarku = ['6285821676621'] // GANTI NMOR LO, JGN PKEK NOMOR PCR LO, NNTI DI AMBIL ORG NNGES🗿
+global.pacarku = ['6285654127071'] // GANTI NMOR LO, JGN PKEK NOMOR PCR LO, NNTI DI AMBIL ORG NNGES🗿
 //global.premium = ['62858213693241', '6285821310166']
  // ADD PREM YG LU MAU BANH!!
 global.quotes = 'Kesempatan Anda Untuk Sukses Di Setiap Kondisi Selalu Dapat Diukur Oleh Seberapa Besar Kepercayaan Anda Pada Diri Sendiri' // Ganti Quotes, Tapi Trsrh Klian
-global.pulsa = '081528965381' // UBAH NOMOR YG AKTIF!
-global.dana = '081528965381' // UBAH NOMOR DANA YG AKTIF!
-global.ovo = '085821676621' // UBAH NOMOR OVO YG AKTIF!
-global.gopay = '085821676621' // UBAH NOMOR GOPAY YG AKTIF!
+global.pulsa = '085654127071' // UBAH NOMOR YG AKTIF!
+global.dana = '085654127071' // UBAH NOMOR DANA YG AKTIF!
+global.ovo = '085654127071' // UBAH NOMOR OVO YG AKTIF!
+global.gopay = '085654127071' // UBAH NOMOR GOPAY YG AKTIF!
 global.packname = '© Created By' // TRSERAH MO GANTI AP!
 global.titlestic = 'RahmXBot Verified✅' // GNTI NAMA BOT LU!
 global.fake = 'RAHMXBOT VERIFIED' // GNTI NMA BOT LU BANH!
