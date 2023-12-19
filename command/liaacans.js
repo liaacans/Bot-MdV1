@@ -1,3 +1,34 @@
+/*
+Note : Jgn Hps Thanks For To nya Kalau Dihps, Dan Ketemu Admin Bakalan Admin Enc Dah
+
+(Terima Kasih Kepada)
+Thanks Too :
+• Allah Swt
+• Nabi Muhammad
+• Ortu Saya🎉
+• Aulia Rahman
+• 4k Sanzz
+• Nurutomo
+• Xinz Team
+• NazeDev
+• Zeeone Ofc
+• Zeroyt7
+• Adiwajshing/Baileys
+• Dan Pengguna Bot
+Jika Mw Menambahin Thanks Too nya Tambah Aja Sndiri!!, Tpi Ingat Jgn Di Hps Juga Thanks Too nya, Kalau Di Hps Admin Enc Dah Ni Sc Botnya
+
+Note : Jgn Hps Thanks For To nya Kalau Dihps, Dan Ketemu Admin Bakalan Admin Enc Dah
+
+Sosmed Media & My Website :
+https://cloudpedia.biz.id
+https://link2u.biz.id
+https://auliahost-web.biz.id
+-----------------------------------
+Whatsapp  : +62 858-2136-93245
+Wa Bot    : +62 858-2167-66211
+Instagram : @auliarhman_official
+YouTube   : @auliarhmanproduction
+*/
 require('../options/config')
 var { BufferJSON, WA_DEFAULT_EPHEMERAL, generateWAMessageFromContent, proto, generateWAMessageContent, generateWAMessage, prepareWAMessageMedia, areJidsSameUser, getContentType } = require('@adiwajshing/baileys')
 var crypto = require('crypto')
@@ -93,7 +124,7 @@ var tebaklirik = db.data.game.lirik = []
 var tebaktebakan = db.data.game.tebakan = []
 var vote = db.data.others.vote = []
 var menfes = db.data.others.menfes = []
-var db_prem = db.data.others.prem = []
+//var db_prem = db.data.others.prem = []
 var _autostick = db.data.others.autostick = []
 var autosticker = db.data.others.autosticker = []
 
@@ -106,6 +137,7 @@ let senbadword = JSON.parse(fs.readFileSync('./json/senbadword.json'))
 let pendaftar = JSON.parse(fs.readFileSync('./json/user.json'))
 let premium = JSON.parse(fs.readFileSync('./json/premium2.json'))
 let ban = JSON.parse(fs.readFileSync('./json/ban.json'))
+let anonChat = JSON.parse(fs.readFileSync('./json/db_secret.json'))
 //━━━━━━━━━━━━━━━[ MODULE EXPORTS ]━━━━━━━━━━━━━━━━━//
 
 module.exports = liaacans = async (liaacans, m, chatUpdate, store) => {
@@ -135,7 +167,7 @@ var groupOwner = m.isGroup ? groupMetadata.owner : ''
 //var isPremium = prem.includes(m.sender)
 var isAutoStick = _autostick.includes(m.chat)
 var isAutoSticker = m.isGroup ? autosticker.includes(m.chat) : false
-var isPremium = isCreator ? true : iniprem.checkPremiumUser(m.sender, premium)
+var isPremium = isCreator && isPacar ? true : iniprem.checkPremiumUser(m.sender, premium)
 var isUser = pendaftar.includes(m.sender)
 var isBadword = m.isGroup ? grupbadword.includes(m.chat) : false
 var isBan = cekBannedUser(m.sender, ban)
@@ -394,12 +426,12 @@ if (db.data.chats[m.chat].antiviewonce) {
         
 //━━━━━━━━━━━━━━━[ AUTO SIMI FALSE / TRUE ]━━━━━━━━━━━━━━━━━//
 
-if (db.data.chats[m.chat].autosimi) {
+/*if (db.data.chats[m.chat].autosimi) {
 if (!q) return
-       let api = await fetch(`https://simsimi.fun/api/v2/?mode=talk&lang=id&message=${q}&filter=true`)
+       let api = await fetch(`WEB_APIKEY_SIMSIMI`) // Ganti Web Simsiminya 
         let res = await api.json()
         m.reply(res.success)
-     }
+     }*/
     
  
 //━━━━━━━━━━━━━━━[ MUTE & PENDAFTARAN ]━━━━━━━━━━━━━━━━━//
@@ -576,6 +608,23 @@ async function obfus(query) {
     })
 }
 
+// Secret Message
+    const roomChat = Object.values(anonChat).find(room => [room.a, room.b].includes(sender) && room.state == 'CHATTING')
+    const roomA = Object.values(anonChat).find(room => room.a == m.sender)
+    const roomB = Object.values(anonChat).find(room => room.b == m.sender )
+    const room = Object.values(anonChat).find(room => room.state == 'WAITING' && room.b == "")
+
+    if (roomChat && !isCmd && !m.isGroup && roomChat.b !=="") {
+      let other = [roomChat.a, roomChat.b].find(user => user !== m.sender)
+      m.copyNForward(other, true)
+      }
+
+      if (room && Date.now() >= room.expired) {
+        await liaacans.sendMessage(room.a, {text:"```Not Found```"})
+        anonChat.splice(anonChat.indexOf(room, 1)) 
+        fs.writeFileSync('./json/db_secret.json', JSON.stringify(anonChat))
+      }
+
 if (('family100'+m.chat in _family100) && isCmd) {
 kuis = true
 let room = _family100['family100'+m.chat]
@@ -670,70 +719,6 @@ if (budy.toLowerCase() == jawaban) {
 await liaacans.sendButtonText(m.chat, [{ buttonId: 'tebak tebakan', buttonText: { displayText: 'Tebak Tebakan' }, type: 1 }], `🎮 Tebak Tebakan 🎮\n\nJawaban Benar 🎉\n\nIngin bermain lagi? tekan button dibawah`, creator, m)
 delete tebaktebakan[m.sender.split('@')[0]]
 } else m.reply('*Jawaban Salah!*')
-}
-
-this.game = this.game ? this.game : {}
-let room = Object.values(this.game).find(room => room.id && room.game && room.state && room.id.startsWith('tictactoe') && [room.game.playerX, room.game.playerO].includes(m.sender) && room.state == 'PLAYING')
-if (room) {
-let ok
-let isWin = !1
-let isTie = !1
-let isSurrender = !1
-// m.reply(`[DEBUG]\n${parseInt(m.text)}`)
-if (!/^([1-9]|(me)?nyerah|surr?ender|off|skip)$/i.test(m.text)) return
-isSurrender = !/^[1-9]$/.test(m.text)
-if (m.sender !== room.game.currentTurn) { // nek wayahku
-if (!isSurrender) return !0
-}
-if (!isSurrender && 1 > (ok = room.game.turn(m.sender === room.game.playerO, parseInt(m.text) - 1))) {
-m.reply({
-'-3': 'Game telah berakhir',
-'-2': 'Invalid',
-'-1': 'Posisi Invalid',
-0: 'Posisi Invalid',
-}[ok])
-return !0
-}
-if (m.sender === room.game.winner) isWin = true
-else if (room.game.board === 511) isTie = true
-let arr = room.game.render().map(v => {
-return {
-X: '❌',
-O: '⭕',
-1: '1️⃣',
-2: '2️⃣',
-3: '3️⃣',
-4: '4️⃣',
-5: '5️⃣',
-6: '6️⃣',
-7: '7️⃣',
-8: '8️⃣',
-9: '9️⃣',
-}[v]
-})
-if (isSurrender) {
-room.game._currentTurn = m.sender === room.game.playerX
-isWin = true
-}
-let winner = isSurrender ? room.game.currentTurn : room.game.winner
-let str = `Room ID: ${room.id}
-
-${arr.slice(0, 3).join('')}
-${arr.slice(3, 6).join('')}
-${arr.slice(6).join('')}
-
-${isWin ? `@${winner.split('@')[0]} Menang!` : isTie ? `Game berakhir` : `Giliran ${['❌', '⭕'][1 * room.game._currentTurn]} (@${room.game.currentTurn.split('@')[0]})`}
-❌: @${room.game.playerX.split('@')[0]}
-⭕: @${room.game.playerO.split('@')[0]}
-
-Ketik *nyerah* untuk menyerah dan mengakui kekalahan`
-if ((room.game._currentTurn ^ isSurrender ? room.x : room.o) !== m.chat)
-room[room.game._currentTurn ^ isSurrender ? 'x' : 'o'] = m.chat
-if (room.x !== room.o) await liaacans.sendText(room.x, str, m, { mentions: parseMention(str) } )
-await liaacans.sendText(room.o, str, m, { mentions: parseMention(str) } )
-if (isTie || isWin) {
-delete this.game[room.id]
-}
 }
 
 this.suit = this.suit ? this.suit : {}
@@ -2261,12 +2246,12 @@ let media = await quoted.download()
 let encmedia = await liaacans.sendImageAsSticker(m.chat, media, m, { packname: global.packname, author: global.titlestic })
 await fs.unlinkSync(encmedia)
 } else if (/video/.test(mime)) {
-if ((quoted.msg || quoted).seconds > 11) return m.reply('Maksimal 10 detik!')
+if ((quoted.msg || quoted).seconds > 21) return m.reply('Maksimal 20 detik!')
 let media = await quoted.download()
 let encmedia = await liaacans.sendVideoAsSticker(m.chat, media, m, { packname: global.packname, author: global.titlestic })
 await fs.unlinkSync(encmedia)
 } else {
-throw `Kirim Gambar/Video Dengan Caption ${prefix + command}\nDurasi Video 1-9 Detik`
+throw `Kirim Gambar/Video Dengan Caption ${prefix + command}\nDurasi Video 10-20 Detik`
 }
 }
 break
@@ -2489,7 +2474,7 @@ case 'ytmp3':
 					var caption = `❖ Title    : *${data.result.title}*\n`
 					caption += `❖ Size     : *${data.result.size}*`
 					liaacans.sendMessage(m.chat, { image: { url: data.result.thumbnail }, caption }, { quoted: fkontak }).then(() => {
-						liaacans.sendMessage(m.chat, { audio: { url: data.result.link }, mimetype: 'audio/mp4', fileName: `${data.result.title}.mp3` }, { quoted: fvn })
+						liaacans.sendMessage(m.chat, { audio: { url: data.result.link }, mimetype: 'audio/mp3', fileName: `${data.result.title}.mp3` }, { quoted: fvn })
 					})
 				})
 				.catch(console.error)
@@ -2551,21 +2536,17 @@ case 'yts': case 'ytsearch': {
   break*/
 case 'tiktokmp3': case 'tiktokaudio': {
                 if (!isPremium && !isPacar) throw mess.prem
-                if (!text) throw 'Masukkan Query Link!'
+                if (!args.length == 0) throw 'Masukkan Query Link!'
                 m.reply(mess.wait)
-                let anu = await fetchJson(`https://anabotofc.herokuapp.com/api/download/tiktok2?url=${text}&apikey=AnaBot`)
-                let buttons = [
-                    {buttonId: `allmenu`, buttonText: {displayText: '📖List Menu'}, type: 1},
-                    {buttonId: `tiktoknowm ${text}`, buttonText: {displayText: '► No Watermark'}, type: 1}
-                ]
+                let anu = await fetchJson(`https://api.lolhuman.xyz/api/tiktok?apikey=${apilolhuman}&url=${args[0]}`)
                 let buttonMessage = {
-                    text: `Download From ${text}`,
+                    text: `Download From ${args[0]}`,
                     footer: creator,
                     buttons: buttons,
                     headerType: 2
                 }
                 await liaacans.sendMessage(m.chat, buttonMessage, { quoted: m })
-                liaacans.sendMessage(m.chat, { audio: { url: anu.result.nowm }, mimetype: 'audio/mpeg'}, { quoted: fkontak })
+                liaacans.sendMessage(m.chat, { video: { url: anu.result.nowm }, mimetype: 'video/mp4'}, { quoted: fkontak })
             }
             break
 	        case 'instagram': case 'ig': case 'igdl': {
@@ -2738,6 +2719,71 @@ if (!m.quoted) throw `Reply Untuk Menghapus Pesan Orang Lain`
 liaacans.sendMessage(m.chat, { delete: m.quoted })
 }
 break
+case "secret" : case "confes" : {
+          if (m.isGroup) return m.reply('Khusus Private Chat')
+          let nomor = text.split("|")[0].replace(/[^0-9]/g, '')
+          let pengirim = text.split("|")[1]
+          let pesan = text.split("|")[2]
+          let cek_nomor = await client.onWhatsApp(nomor + '@s.whatsapp.net') 
+          if (cek_nomor.length === 0) return m.reply('```Nomor Tidak Terdaftar Di WhatsApp```')
+          if (nomor === botNumber.replace("@s.whatsapp.net", "")) return m.reply('```Ini Adalah Nomor Bot```')
+          if (nomor === sender.replace("@s.whatsapp.net", "")) return m.reply('```Ini Adalah Nomor Anda```')
+          if (!nomor && !pengirim && !pesan) return m.reply(`Lengkapi Semua Dengan Format ${prefix + command} 6285xxxxxxxxx|Reyhan|Halo Anisa`)
+          let text_nya = `*----PESAN RAHASIA----*\n\n_Ada pesan rahasia buat kamu nih balas dengan sopan yah pesan ini hanya terhubung dengan anda dan pengirim pesan!_\n\n👉Dari: ${pengirim}\n💌Pesan: ${pesan}`
+          let buttons = [
+            { buttonId : `${prefix}create_room_chat ${sender.replace("@s.whatsapp.net", "")} `, buttonText: { displayText: 'Terima Pesan 😊' }, type: 1 }
+          ]
+          liaacans.sendButtonText(nomor + '@s.whatsapp.net', buttons, text_nya, 'click button reply message', m)
+          setTimeout(() => {
+            m.reply('```Sukses Mengirim Secret Message```')
+          }, 3000)
+        }
+        break
+        case "create_room_chat" : {
+          if (m.isGroup) return m.reply('Khusus Private Chat')
+          if (!text) return m.reply('```Text Not Found```')
+          if (roomA || roomB) return m.reply(`_Kamu sedang dalam room chat ketik ${prefix}stopsecret untuk menghapus sesi_`)
+          liaacans.sendMessage(text + '@s.whatsapp.net', {text: 'Chat Secret Terhubung✓'})
+          let id = + new Date
+          const obj = {
+            id,
+            a: sender,
+            b: text + '@s.whatsapp.net',
+            state: "CHATTING",
+            expired: "5m"
+          }
+          anonChat.push(obj)
+          fs.writeFileSync('./json/db_secret.json', JSON.stringify(anonChat))
+          setTimeout(() => {
+            m.reply(`*_Anda Sudah Dapat Mengirim Pesan Dengan Pengirim Pesan Rahasia Sebelumnya_*\n\nKetik ${prefix}stopsecret untuk mengahpus sesi ini`)
+          }, 3000)
+        }
+        break;
+        case "stopsecret" : {
+          if (m.isGroup) return m.reply('Khusus Private Chat')
+          if(roomA && roomA.state == "CHATTING"){
+            await liaacans.sendMessage(roomA.b, {text: '```Yah dia telah meninggalkan chat :)```'})
+            await setTimeout(() => {
+              m.reply('```Kamu telah keluar dari sesi ini```')
+              roomA.a = roomA.b
+              roomA.b = ""
+              roomA.expired = Date.now() + toMs("5m")
+              fs.writeFileSync('./src/db_secret.json', JSON.stringify(anonChat))
+            }, 1000)
+          } else if(roomA && roomA.state == "WAITING"){
+            m.reply('```Kamu telah keluar dari sesi ini```')
+            anonChat.splice(anonChat.indexOf(roomA, 1))
+            fs.writeFileSync('./src/db_secret.json', JSON.stringify(anonChat))
+          } else if(roomB && roomB.state == "CHATTING"){
+            await liaacans.sendMessage(roomB.a,{text: `_Partnermu telah meninggalkan sesi_`})
+            m.reply("```Kamu telah keluar dari sesi dan meninggalkan nya```")
+            roomB.b =""
+            roomB.state = "WAITING"
+            roomB.expired = Date.now() + toMs("5m")
+            fs.writeFileSync('./json/db_secret.json', JSON.stringify(anonChat))
+          } else m.reply('```Kamu Tidak Berada Dalam Sesi```')
+        }
+        break
 case 'menfes': case 'menfess': { 
 		        if (m.isGroup) throw ('fitur tidak dapat digunakan di grup')
             	if (!text) throw `Example : ${prefix + command} 62858xxxxx|nama samaran|pesan`
@@ -2759,6 +2805,38 @@ case 'menfes': case 'menfess': {
             await liaacans.sendButtonText(m.chat, buttons, akhji, creator, m, {mentions: ments, quoted: fvideo})
             }
             break
+            case 'menfess2': case 'menfes': {
+            if (!text) throw `*Cara penggunaan :*\n\n${prefix + command} nomor|nama pengirim|pesan\n\n*Note:* nama pengirim boleh nama samaran atau anonymous.\n\n*Contoh:* ${prefix + command} ${m.sender.split(`@`)[0]}|namamu|Halo.`;
+    let [jid, name, pesan] = text.split('|');
+    if (!jid && !name && !pesan) throw `*Cara penggunaan :*\n\n${prefix + command} nomor|nama pengirim|pesan\n\n*Note:* nama pengirim boleh nama samaran atau anonymous.\n\n*Contoh:* ${prefix + command} ${m.sender.split(`@`)[0]}|Wajan|Halo.`;
+    jid = jid.replace(/[^0-9]/g, '') + '@s.whatsapp.net';
+    let data = (await liaacans.onWhatsApp(jid))[0] || {};
+    if (!data.exists) throw 'Nomer tidak terdaftar di whatsapp.';
+    if (jid == m.sender) throw 'tidak bisa mengirim pesan menfess ke diri sendiri.'
+    let mf = Object.values(liaacans.menfess).find(mf => mf.status === true)
+    if (mf) return !0
+    try {
+    	let id = + new Date
+        let txt = `Hai @${data.jid.split('@')[0]}, kamu menerima pesan Menfess nih.\n\nDari: *${name}*\nPesan: \n${pesan}\n\nMau balas pesan ini kak? bisa kak. kakak tinggal ketik pesan kakak lalu kirim, nanti saya sampaikan ke *${name}*.`.trim();
+        let imgr = 'https://i.ibb.co/Csp01NQ/nero-thumbnail.jpg'
+        await liaacans.sendFile(data.jid, me, txt, `${imgr + 'Menfess'}`, null, null)
+        .then(() => {
+            m.reply('Berhasil mengirim pesan menfess.')
+            liaacans.menfess[id] = {
+                id,
+                dari: m.sender,
+                nama: name,
+                penerima: data.jid,
+                pesan: pesan,
+                status: false
+            }
+            return !0
+        })
+    } catch (e) {
+        console.log(e)
+        m.reply('eror');
+    }
+}
 //----------------[ BUG ALL FIXED ]-----------------//
 // JANGAN DI SALAH GUNAKAN FITUR INI!!!
 case 'inibug': {
@@ -3402,7 +3480,7 @@ teks += `- ${liaacans}\n`
 teks += `\n*Total : ${prem.length}*`
 liaacans.sendMessage(m.chat, { text: teks.trim() }, 'extendedTextMessage', { quoted: m, contextInfo: { "mentionedJid": prem } })
 break*/
-case 'addprem':
+case 'addprem': // Addprem Versi Waktu/Time, Created By © Aulia Rahman
 				if (!isCreator && !isPacar) return m.reply(mess.owner)
 				{ q, args } {
 				if (args.length < 2)
@@ -4172,15 +4250,15 @@ case 'listbadword':
             case 'addbadword':
                 if (!isCreator) throw mess.owner
                 if (!text) return m.reply(`masukkan kata`)
-                if (isKasar(args[1].toLowerCase(), badword)) return m.reply(`Udah ada`)
-                addBadword(args[1].toLowerCase(), badword)
+                if (isKasar(text.toLowerCase(), badword)) return m.reply(`Udah ada`)
+                addBadword(text.toLowerCase(), badword)
                 m.reply(`Sukses`)
                 break
             case 'delbadword':
                 if (!isCreator) throw mess.owner
-                if (args.length < 2) return m.reply(`masukkan kata`)
-                if (!isKasar(args[1].toLowerCase(), badword)) return m.reply(`Ga ada`)
-                delBadword(args[1].toLowerCase(), badword)
+                if (!text) return m.reply(`masukkan kata`)
+                if (!isKasar(text.toLowerCase(), badword)) return m.reply(`Ga ada`)
+                delBadword(text.toLowerCase(), badword)
                 m.reply(`Sukses`)
                 break
             case 'clearbadword':
@@ -4910,7 +4988,7 @@ case 'ai':
 	    if (!isPremium && !isPacar) throw mess.prem
 		if (!q) return m.reply(`Masukkan kata kunci!\n\n*Contoh:* ehe apa saja jenis hacker`)
 	
-		axios.get(encodeURI(`https://api.lolhuman.xyz/api/openai?apikey=SGWN&text=${q}&user=user-unique-id`)).then(({
+		axios.get(encodeURI(`https://api.lolhuman.xyz/api/openai?apikey=${global.apilolhuman}&text=${q}&user=user-unique-id`)).then(({
 			data
 		}) => {
 			if (data.result == '') return m.reply('Kata kunci tidak ditemukan!')
@@ -5424,7 +5502,7 @@ case 'tohd':
                     if (!isPremium && global.db.data.users[m.sender].limit < 1) return m.reply(mess.endLimit) // respon ketika limit habis
                     db.data.users[m.sender].limit -= 5 // -1 limit
                     if (!quoted) return m.reply(`Kirim/Reply Image Dengan Caption ${prefix + command}`)
-                    if (!/image/.test(mime)) return newReply(`Kirim/Reply Image Dengan Caption ${prefix + command}`)
+                    if (!/image/.test(mime)) return m.reply(`Kirim/Reply Image Dengan Caption ${prefix + command}`)
                     if (/webp/.test(mime)) return m.reply(`Kirim/Reply Image Dengan Caption ${prefix + command}`)
                     m.reply(mess.wait)
                     const media = await liaacans.downloadAndSaveMediaMessage(quoted)
@@ -5511,7 +5589,7 @@ m.reply(`apa sayang akuu🥰`)
 }
 break
 case 'syg': case 'ayang': case 'aku gbut': case 'km syng ga sama aku?': case 'gatau': case 'mwachhh': case 'muach': case 'anjai': case 'bngst': case 'asu': case 'asw': case 'babi': case 'kntl': case 'kntol': case 'kontol': case 'ajg': case 'anj': case 'anjing': case 'ngen': case 'ngentod': {
-let aww = fs.readFileSync(`./json/audio/${command}`)
+let aww = fs.readFileSync(`./json/audio/${command}.mp3`)
 liaacans.sendMessage(m.chat, { audio: aww, mimetype: 'audio/mpeg', ptt:true }, { quoted: fvn })
 }
 break
@@ -5560,25 +5638,6 @@ liaacans.sendMessage(m.chat, reactionMessage)
 
 liaacans.sendMessage(m.chat, reactionMessage)
 	}*/
-
-if (m.chat.endsWith('@s.whatsapp.net') && isCmd) {
-                    this.anonymous = this.anonymous ? this.anonymous : {}
-                    let room = Object.values(this.anonymous).find(room => [room.a, room.b].includes(m.sender) && room.state === 'CHATTING')
-                    if (room) {
-                        if (/^.*(next|leave|start)/.test(m.text)) return
-                        if (['.next', '.leave', '.stop', '.start', 'Cari Partner', 'Keluar', 'Lanjut', 'Stop'].includes(m.text)) return
-                        let other = [room.a, room.b].find(user => user !== m.sender)
-                        m.copyNForward(other, true, m.quoted && m.quoted.fromMe ? {
-                            contextInfo: {
-                                ...m.msg.contextInfo,
-                                forwardingScore: 0,
-                                isForwarded: true,
-                                participant: other
-                            }
-                        } : {})
-                    }
-                    return !0
-                }
                 
 if (budy.startsWith('>')) {
 if (!isCreator) return m.reply(mess.owner)
